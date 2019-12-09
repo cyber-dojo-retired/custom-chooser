@@ -1,0 +1,19 @@
+
+version: '3.7'
+
+services:
+
+  custom-server:
+    build:
+      context: .
+      args: [ SHA ]
+    image: cyberdojo/custom
+    init: true
+    container_name: test-custom-server
+    environment: [ NO_PROMETHEUS ]
+    ports: [ "4536:4536" ]
+    user: nobody
+    read_only: true
+    restart: "no"
+    tmpfs: [ "/tmp:exec,mode=1777" ] # Sticky bit must be set on /tmp otherwise
+                                     # Dir.mktmpdir(id,'/tmp') complains
