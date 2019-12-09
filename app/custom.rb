@@ -10,6 +10,16 @@ class Custom < Sinatra::Base
   environment.append_path "assets/javascripts"
   environment.css_compressor = :scss
 
+  get "/sha" do
+    content_type :json
+    { "sha": ENV['SHA'] }.to_json
+  end
+
+  get "/alive?" do
+    content_type :json
+    { "alive?": true }.to_json
+  end
+
   get "/ready?" do
     content_type :json
     { "ready?": true }.to_json
