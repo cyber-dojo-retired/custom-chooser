@@ -4,11 +4,11 @@ require 'sass'
 
 class Custom < Sinatra::Base
 
+  set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
   environment.append_path "assets/stylesheets"
   environment.append_path "assets/javascripts"
-
-  set :port, ENV['PORT']
+  environment.css_compressor = :scss
 
   get "/ready?" do
     content_type :json

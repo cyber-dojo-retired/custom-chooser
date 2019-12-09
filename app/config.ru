@@ -2,7 +2,7 @@ $stdout.sync = true
 $stderr.sync = true
 
 require 'rack'
-use Rack::Deflater, if: ->(_, _, _, body) { body.any? && body[0].length > 512 }
+#use Rack::Deflater, if: ->(_, _, _, body) { body.any? && body[0].length > 512 }
 
 unless ENV['NO_PROMETHEUS']
   require 'prometheus/middleware/collector'
