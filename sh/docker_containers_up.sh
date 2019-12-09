@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+readonly PORT=4536
+
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
 {
@@ -124,4 +126,4 @@ readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
 export NO_PROMETHEUS=true
 
-container_up_ready_and_clean "${ROOT_DIR}" custom-server 4536
+container_up_ready_and_clean "${ROOT_DIR}" custom-server ${PORT}

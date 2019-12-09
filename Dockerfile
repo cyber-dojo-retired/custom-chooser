@@ -2,7 +2,7 @@ FROM cyberdojo/sinatra-base
 LABEL maintainer=jon@jaggersoft.com
 
 WORKDIR /app
-COPY --chown=nobody:nogroup . .
+COPY --chown=nobody:nogroup src .
 
 ARG SHA
 ENV SHA=${SHA}
@@ -12,4 +12,4 @@ ENV PORT=${PORT}
 EXPOSE ${PORT}
 
 USER nobody
-CMD [ "./up.sh" ]
+CMD [ "/app/up.sh" ]

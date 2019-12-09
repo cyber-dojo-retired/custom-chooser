@@ -1,6 +1,7 @@
 #!/bin/bash
 
 readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
+readonly PORT=4536
 
 "${SH_DIR}/build_docker_images.sh"
 "${SH_DIR}/docker_containers_up.sh"
@@ -11,4 +12,4 @@ else
   declare ip=localhost
 fi
 
-open "http://${ip}:4536/"
+open "http://${ip}:${PORT}/"

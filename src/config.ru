@@ -18,5 +18,5 @@ end
 #differ = Differ.new(externals)
 #dispatcher = RackDispatcher.new(differ, Rack::Request)
 #run dispatcher
-require_relative 'src/custom'
-run Custom.run!
+require_relative 'custom'
+run Custom.new
