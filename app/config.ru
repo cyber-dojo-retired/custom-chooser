@@ -11,12 +11,5 @@ unless ENV['NO_PROMETHEUS']
   use Prometheus::Middleware::Exporter
 end
 
-#require_relative 'src/externals'
-#require_relative 'src/differ'
-#require_relative 'src/rack_dispatcher'
-#externals = Externals.new
-#differ = Differ.new(externals)
-#dispatcher = RackDispatcher.new(differ, Rack::Request)
-#run dispatcher
 require_relative 'custom'
 run Custom.new
