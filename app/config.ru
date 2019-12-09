@@ -12,5 +12,7 @@ unless ENV['NO_PROMETHEUS']
   use Prometheus::Middleware::Exporter
 end
 
+require_relative 'externals'
+externals = Externals.new
 require_relative 'custom'
-run Custom.new
+run Custom.new(nil,externals)

@@ -4,6 +4,11 @@ require 'sass'
 
 class Custom < Sinatra::Base
 
+  def initialize(app = nil, externals)
+    super(app)
+    @externals = externals
+  end
+
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
   environment.append_path "assets/stylesheets"
