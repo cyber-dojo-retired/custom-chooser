@@ -1,6 +1,5 @@
 require 'sinatra/base'
 require 'sprockets'
-require 'sass'
 
 class Custom < Sinatra::Base
 
