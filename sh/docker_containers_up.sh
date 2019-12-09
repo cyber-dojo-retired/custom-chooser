@@ -75,11 +75,12 @@ exit_unless_clean()
   local -r docker_log=$(docker logs "${name}" 2>&1)
   local -r line_count=$(echo -n "${docker_log}" | grep -c '^')
   echo -n "Checking ${name} started cleanly..."
-  # 3 lines on Thin (Unicorn=6, Puma=6)
+  # 4 lines on Thin (Unicorn=6, Puma=6)
+  #== Sinatra (v2.0.7) has taken the stage on 4536 for production with backup from Thin
   #Thin web server (v1.7.2 codename Bachmanity)
   #Maximum connections set to 1024
-  #Listening on 0.0.0.0:4568, CTRL+C to stop
-  if [ "${line_count}" == '3' ]; then
+  #Listening on 0.0.0.0:4536, CTRL+C to stop
+  if [ "${line_count}" == '4' ]; then
     echo 'OK'
   else
     echo 'FAIL'
