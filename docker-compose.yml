@@ -6,7 +6,7 @@ services:
   custom-server:
     build:
       context: .
-      args: [ SHA ]
+      args: [ SHA, PORT ]
     image: cyberdojo/custom
     init: true
     container_name: test-custom-server

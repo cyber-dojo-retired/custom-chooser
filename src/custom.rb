@@ -2,7 +2,7 @@ require 'sinatra/base'
 
 class Custom < Sinatra::Base
 
-  set :port, 4536
+  set :port, ENV['PORT']
 
   get "/ready?" do
     content_type :json

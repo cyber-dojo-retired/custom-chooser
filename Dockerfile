@@ -7,7 +7,9 @@ COPY --chown=nobody:nogroup . .
 ARG SHA
 ENV SHA=${SHA}
 
-EXPOSE 4536
+ARG PORT
+ENV PORT=${PORT}
+EXPOSE ${PORT}
 
 USER nobody
 CMD [ "./up.sh" ]
