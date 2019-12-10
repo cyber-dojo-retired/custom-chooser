@@ -57,15 +57,20 @@ $text-color: darken($lighter-color, 10%);
   }
 }
 
-#custom-page-box
+body
 {
-  text-align: center;
-  display: block;
+  font-size: 0.9em;
+     margin: { top: 0.3em; left: 0.3em; }
+      color: $lighter-color;
+  background: $darker-color;
+     padding: none;
+      margin: 0px;
+      text-align: center;
+      display: block;
 }
 
 #custom-page
 {
-
   display: inline-block;
   margin: { top: 10px; }
   font-size: 1.15em;
