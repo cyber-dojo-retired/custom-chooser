@@ -37,7 +37,7 @@ class Custom < Sinatra::Base
   end
 
   get "/" do
-    @names = start_points.names
+    @display_names = start_points.names
     erb :index
   end
 
