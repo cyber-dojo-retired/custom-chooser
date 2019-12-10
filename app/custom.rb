@@ -21,12 +21,12 @@ class Custom < Sinatra::Base
     { "sha": ENV['SHA'] }.to_json
   end
 
-  get "/alive?" do
+  get "/alive" do
     content_type :json
     { "alive?": true }.to_json
   end
 
-  get "/ready?" do
+  get "/ready" do
     content_type :json
     { "ready?": true }.to_json
   end
