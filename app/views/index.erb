@@ -1,6 +1,4 @@
 
-
-<div id="custom">
-  Hello from inside index.erb
-  Woohoo
-</div>
+<% @names.each do |name| %>
+  <div id="custom"><%= name %></div>
+<% end %>

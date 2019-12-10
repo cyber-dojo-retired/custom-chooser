@@ -37,7 +37,14 @@ class Custom < Sinatra::Base
   end
 
   get "/" do
+    @names = start_points.names
     erb :index
+  end
+
+  private
+
+  def start_points
+    @externals.custom_start_points
   end
 
 end
