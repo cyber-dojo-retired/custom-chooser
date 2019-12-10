@@ -36,10 +36,11 @@ class Custom < Sinatra::Base
     settings.environment.call(env)
   end
 
-  get "/" do
+  get "/show" do
     @display_names = start_points.names
     @custom_index = random_index(@display_names)
-    erb :index
+    @from = 'individual' # params['from']
+    erb :show
   end
 
   private

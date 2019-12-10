@@ -4,6 +4,10 @@ $darker-color: darken(#666, 25%);
 $lighter-color: lighten(Khaki, 10%);
 $text-color: darken($lighter-color, 10%);
 
+@mixin non-code-font {
+  font-family: Impact, Trebuchet MS, Tahoma, Arial, sans-serif;
+}
+
 @mixin plaintext-font {
   font-family: Trebuchet MS, Tahoma, Arial, sans-serif;
 }
@@ -74,6 +78,14 @@ body
   display: inline-block;
   margin: { top: 10px; }
   font-size: 1.15em;
+}
+
+#heading
+{
+  @include non-code-font();
+       color: $lighter-color;
+   font-size: 87px;
+  text-align: center;
 }
 
 #custom-list

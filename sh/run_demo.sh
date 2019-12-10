@@ -14,4 +14,4 @@ else
   declare ip=localhost
 fi
 
-open "http://${ip}:${PORT}/"
+open "http://${ip}:${PORT}/show"
