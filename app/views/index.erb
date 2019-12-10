@@ -1,4 +1,13 @@
+<script type="text/javascript"><!--
+'use strict';
+//--></script>
 
-<% @display_names.each do |display_name| %>
-  <div id="custom"><%= display_name %></div>
-<% end %>
+<div id="custom-list">
+  <% @display_names.each.with_index do |display_name,index| %>
+    <div class="display-name"
+         id="custom_<%= index %>"
+         data-name="<%= display_name %>" >
+      <%= display_name %>
+    </div>
+  <% end %>
+</div>
