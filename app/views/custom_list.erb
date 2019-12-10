@@ -1,0 +1,28 @@
+<script type="text/javascript"><!--
+'use strict';
+$(() => {
+
+  let previous = undefined;
+  let selected = $('#custom_' + '<%= @custom_index %>');
+
+  $('[id^=custom_]').each((_,custom) => {
+    $(custom).click(() => {
+      cd.switchEntry(previous, custom);
+      previous = custom;
+    });
+  });
+
+  selected.click();
+  selected.scrollIntoView({ direction: 'vertical' });
+});
+//--></script>
+
+<div id="custom-list">
+  <% @display_names.each.with_index do |display_name,index| %>
+    <div class="display-name"
+         id="custom_<%= index %>"
+         data-name="<%= display_name %>" >
+      <%= display_name %>
+    </div>
+  <% end %>
+</div>
