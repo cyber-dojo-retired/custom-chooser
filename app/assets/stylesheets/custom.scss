@@ -57,6 +57,20 @@ $text-color: darken($lighter-color, 10%);
   }
 }
 
+#custom-page-box
+{
+  text-align: center;
+  display: block;
+}
+
+#custom-page
+{
+
+  display: inline-block;
+  margin: { top: 10px; }
+  font-size: 1.15em;
+}
+
 #custom-list
 {
   @include edged-panel();
