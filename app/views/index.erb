@@ -1,5 +1,21 @@
 <script type="text/javascript"><!--
 'use strict';
+$(function() {
+
+  let previous = undefined;
+  let selected = $('#custom_' + '<%= @custom_index %>');
+
+  $('[id^=custom_]').each(function() {
+    const custom = $(this);
+    custom.click(function() {
+      //cd.radioEntrySwitch(previous, custom);
+      previous = custom;
+    });
+  });
+
+  selected.click();
+  selected.scrollIntoView({ direction: 'vertical' });
+});
 //--></script>
 
 <div id="custom-list">

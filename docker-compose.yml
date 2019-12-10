@@ -17,7 +17,8 @@ services:
     user: nobody
     read_only: true
     restart: "no"
-
+    tmpfs: [ "/tmp:exec,mode=1777" ] # Sticky bit must be set on /tmp otherwise
+                                     # Dir.mktmpdir(id,'/tmp') complains
   custom-start-points:
     user: nobody
     image: ${CYBER_DOJO_CUSTOM}

@@ -8,7 +8,7 @@ class Custom < Sinatra::Base
   set :environment, Sprockets::Environment.new
   environment.append_path "assets/stylesheets"
   environment.append_path "assets/javascripts"
-  environment.js_compressor  = Uglifier.new(harmony: true)
+  #environment.js_compressor  = Uglifier.new(harmony: true)
   environment.css_compressor = :scss
 
   def initialize(app = nil, externals)
@@ -38,6 +38,7 @@ class Custom < Sinatra::Base
 
   get "/" do
     @display_names = start_points.names
+    @custom_index = random_index(@display_names)
     erb :index
   end
 
@@ -45,6 +46,10 @@ class Custom < Sinatra::Base
 
   def start_points
     @externals.custom_start_points
+  end
+
+  def random_index(names)
+    rand(0...names.size)
   end
 
 end
