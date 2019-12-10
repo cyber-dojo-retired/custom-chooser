@@ -2,12 +2,14 @@
 'use strict';
 $(() => {
 
-  let previous = undefined;
+  let previous = $('#custom_' + '<%= @custom_index %>');
   let selected = $('#custom_' + '<%= @custom_index %>');
 
-  $('[id^=custom_]').each((_,custom) => {
-    $(custom).click(() => {
-      cd.switchEntry(previous, custom);
+  $('[id^=custom_]').each((_,node) => {
+    const custom = $(node);
+    custom.click(() => {
+      previous.removeClass('selected');
+      custom.addClass('selected');
       previous = custom;
     });
   });
