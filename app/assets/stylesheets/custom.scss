@@ -73,9 +73,18 @@ $text-color: darken($lighter-color, 10%);
 
 #custom-list
 {
+  max-width: 350px;
+      width: 350px;
+  height: 340px;
+  padding: 6px;
+  margin-right: 5px;
+  overflow-y: auto;
+  overflow-x: none;
+
   @include edged-panel();
   .display-name
   {
     @include wide-list-item();
+    max-width: 350px;
   }
 }
