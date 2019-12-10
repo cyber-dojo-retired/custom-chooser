@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sprockets'
+require 'uglifier'
 
 class Custom < Sinatra::Base
 
@@ -7,6 +8,7 @@ class Custom < Sinatra::Base
   set :environment, Sprockets::Environment.new
   environment.append_path "assets/stylesheets"
   environment.append_path "assets/javascripts"
+  environment.js_compressor  = Uglifier.new(harmony: true)
   environment.css_compressor = :scss
 
   def initialize(app = nil, externals)
