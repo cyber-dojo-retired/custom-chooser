@@ -49,7 +49,7 @@ $text-color: darken($lighter-color, 10%);
    overflow-x: auto;
 
   &[class~='selected'] {
-    background-color: lighten($darker-color, 10%);
+    background-color: lighten($darker-color, 25%);
     cursor: default;
   }
   &:hover {

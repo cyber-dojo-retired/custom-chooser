@@ -1,13 +1,13 @@
 <script type="text/javascript"><!--
 'use strict';
-$(function() {
+$(() => {
 
   let previous = undefined;
   let selected = $('#custom_' + '<%= @custom_index %>');
 
-  $('[id^=custom_]').each(function() {
-    const custom = $(this);
-    custom.click(function() {
+  $('[id^=custom_]').each((_,node) => {
+    const custom = $(node);
+    custom.click(() => {
       cd.switchEntry(previous, custom);
       previous = custom;
     });
