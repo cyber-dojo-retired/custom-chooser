@@ -7,6 +7,8 @@ services:
     build:
       context: .
       args: [ SHA, PORT ]
+    depends_on:
+      - custom-start-points
     image: cyberdojo/custom
     init: true
     container_name: test-custom-server
@@ -15,5 +17,14 @@ services:
     user: nobody
     read_only: true
     restart: "no"
-    tmpfs: [ "/tmp:exec,mode=1777" ] # Sticky bit must be set on /tmp otherwise
-                                     # Dir.mktmpdir(id,'/tmp') complains
+
+  custom-start-points:
+    user: nobody
+    image: ${CYBER_DOJO_CUSTOM}
+    init: true
+    container_name: test-custom-start-points
+    environment: [ NO_PROMETHEUS ]
+    read_only: true
+    ports: [ "4526:4526" ]
+    tmpfs: /tmp
+    restart: 'no'

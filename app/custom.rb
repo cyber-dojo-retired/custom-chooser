@@ -17,18 +17,18 @@ class Custom < Sinatra::Base
   end
 
   get "/sha" do
-    #content_type :json
+    content_type :json
     { "sha": ENV['SHA'] }.to_json
   end
 
   get "/alive" do
-    #content_type :json
-    { "alive": true }.to_json
+    content_type :json
+    { "alive?": true }.to_json
   end
 
   get "/ready" do
-    #content_type :json
-    { "ready": true }.to_json
+    content_type :json
+    { "ready?": true }.to_json
   end
 
   get "/assets/*" do

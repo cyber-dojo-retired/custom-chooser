@@ -3,6 +3,8 @@
 readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
 readonly PORT=4536
 
+export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
+
 "${SH_DIR}/build_docker_images.sh"
 "${SH_DIR}/docker_containers_up.sh"
 

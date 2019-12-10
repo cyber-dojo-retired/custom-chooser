@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-readonly PORT=4536
-
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
 {
@@ -51,7 +49,7 @@ ready()
       --fail \
       -X GET http://$(ip_address):${port}/${path}"
   rm -f "$(ready_response_filename)"
-  if ${ready_cmd} && [ "$(ready_response)" = '{"ready":true}' ]; then
+  if ${ready_cmd} && [ "$(ready_response)" = '{"ready?":true}' ]; then
     true
   else
     false
@@ -125,4 +123,5 @@ readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
 export NO_PROMETHEUS=true
 
-container_up_ready_and_clean "${ROOT_DIR}" custom-server ${PORT}
+container_up_ready_and_clean "${ROOT_DIR}" custom-server 4536
+container_up_ready_and_clean "${ROOT_DIR}" custom-start-points 4526
