@@ -5,9 +5,8 @@ $(() => {
   let previous = undefined;
   let selected = $('#custom_' + '<%= @custom_index %>');
 
-  $('[id^=custom_]').each((_,node) => {
-    const custom = $(node);
-    custom.click(() => {
+  $('[id^=custom_]').each((_,custom) => {
+    $(custom).click(() => {
       cd.switchEntry(previous, custom);
       previous = custom;
     });
