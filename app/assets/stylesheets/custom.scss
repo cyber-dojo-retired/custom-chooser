@@ -1,10 +1,67 @@
 
-$orange:#D78123;
+$black: #000;
+$darker-color: darken(#666, 25%);
+$lighter-color: lighten(Khaki, 10%);
+$text-color: darken($lighter-color, 10%);
 
-#custom
+@mixin plaintext-font {
+  font-family: Trebuchet MS, Tahoma, Arial, sans-serif;
+}
+
+@mixin rounded-corner($radius: 6px)
 {
-  color: $orange;
-  background: White;
-  font-weight: bold;
-  font-size: 25px;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin edged-panel
+{
+  @include rounded-corner(5px);
+     display: inline-block;
+      border: 1px solid darken(gray,20%);
+     padding: 4px;
+      margin: 0px;
+}
+
+@mixin wide-list-item
+{
+  @include plaintext-font();
+
+       color: $lighter-color;
+  background: $darker-color;
+
+  text-align: left;
+
+      border: 1px solid $darker-color;
+      margin: { bottom: 0px; left: 0px; left: 0px; right: 0px; }
+     padding: { left: 4px; right: 0px; }
+      cursor: pointer;
+
+  // no up/down scrolling, #filename-list has its own
+  overflow-y: none;
+  &::-webkit-scrollbar:vertical { width: 0px; }
+
+  // individual left/right scrolling for looooooong filenames
+  &::-webkit-scrollbar:horizontal { height: 0px; }
+    max-width: 295px;
+   overflow-x: auto;
+
+  &[class~='selected'] {
+    background-color: lighten($darker-color, 10%);
+    cursor: default;
+  }
+  &:hover {
+    border: 1px dotted lighten($darker-color,25%);
+  }
+}
+
+#custom-list
+{
+  @include edged-panel();
+  .display-name
+  {
+    @include wide-list-item();
+  }
 }

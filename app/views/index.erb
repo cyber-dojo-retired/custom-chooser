@@ -8,7 +8,7 @@ $(function() {
   $('[id^=custom_]').each(function() {
     const custom = $(this);
     custom.click(function() {
-      //cd.radioEntrySwitch(previous, custom);
+      cd.switchEntry(previous, custom);
       previous = custom;
     });
   });

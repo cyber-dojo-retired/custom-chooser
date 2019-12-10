@@ -1,8 +1,11 @@
+/*global jQuery,cyberDojo*/
+'use strict';
+var cyberDojo = (function(cd, $) {
 
-toggleOutputFile = () => {
-  if (cd.isOutputFile(cd.currentFilename())) {
-    cd.loadFile(theLastNonOutputFilename);
-  } else {
-    cd.loadFile(theLastOutputFilename);
-  }
-};
+  cd.switchEntry = () => {
+    //TODO
+  };
+
+  return cd;
+
+})(cyberDojo || {}, jQuery);
