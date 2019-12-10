@@ -12,7 +12,7 @@ class Custom < Sinatra::Base
   environment.css_compressor = :scss
 
   after do
-    response["Connection"] = "Close"    
+    response["Connection"] = "Close"
   end
 
   def initialize(app = nil, externals)
