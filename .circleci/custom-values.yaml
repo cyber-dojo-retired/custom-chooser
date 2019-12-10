@@ -37,10 +37,10 @@ containers:
         cpu: 50m
         memory: 64Mi
     livenessProbe:
-      path: /alive?
+      path: /alive
       port: 4536
     readinessProbe:
-      path: /ready?
+      path: /ready
       port: 4536
 
 envFromSecret: {}

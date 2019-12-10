@@ -23,12 +23,12 @@ class Custom < Sinatra::Base
 
   get "/alive" do
     content_type :json
-    { "alive?": true }.to_json
+    { "alive": true }.to_json
   end
 
   get "/ready" do
     content_type :json
-    { "ready?": true }.to_json
+    { "ready": true }.to_json
   end
 
   get "/assets/*" do
