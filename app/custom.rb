@@ -28,7 +28,7 @@ class Custom < Sinatra::Base
 
   get "/ready" do
     content_type :json
-    { "ready?": true }.to_json
+    { "ready?": start_points.ready? }.to_json
   end
 
   get "/assets/*" do
