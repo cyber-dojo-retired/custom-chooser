@@ -43,7 +43,7 @@ wait_briefly_until_ready()
 ready()
 {
   local -r port="${1}"
-  local -r path=ready?
+  local -r path=ready
   local -r ready_cmd="\
     curl \
       --output $(ready_response_filename) \
@@ -51,7 +51,7 @@ ready()
       --fail \
       -X GET http://$(ip_address):${port}/${path}"
   rm -f "$(ready_response_filename)"
-  if ${ready_cmd} && [ "$(ready_response)" = '{"ready?":true}' ]; then
+  if ${ready_cmd} && [ "$(ready_response)" = '{"ready":true}' ]; then
     true
   else
     false
