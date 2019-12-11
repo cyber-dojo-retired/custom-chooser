@@ -93,6 +93,13 @@ button
 }
 
 //-----------------------------------------------------------------------
+#logo
+{
+  cursor: pointer;
+  float: left;
+  img { height: 20px; width: 20px; }
+}
+
 #custom-page-box
 {
   width: 100%;
@@ -109,13 +116,6 @@ button
   display: inline-block;
   margin: { top: 10px; }
   font-size: 1.15em;
-
-  #logo
-  {
-    cursor: pointer;
-    float: left;
-    img { height: 20px; width: 20px; }
-  }
 
   #heading
   {
