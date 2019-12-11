@@ -35,8 +35,8 @@ class CustomStartPoints
     @http.get(__method__, {})
   end
 
-  def manifest(name)
-    @http.get(__method__, { name:name })
+  def manifest(display_name)
+    @http.get(__method__, { name:display_name })
   end
 
 end
