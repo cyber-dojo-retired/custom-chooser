@@ -96,7 +96,9 @@ button
 #logo
 {
   cursor: pointer;
-  float: left;
+  position: absolute;
+  top: 7px;
+  left: 7px;
   img { height: 20px; width: 20px; }
 }
 
