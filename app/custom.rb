@@ -86,41 +86,37 @@ class Custom < Sinatra::Base
       'files' => manifest['visible_files']
     }
     saver_assert_batch(
-      manifest_write_cmd(id, json_plain(manifest)),
-      events_write_cmd(id, json_plain(event_summary)),
-      event_write_cmd(id, 0, json_plain(event0.merge(event_summary)))
+      kata_manifest_write_cmd(id, json_plain(manifest)),
+      kata_events_write_cmd(id, json_plain(event_summary)),
+      kata_event_write_cmd(id, 0, json_plain(event0.merge(event_summary)))
     )
     id
   end
 
   #- - - - - - - - - - - - - - - - - - - - - - -
 
-  def manifest_write_cmd(id, manifest_src)
-    ['write', manifest_filename(id), manifest_src]
+  def kata_manifest_write_cmd(id, manifest_src)
+    ['write', kata_manifest_filename(id), manifest_src]
   end
 
-  def manifest_filename(id)
-    id_path(id, 'manifest.json')
+  def kata_manifest_filename(id)
+    kata_id_path(id, 'manifest.json')
   end
 
-  def events_write_cmd(id, event0_src)
-    ['write', events_filename(id), event0_src]
+  def kata_events_write_cmd(id, event0_src)
+    ['write', kata_events_filename(id), event0_src]
   end
 
-  def events_filename(id)
-    id_path(id, 'events.json')
+  def kata_events_filename(id)
+    kata_id_path(id, 'events.json')
   end
 
-  def event_write_cmd(id, index, event_src)
-    ['write', event_filename(id,index), event_src]
+  def kata_event_write_cmd(id, index, event_src)
+    ['write', kata_event_filename(id,index), event_src]
   end
 
-  def event_filename(id, index)
-    id_path(id, "#{index}.event.json")
-  end
-
-  def id_path(id, *parts)
-    kata_id_path(id, *parts)
+  def kata_event_filename(id, index)
+    kata_id_path(id, "#{index}.event.json")
   end
 
   #- - - - - - - - - - - - - - - - - - - - - - -
@@ -128,18 +124,26 @@ class Custom < Sinatra::Base
   def create_group(manifest)
     id = manifest['id'] = IdGenerator.new(@externals).group_id
     saver_assert_batch(
-      manifest_write_cmd(id, json_plain(manifest)),
-      katas_write_cmd(id, '')
+      group_manifest_write_cmd(id, json_plain(manifest)),
+      group_katas_write_cmd(id, '')
     )
     id
   end
 
-  def katas_write_cmd(id, src)
-    ['write', katas_filename(id), src]
+  def group_manifest_write_cmd(id, manifest_src)
+    ['write', group_manifest_filename(id), manifest_src]
   end
 
-  def katas_filename(id)
-    id_path(id, 'katas.txt')
+  def group_manifest_filename(id)
+    group_id_path(id, 'manifest.json')
+  end
+
+  def group_katas_write_cmd(id, src)
+    ['write', group_katas_filename(id), src]
+  end
+
+  def group_katas_filename(id)
+    group_id_path(id, 'katas.txt')
   end
 
   #- - - - - - - - - - - - - - - - - - - - - - -
