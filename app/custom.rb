@@ -53,9 +53,13 @@ class Custom < Sinatra::Base
   end
 
   get '/save_individual' do
-    manifest = starter_manifest
-    id = create_kata(manifest)
+    id = create_kata(starter_manifest)
     redirect "/kata/edit/#{id}"
+  end
+
+  get '/save/group' do
+    id = create_group(starter_manifest)
+    redirect "/kata/group/#{id}"
   end
 
   private
@@ -73,7 +77,6 @@ class Custom < Sinatra::Base
 
   def create_kata(manifest)
     id = manifest['id'] = IdGenerator.new(@externals).kata_id
-    manifest['version'] = 1
     event_summary = {
       'index' => 0,
       'time' => manifest['created'],
@@ -89,7 +92,6 @@ class Custom < Sinatra::Base
     )
     id
   end
-
 
   #- - - - - - - - - - - - - - - - - - - - - - -
 
@@ -119,6 +121,25 @@ class Custom < Sinatra::Base
 
   def id_path(id, *parts)
     kata_id_path(id, *parts)
+  end
+
+  #- - - - - - - - - - - - - - - - - - - - - - -
+
+  def create_group(manifest)
+    id = manifest['id'] = IdGenerator.new(@externals).group_id
+    saver_assert_batch(
+      manifest_write_cmd(id, json_plain(manifest)),
+      katas_write_cmd(id, '')
+    )
+    id
+  end
+
+  def katas_write_cmd(id, src)
+    ['write', katas_filename(id), src]
+  end
+
+  def katas_filename(id)
+    id_path(id, 'katas.txt')
   end
 
   #- - - - - - - - - - - - - - - - - - - - - - -
