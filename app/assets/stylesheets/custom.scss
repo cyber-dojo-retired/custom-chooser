@@ -1,8 +1,6 @@
 
-$black: #000;
 $darker-color: darken(#666, 25%);
 $lighter-color: lighten(Khaki, 10%);
-$text-color: darken($lighter-color, 10%);
 
 @mixin non-code-font {
   font-family: Impact, Trebuchet MS, Tahoma, Arial, sans-serif;
@@ -43,7 +41,6 @@ $text-color: darken($lighter-color, 10%);
      padding: { left: 4px; right: 0px; }
       cursor: pointer;
 
-  // no up/down scrolling, #filename-list has its own
   overflow-y: none;
   &::-webkit-scrollbar:vertical { width: 0px; }
 
@@ -62,117 +59,6 @@ $text-color: darken($lighter-color, 10%);
 }
 
 //-----------------------------------------------------------------------
-// From http://davidwalsh.name/css-gradients
-
-@mixin gradient-lighten($color, $p1, $p2, $p3)
-{
-  // chrome 2+, safari 4+; multiple color stops
-  background-image:-webkit-gradient(linear, left bottom, left top,
-    color-stop(0.32, lighten($color, $p1)),
-    color-stop(0.66, lighten($color, $p2)),
-    color-stop(0.83, lighten($color, $p3))
-  );
-
-  // chrome 10+, safari 5.1+
-  background-image: -webkit-linear-gradient(
-    lighten($color, $p1),
-    lighten($color, $p2),
-    lighten($color, $p3)
-  );
-
-  // firefox; multiple color stops
-  background-image: -moz-linear-gradient(top,
-    lighten($color, $p1),
-    lighten($color, $p2),
-    lighten($color, $p3)
-  );
-
-  // ie 6+
-  filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr='#{lighten($color, $p1)}',
-    endColorstr='#{lighten($color, $p2)}'
-  );
-
-  // ie8 +
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{lighten($color, $p1)}', endColorstr='#{lighten($color, $p2)}')";
-
-  // ie10
-  background-image: -ms-linear-gradient(
-    lighten($color, $p1),
-    lighten($color, $p2),
-    lighten($color, $p3)
-  );
-
-  // opera 11.1
-  background-image: -o-linear-gradient(
-    lighten($color, $p1),
-    lighten($color, $p2),
-    lighten($color, $p3)
-  );
-
-  // The "standard"
-  background-image: linear-gradient(
-    lighten($color, $p1),
-    lighten($color, $p2),
-    lighten($color, $p3)
-  );
-}
-
-@mixin gradient-darken($color, $p1, $p2, $p3)
-{
-  // chrome 2+, safari 4+; multiple color stops
-  background-image:-webkit-gradient(linear, left bottom, left top,
-    color-stop(0.32, darken($color, $p1)),
-    color-stop(0.66, darken($color, $p2)),
-    color-stop(0.83, darken($color, $p3))
-  );
-
-  // chrome 10+, safari 5.1+
-  background-image: -webkit-linear-gradient(
-    darken($color, $p1),
-    darken($color, $p2),
-    darken($color, $p3)
-  );
-
-  // firefox; multiple color stops
-  background-image: -moz-linear-gradient(top,
-    darken($color, $p1),
-    darken($color, $p2),
-    darken($color, $p3)
-  );
-
-  // ie 6+
-  filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr = '#{darken($color, $p1)}',
-    endColorstr = '#{darken($color, $p2)}'
-  );
-
-  // ie8 +
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{darken($color, $p1)}', endColorstr='#{darken($color, $p2)}')";
-
-  // ie10
-  background-image: -ms-linear-gradient(
-    darken($color, $p1),
-    darken($color, $p2),
-    darken($color, $p3)
-  );
-
-  // opera 11.1
-  background-image: -o-linear-gradient(
-    darken($color, $p1),
-    darken($color, $p2),
-    darken($color, $p3)
-  );
-
-  // The "standard"
-  background-image: linear-gradient(
-    darken($color, $p1),
-    darken($color, $p2),
-    darken($color, $p3)
-  );
-}
-
-//-----------------------------------------------------------------------
 body
 {
   font-size: 0.9em;
@@ -185,25 +71,23 @@ body
       display: block;
 }
 
-$filename_and_button_border_size: 1px;
-
 button
 {
   @include rounded-corner(6px);
-  @include gradient-lighten(darken($lighter-color, 12%), 9%, 2%, 0%);
+  background: darken($lighter-color, 12%);
 
           display: inline-block;
            cursor: pointer;
           padding: { left: 0.5em; right: 0.5em; bottom: 0.1em; }
   text-decoration: none;
       font-weight: normal;
-           border: $filename_and_button_border_size solid $darker-color;
+           border: 1px solid $darker-color;
 
-  &:hover { border: $filename_and_button_border_size dotted lighten($darker-color, 20%); }
+  &:hover { border: 1px dotted lighten($darker-color, 20%); }
   &[disabled] {
     background: lighten($darker-color, 20%);
         cursor: default;
-    &:hover { border: $filename_and_button_border_size solid $darker-color; }
+    &:hover { border: 1px solid $darker-color; }
   }
 }
 
@@ -224,30 +108,28 @@ button
 
 #custom-list
 {
-  max-width: 350px;
-      width: 350px;
+  max-width: 375px;
+      width: 375px;
   height: 340px;
   padding: 6px;
   margin-right: 5px;
   overflow-y: auto;
   overflow-x: none;
-
   @include edged-panel();
   .display-name
   {
     @include wide-list-item();
-    max-width: 350px;
+    max-width: 375px;
   }
 }
 
 #button-box
 {
   text-align: center;
-}
-
-button#ok
-{
-  @include non-code-font();
-  font-size: 1.85em;
-  margin-top: 5px;
+  button#ok
+  {
+    @include non-code-font();
+    font-size: 1.85em;
+    margin-top: 5px;
+  }
 }
