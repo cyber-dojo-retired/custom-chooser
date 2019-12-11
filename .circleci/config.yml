@@ -20,7 +20,7 @@ jobs:
             set -e
             declare -r NAME="${CIRCLE_PROJECT_REPONAME}"
             declare -r TAG="${CIRCLE_SHA1:0:7}"
-            docker tag cyberdojo/${NAME}:latest cyberdojo/${NAME}:${TAG}
+            docker tag cyberdojo/${NAME}:${TAG} cyberdojo/${NAME}:latest
       - run:
           name: Publish tagged docker image on dockerhub
           command: |
