@@ -17,7 +17,7 @@ build_service_image()
 
 build_service_image custom
 
-# Assuming we do not have any new differ commits, differ's latest commit
+# Assuming we do not have any new commits, the latest commit
 # sha will match the image tag inside versioner's .env file.
 # This means we can tag to it and a [cyber-dojo up] call
 # will use the tagged image.

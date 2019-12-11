@@ -67,7 +67,7 @@ ready_response()
 # - - - - - - - - - - - - - - - - - - -
 ready_response_filename()
 {
-  echo /tmp/curl-differ-ready-output
+  echo /tmp/curl-custom-ready-output
 }
 
 # - - - - - - - - - - - - - - - - - - -
