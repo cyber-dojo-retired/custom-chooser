@@ -4,7 +4,7 @@ $(() => {
 
   $('button#ok').click(() => {
     const display_name = $('[id^=custom_][class~=selected]').data('name');
-    const url = '/custom/save_<%= @from %>' +
+    const url = '/custom/create_<%= @from %>' +
       '?display_name=' + encodeURIComponent(display_name);
     window.location.href = url;
   });

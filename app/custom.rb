@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'create_group'
-require_relative 'create_kata'
+require_relative 'creator'
 require 'sinatra/base'
 require 'sprockets'
 #require 'uglifier'
@@ -10,8 +9,8 @@ class Custom < Sinatra::Base
 
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
-  environment.append_path 'assets/stylesheets'
-  environment.append_path 'assets/javascripts'
+  environment.append_path('assets/stylesheets')
+  environment.append_path('assets/javascripts')
   #environment.js_compressor  = Uglifier.new(harmony: true)
   environment.css_compressor = :scss
 
@@ -50,37 +49,32 @@ class Custom < Sinatra::Base
     erb :show
   end
 
-  get '/save_group' do
-    id = create_group(starter_manifest)
+  get '/create_group' do
+    id = creator.create_group(display_name)
     redirect "/kata/group/#{id}"
   end
 
-  get '/save_individual' do
-    id = create_kata(starter_manifest)
+  get '/create_individual' do
+    id = creator.create_kata(display_name)
     redirect "/kata/edit/#{id}"
   end
 
   private
 
-  include CreateGroup
-  include CreateKata
-
-  def starter_manifest
-    name = params['display_name']
-    manifest = start_points.manifest(name)
-    manifest['created'] = time.now
-    manifest['version'] = 1
-    manifest
+  def creator
+    Creator.new(@externals)
   end
 
-  #- - - - - - - - - - - - - - - - - - - - - - -
+  def display_name
+    params['display_name']
+  end
+
+  def saver
+    @externals.saver
+  end
 
   def start_points
     @externals.custom_start_points
-  end
-
-  def time
-    @externals.time
   end
 
 end

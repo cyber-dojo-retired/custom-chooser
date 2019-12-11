@@ -24,7 +24,7 @@ class Externals
   end
 
   def random
-    @random ||= RandomAdapter.new    
+    @random ||= RandomAdapter.new
   end
 
 end
