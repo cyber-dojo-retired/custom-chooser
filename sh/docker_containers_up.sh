@@ -2,6 +2,10 @@
 set -e
 
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+export SHA=$(cd "${ROOT_DIR}" && git rev-parse HEAD)
+export TAG=${SHA:0:7}
+export PORT=4536
+export NO_PROMETHEUS=true
 
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
@@ -107,6 +111,17 @@ container_up_ready_and_clean()
   local -r port="${1}"
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
+  container_up "${port}" "${service_name}"
+  wait_briefly_until_ready "${port}" "${container_name}"
+  exit_unless_clean "${container_name}"
+}
+
+# - - - - - - - - - - - - - - - - - - -
+container_up()
+{
+  local -r port="${1}"
+  local -r service_name="${2}"
+  local -r container_name="test-${service_name}"
   echo
   docker-compose \
     --file "${ROOT_DIR}/docker-compose.yml" \
@@ -114,16 +129,11 @@ container_up_ready_and_clean()
     -d \
     --force-recreate \
       "${service_name}"
-  wait_briefly_until_ready "${port}" "${container_name}"
-  exit_unless_clean "${container_name}"
 }
 
 # - - - - - - - - - - - - - - - - - - -
-
-
-export NO_PROMETHEUS=true
-
 container_up_ready_and_clean 4526 custom-start-points
 container_up_ready_and_clean 4536 custom
 container_up_ready_and_clean 4537 saver
-#container_up_ready_and_clean 80 nginx
+container_up 80 nginx
+sleep 1

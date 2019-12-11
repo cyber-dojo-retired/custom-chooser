@@ -4,14 +4,17 @@ version: '3.7'
 services:
 
   nginx:
+    build:
+      context: ./nginx_stub
+      args: [ SHA ]
     depends_on:
       - custom
-    image: cyberdojo/nginx
+    image: cyberdojo/nginx_stub:${TAG}
     init: true
     container_name: test-nginx
     ports: [ "80:80" ]
     user: root
-    
+
   custom:
     build:
       context: .
@@ -19,7 +22,7 @@ services:
     depends_on:
       - custom-start-points
       - saver
-    image: cyberdojo/custom
+    image: cyberdojo/custom:${TAG}
     init: true
     container_name: test-custom
     environment: [ NO_PROMETHEUS ]

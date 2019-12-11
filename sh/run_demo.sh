@@ -1,7 +1,7 @@
 #!/bin/bash
 
 readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
-readonly PORT=4536
+readonly PORT=80
 
 export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
 
@@ -14,4 +14,4 @@ else
   declare ip=localhost
 fi
 
-open "http://${ip}:${PORT}/show?from=individual"
+open "http://${ip}:${PORT}/custom/show?from=individual"
