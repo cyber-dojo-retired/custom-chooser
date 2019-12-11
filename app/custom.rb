@@ -2,7 +2,7 @@
 
 require 'sinatra/base'
 require 'sprockets'
-require 'uglifier'
+#require 'uglifier'
 
 class Custom < Sinatra::Base
 
@@ -34,7 +34,7 @@ class Custom < Sinatra::Base
 
   get "/ready" do
     content_type :json
-    { "ready?": start_points.ready? }.to_json
+    { "ready?": start_points.ready? && saver.ready? }.to_json
   end
 
   get "/assets/*" do
@@ -52,6 +52,10 @@ class Custom < Sinatra::Base
 
   def start_points
     @externals.custom_start_points
+  end
+
+  def saver
+    @externals.saver
   end
 
 end
