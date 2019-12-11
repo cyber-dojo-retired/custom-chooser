@@ -37,7 +37,7 @@ $lighter-color: lighten(Khaki, 10%);
   text-align: left;
 
       border: 1px solid $darker-color;
-      margin: { bottom: 0px; left: 0px; left: 0px; right: 0px; }
+      margin: 0px;
      padding: { left: 4px; right: 0px; }
       cursor: pointer;
 
@@ -91,45 +91,46 @@ button
   }
 }
 
+//-----------------------------------------------------------------------
 #custom-page
 {
   display: inline-block;
   margin: { top: 10px; }
   font-size: 1.15em;
-}
 
-#heading
-{
-  @include non-code-font();
-       color: $lighter-color;
-   font-size: 80px;
-  text-align: center;
-}
-
-#custom-list
-{
-  max-width: 375px;
-      width: 375px;
-  height: 340px;
-  padding: 6px;
-  margin-right: 5px;
-  overflow-y: auto;
-  overflow-x: none;
-  @include edged-panel();
-  .display-name
-  {
-    @include wide-list-item();
-    max-width: 375px;
-  }
-}
-
-#button-box
-{
-  text-align: center;
-  button#ok
+  #heading
   {
     @include non-code-font();
-    font-size: 1.85em;
-    margin-top: 5px;
+         color: $lighter-color;
+     font-size: 80px;
+    text-align: center;
+  }
+
+  #custom-list
+  {
+    max-width: 375px;
+        width: 375px;
+    height: 340px;
+    padding: 6px;
+    margin-right: 5px;
+    overflow-y: auto;
+    overflow-x: none;
+    @include edged-panel();
+    .display-name
+    {
+      @include wide-list-item();
+      max-width: 375px;
+    }
+  }
+
+  #button-box
+  {
+    text-align: center;
+    button#ok
+    {
+      @include non-code-font();
+      font-size: 1.85em;
+      margin-top: 5px;
+    }
   }
 }
