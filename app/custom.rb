@@ -42,7 +42,6 @@ class Custom < Sinatra::Base
 
   get "/show" do
     @display_names = start_points.names
-    @custom_index = random_index(@display_names)
     @from = params['from']
     erb :show
   end
@@ -51,10 +50,6 @@ class Custom < Sinatra::Base
 
   def start_points
     @externals.custom_start_points
-  end
-
-  def random_index(names)
-    rand(0...names.size)
   end
 
 end

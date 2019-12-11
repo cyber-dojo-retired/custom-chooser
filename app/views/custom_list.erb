@@ -2,8 +2,9 @@
 'use strict';
 $(() => {
 
-  let previous = $('#custom_' + '<%= @custom_index %>');
-  let selected = $('#custom_' + '<%= @custom_index %>');
+  const index = Math.floor(Math.random() * <%= @display_names.size %>);
+  let selected = $(`#custom_${index}`);
+  let previous = selected;
 
   $('[id^=custom_]').each((_,node) => {
     const custom = $(node);
