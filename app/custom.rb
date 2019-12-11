@@ -44,7 +44,7 @@ class Custom < Sinatra::Base
   end
 
   get '/show' do
-    @display_names = start_points.names
+    @display_names = start_points.display_names
     @from = params['from']
     erb :show
   end

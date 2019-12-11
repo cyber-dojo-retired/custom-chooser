@@ -3,7 +3,6 @@
 require_relative 'id_generator'
 require_relative 'id_pather'
 require_relative 'json_plain'
-require_relative 'saver_service'
 
 class Creator
 

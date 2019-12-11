@@ -3,7 +3,7 @@
 require_relative 'http_json/service'
 require_relative 'http_json/error'
 
-class CustomStartPointsService
+class CustomStartPoints
 
   class Error < HttpJson::Error
     def initialize(message)
@@ -11,8 +11,12 @@ class CustomStartPointsService
     end
   end
 
-  def initialize(externals)
-    @http = HttpJson::service(externals.http, 'custom-start-points', 4526, Error)
+  def initialize(http)
+    @http = HttpJson::service(http, 'custom-start-points', 4526, Error)
+  end
+
+  def alive?
+    @http.get(__method__, {})
   end
 
   def ready?
@@ -23,8 +27,8 @@ class CustomStartPointsService
     @http.get(__method__, {})
   end
 
-  def names
-    @http.get(__method__, {})
+  def display_names
+    @http.get(:names, {})
   end
 
   def manifests

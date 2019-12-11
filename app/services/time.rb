@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TimeAdapter
+class Time
 
   def now
     t = Time.now

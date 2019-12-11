@@ -3,7 +3,7 @@
 require_relative 'http_json/service'
 require_relative 'http_json/error'
 
-class SaverService
+class Saver
 
   class Error < HttpJson::Error
     def initialize(message)
@@ -11,15 +11,15 @@ class SaverService
     end
   end
 
-  def initialize(externals)
-    @http = HttpJson::service(externals.http, 'saver', 4537, Error)
-  end
-
-  def ready?
-    @http.get(__method__, {})
+  def initialize(http)
+    @http = HttpJson::service(http, 'saver', 4537, Error)
   end
 
   def alive?
+    @http.get(__method__, {})
+  end
+
+  def ready?
     @http.get(__method__, {})
   end
 

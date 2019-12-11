@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'custom_start_points_service'
-require_relative 'saver_service'
-require_relative 'time_adapter'
-require_relative 'random_adapter'
+require_relative 'services/custom_start_points'
+require_relative 'services/saver'
+require_relative 'services/time'
 
 class Externals
 
   def custom_start_points
-    @custom_start_points ||= CustomStartPointsService.new(self)
+    @custom_start_points ||= CustomStartPoints.new(http)
   end
 
   def saver
-    @saver ||= SaverService.new(self)
+    @saver ||= Saver.new(http)
   end
 
   def http
@@ -20,11 +19,11 @@ class Externals
   end
 
   def time
-    @time ||= TimeAdapter.new
+    @time ||= Time.new
   end
 
   def random
-    @random ||= RandomAdapter.new
+    @random ||= Random
   end
 
 end
