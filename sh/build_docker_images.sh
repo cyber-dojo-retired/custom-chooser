@@ -15,7 +15,7 @@ build_service_image()
         "${1}"
 }
 
-build_service_image custom-server
+build_service_image custom
 
 # Assuming we do not have any new differ commits, differ's latest commit
 # sha will match the image tag inside versioner's .env file.

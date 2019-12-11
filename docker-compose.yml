@@ -3,15 +3,16 @@ version: '3.7'
 
 services:
 
-  custom-server:
+  custom:
     build:
       context: .
       args: [ SHA, PORT ]
     depends_on:
       - custom-start-points
+      - saver
     image: cyberdojo/custom
     init: true
-    container_name: test-custom-server
+    container_name: test-custom
     environment: [ NO_PROMETHEUS ]
     ports: [ "4536:4536" ]
     user: nobody
@@ -29,3 +30,16 @@ services:
     ports: [ "4526:4526" ]
     tmpfs: /tmp
     restart: 'no'
+
+  saver:
+    user: saver
+    image: cyberdojo/saver:${CYBER_DOJO_SAVER_TAG}
+    init: true
+    container_name: test-saver
+    environment: [ NO_PROMETHEUS ]
+    read_only: true
+    ports: [ "4537:4537" ]
+    restart: 'no'
+    tmpfs:
+      - /cyber-dojo:uid=19663,gid=65533
+      - /tmp:uid=19663,gid=65533

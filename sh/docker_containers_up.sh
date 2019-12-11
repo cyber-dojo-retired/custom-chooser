@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
 {
@@ -14,8 +16,8 @@ ip_address()
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
 {
-  local -r name="${1}"
-  local -r port="${2}"
+  local -r port="${1}"
+  local -r name="${2}"
   local -r max_tries=10
   echo -n "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries})
@@ -102,26 +104,25 @@ echo_docker_log()
 # - - - - - - - - - - - - - - - - - - -
 container_up_ready_and_clean()
 {
-  local -r root_dir="${1}"
+  local -r port="${1}"
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
-  local -r port="${3}"
   echo
   docker-compose \
-    --file "${root_dir}/docker-compose.yml" \
+    --file "${ROOT_DIR}/docker-compose.yml" \
     up \
     -d \
     --force-recreate \
       "${service_name}"
-  wait_briefly_until_ready "${container_name}" "${port}"
+  wait_briefly_until_ready "${port}" "${container_name}"
   exit_unless_clean "${container_name}"
 }
 
 # - - - - - - - - - - - - - - - - - - -
 
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
 export NO_PROMETHEUS=true
 
-container_up_ready_and_clean "${ROOT_DIR}" custom-server 4536
-container_up_ready_and_clean "${ROOT_DIR}" custom-start-points 4526
+container_up_ready_and_clean 4536 custom
+container_up_ready_and_clean 4526 custom-start-points
+container_up_ready_and_clean 4537 saver
