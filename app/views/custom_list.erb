@@ -2,18 +2,17 @@
 'use strict';
 $(() => {
 
-  const index = Math.floor(Math.random() * <%= @display_names.size %>);
-  let selected = $(`#custom_${index}`);
-  let previous = selected;
-
-  $('[id^=custom_]').each((_,node) => {
-    const custom = $(node);
-    custom.click(() => {
+  $('[id^=custom_]').each((_,custom) => {
+    $(custom).click(() => {
       previous.removeClass('selected');
-      custom.addClass('selected');
-      previous = custom;
+      $(custom).addClass('selected');
+      previous = $(custom);
     });
   });
+
+  const index = Math.floor(Math.random() * <%= @display_names.size %>);
+  const selected = $(`#custom_${index}`);
+  let previous = selected;
 
   selected.click();
   selected.scrollIntoView({ direction: 'vertical' });
