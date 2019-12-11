@@ -57,7 +57,7 @@ class Custom < Sinatra::Base
     redirect "/kata/edit/#{id}"
   end
 
-  get '/save/group' do
+  get '/save_group' do
     id = create_group(starter_manifest)
     redirect "/kata/group/#{id}"
   end
