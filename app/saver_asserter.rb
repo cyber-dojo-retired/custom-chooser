@@ -20,4 +20,8 @@ module SaverAsserter # mix-in
     { 'name' => name, 'arg[0]' => arg0, 'result' => result }
   end
 
+  def saver
+    @externals.saver
+  end
+
 end
