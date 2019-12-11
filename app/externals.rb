@@ -2,6 +2,8 @@
 
 require_relative 'custom_start_points_service'
 require_relative 'saver_service'
+require_relative 'time_adapter'
+require_relative 'random_adapter'
 
 class Externals
 
@@ -15,6 +17,14 @@ class Externals
 
   def http
     @http ||= Net::HTTP
+  end
+
+  def time
+    @time ||= TimeAdapter.new
+  end
+
+  def random
+    @random ||= RandomAdapter.new    
   end
 
 end
