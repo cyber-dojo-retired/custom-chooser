@@ -1,9 +1,16 @@
+# frozen_string_literal: true
+
 require_relative 'custom_start_points_service'
+require_relative 'saver_service'
 
 class Externals
 
   def custom_start_points
     @custom_start_points ||= CustomStartPointsService.new(self)
+  end
+
+  def saver
+    @saver ||= SaverService.new(self)
   end
 
   def http
