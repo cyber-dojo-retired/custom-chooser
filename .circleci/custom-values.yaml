@@ -29,12 +29,12 @@ containers:
       - name: custom-tmp-dir
         mountPath: /tmp
         readOnly: false
-    resources:
-      requests:
-        cpu: 25m
+    #resources:
+    #  requests:
+    #    cpu: 25m
     #    memory: 32Mi
-      limits:
-        cpu: 50m
+    #  limits:
+    #    cpu: 50m
     #    memory: 64Mi
     livenessProbe:
       path: /alive?
