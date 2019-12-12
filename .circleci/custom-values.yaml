@@ -35,7 +35,7 @@ containers:
         memory: 64Mi
       limits:
     #    cpu: 50m
-        memory: 64Mi
+        memory: 128Mi
     livenessProbe:
       path: /alive?
       port: 4536
