@@ -29,13 +29,13 @@ containers:
       - name: custom-tmp-dir
         mountPath: /tmp
         readOnly: false
-    #resources:
-    #  requests:
+    resources:
+      requests:
     #    cpu: 25m
-    #    memory: 32Mi
-    #  limits:
+        memory: 64Mi
+      limits:
     #    cpu: 50m
-    #    memory: 64Mi
+        memory: 64Mi
     livenessProbe:
       path: /alive?
       port: 4536
