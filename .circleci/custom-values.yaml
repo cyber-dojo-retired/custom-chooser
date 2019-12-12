@@ -31,16 +31,16 @@ containers:
         readOnly: false
     resources:
       requests:
-        cpu: 5m
+        cpu: 25m
     #    memory: 32Mi
       limits:
-        cpu: 10m
+        cpu: 50m
     #    memory: 64Mi
     livenessProbe:
-      path: /alive
+      path: /alive?
       port: 4536
     readinessProbe:
-      path: /ready
+      path: /ready?
       port: 4536
 
 envFromSecret: {}
