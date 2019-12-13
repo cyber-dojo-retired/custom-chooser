@@ -134,6 +134,7 @@ container_up()
 # - - - - - - - - - - - - - - - - - - -
 container_up_ready_and_clean 4526 custom-start-points
 container_up_ready_and_clean 4536 custom
+container_up_ready_and_clean 4523 creator
 container_up_ready_and_clean 4537 saver
 container_up 80 nginx
 sleep 1

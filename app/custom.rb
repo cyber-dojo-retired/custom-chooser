@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'creator'
 require 'sinatra/base'
 require 'sprockets'
 #require 'uglifier'
@@ -35,7 +34,7 @@ class Custom < Sinatra::Base
 
   get '/ready' do
     content_type :json
-    { "ready?": start_points.ready? && saver.ready? }.to_json
+    { "ready?": start_points.ready? && creator.ready? }.to_json
   end
 
   get '/assets/*' do
@@ -50,27 +49,25 @@ class Custom < Sinatra::Base
   end
 
   get '/create_group' do
-    id = creator.create_group(display_name)
+    manifest = start_points.manifest(display_name)
+    id = creator.create_group(manifest)
     redirect "/kata/group/#{id}"
   end
 
-  get '/create_individual' do
-    id = creator.create_kata(display_name)
+  get '/create_kata' do
+    manifest = start_points.manifest(display_name)
+    id = creator.create_kata(manifest)
     redirect "/kata/edit/#{id}"
   end
 
   private
 
   def creator
-    Creator.new(@externals)
+    @externals.creator
   end
 
   def display_name
     params['display_name']
-  end
-
-  def saver
-    @externals.saver
   end
 
   def start_points

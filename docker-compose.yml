@@ -43,6 +43,17 @@ services:
     tmpfs: /tmp
     restart: 'no'
 
+  creator:
+    user: nobody
+    image: cyberdojo/creator:latest
+    init: true
+    container_name: test-creator
+    environment: [ NO_PROMETHEUS ]
+    read_only: true
+    ports: [ "4523:4523" ]
+    tmpfs: /tmp
+    restart: 'no'
+
   saver:
     user: saver
     image: cyberdojo/saver:${CYBER_DOJO_SAVER_TAG}

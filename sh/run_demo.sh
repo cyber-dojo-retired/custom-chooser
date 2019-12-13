@@ -18,4 +18,4 @@ ip_address()
   fi
 }
 
-open "http://$(ip_address):${PORT}/custom/show?from=individual"
+open "http://$(ip_address):${PORT}/custom/show?from=group"
