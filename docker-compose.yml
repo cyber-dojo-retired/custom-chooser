@@ -9,7 +9,7 @@ services:
       args: [ SHA ]
     depends_on:
       - custom
-    image: cyberdojo/nginx_stub:${TAG}
+    image: cyberdojo/nginx_stub
     init: true
     container_name: test-nginx
     ports: [ "80:80" ]
@@ -22,7 +22,7 @@ services:
     depends_on:
       - custom-start-points
       - saver
-    image: cyberdojo/custom:${TAG}
+    image: cyberdojo/custom
     init: true
     container_name: test-custom
     environment: [ NO_PROMETHEUS ]
