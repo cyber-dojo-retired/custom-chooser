@@ -3,12 +3,10 @@
 $(() => {
 
   const post = (url) => {
-    const form = $('<form>', {
+    $('<form>', {
       method: 'post',
       action: url
-    });
-    $('body').append(form);
-    form.submit();
+    }).hide().appendTo($('body')).submit().remove();
   };
 
   $('button#ok').click(() => {
