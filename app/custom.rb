@@ -45,7 +45,7 @@ class Custom < Sinatra::Base
   get '/index' do
     @display_names = start_points.display_names
     @for = params['for']
-    erb :show
+    erb :index
   end
 
   post '/create_group' do
