@@ -13,10 +13,6 @@ class Custom < Sinatra::Base
   #environment.js_compressor  = Uglifier.new(harmony: true)
   environment.css_compressor = :scss
 
-  after do
-    response['Connection'] = 'Close'
-  end
-
   def initialize(app = nil, externals)
     super(app)
     @externals = externals
