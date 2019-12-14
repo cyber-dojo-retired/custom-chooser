@@ -10,9 +10,9 @@ $(() => {
   };
 
   $('button#ok').click(() => {
-    const raw_display_name = $('[id^=custom_][class~=selected]').data('name');
-    const display_name = encodeURIComponent(raw_display_name);
-    const url = `/custom/create_<%= @for %>?display_name=${display_name}`;
+    const display_name = $('.selected.display-name').data('name');
+    const param = $.param({display_name:display_name});
+    const url = `/custom/create_<%= @for %>?${param}`;
     post(url);
   });
 
