@@ -14,13 +14,13 @@ $(() => {
   const displayName = $(displayNames[random(<%= @display_names.size %>)]);
   displayName.click();
   displayName.scrollIntoView({ direction: 'vertical' });
+
 });
 </script>
 
 <div id="custom-list">
   <% @display_names.each do |display_name| %>
-    <div class="display-name"
-         data-name="<%= display_name %>" >
+    <div class="display-name">
       <%= display_name %>
     </div>
   <% end %>

@@ -10,7 +10,7 @@ $(() => {
   };
 
   $('button#ok').click(() => {
-    const display_name = $('.selected.display-name').data('name');
+    const display_name = $('.selected.display-name').text().trim();
     const param = $.param({display_name:display_name});
     const url = `/custom/create_<%= @for %>?${param}`;
     post(url);
