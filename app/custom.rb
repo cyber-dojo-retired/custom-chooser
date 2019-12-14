@@ -49,17 +49,15 @@ class Custom < Sinatra::Base
   end
 
   post '/create_group' do
-    content_type :json
     manifest = start_points.manifest(display_name)
     id = creator.create_group(manifest)
-    { redirect:"/kata/group/#{id}" }.to_json
+    redirect "/kata/group/#{id}"
   end
 
   post '/create_kata' do
-    content_type :json
     manifest = start_points.manifest(display_name)
     id = creator.create_kata(manifest)
-    { redirect:"/kata/edit/#{id}" }.to_json
+    redirect "/kata/edit/#{id}"
   end
 
   private

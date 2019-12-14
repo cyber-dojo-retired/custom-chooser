@@ -2,12 +2,20 @@
 'use strict';
 $(() => {
 
-  $('button#ok').click(() => {
-    const url = '/custom/create_<%= @for %>';
-    const display_name = $('[id^=custom_][class~=selected]').data('name');
-    $.post(url, { display_name:display_name }, (data) => {
-      window.location.replace(data.redirect);
+  const post = (url) => {
+    const form = $('<form>', {
+      method: 'post',
+      action: url
     });
+    $('body').append(form);
+    form.submit();
+  };
+
+  $('button#ok').click(() => {
+    const raw_display_name = $('[id^=custom_][class~=selected]').data('name');
+    const display_name = encodeURIComponent(raw_display_name);
+    const url = `/custom/create_<%= @for %>?display_name=${display_name}`;
+    post(url);
   });
 
 });
