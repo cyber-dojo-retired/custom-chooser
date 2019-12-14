@@ -3,10 +3,11 @@
 $(() => {
 
   $('button#ok').click(() => {
+    const url = '/custom/create_<%= @from %>';
     const display_name = $('[id^=custom_][class~=selected]').data('name');
-    const url = '/custom/create_<%= @from %>' +
-      '?display_name=' + encodeURIComponent(display_name);
-    window.location.href = url;
+    $.post(url, { display_name:display_name }, (data) => {
+      window.location.replace(data.redirect);
+    });
   });
 
 });

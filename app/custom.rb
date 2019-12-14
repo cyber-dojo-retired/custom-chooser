@@ -48,26 +48,28 @@ class Custom < Sinatra::Base
     erb :show
   end
 
-  get '/create_group' do
+  post '/create_group' do
+    content_type :json
     manifest = start_points.manifest(display_name)
     id = creator.create_group(manifest)
-    redirect "/kata/group/#{id}"
+    { redirect:"/kata/group/#{id}" }.to_json
   end
 
-  get '/create_kata' do
+  post '/create_kata' do
+    content_type :json
     manifest = start_points.manifest(display_name)
     id = creator.create_kata(manifest)
-    redirect "/kata/edit/#{id}"
+    { redirect:"/kata/edit/#{id}" }.to_json
   end
 
   private
 
-  def creator
-    @externals.creator
-  end
-
   def display_name
     params['display_name']
+  end
+
+  def creator
+    @externals.creator
   end
 
   def start_points
