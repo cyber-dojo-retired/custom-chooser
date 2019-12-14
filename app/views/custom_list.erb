@@ -2,27 +2,24 @@
 'use strict';
 $(() => {
 
-  $('[id^=custom_]').each((_,custom) => {
-    $(custom).click(() => {
-      previous.removeClass('selected');
-      $(custom).addClass('selected');
-      previous = $(custom);
+  const displayNames = $('.display-name');
+  displayNames.each((_,displayName) => {
+    $(displayName).click(() => {
+      displayNames.removeClass('selected');
+      $(displayName).addClass('selected');
     });
   });
 
-  const index = Math.floor(Math.random() * <%= @display_names.size %>);
-  const selected = $(`#custom_${index}`);
-  let previous = selected;
-
-  selected.click();
-  selected.scrollIntoView({ direction: 'vertical' });
+  const random = (n) => Math.floor(Math.random() * n);
+  const displayName = $(displayNames[random(<%= @display_names.size %>)]);
+  displayName.click();
+  displayName.scrollIntoView({ direction: 'vertical' });
 });
 </script>
 
 <div id="custom-list">
-  <% @display_names.each.with_index do |display_name,index| %>
+  <% @display_names.each do |display_name| %>
     <div class="display-name"
-         id="custom_<%= index %>"
          data-name="<%= display_name %>" >
       <%= display_name %>
     </div>
