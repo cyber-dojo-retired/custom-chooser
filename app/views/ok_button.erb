@@ -3,7 +3,7 @@
 $(() => {
 
   $('button#ok').click(() => {
-    const url = '/custom/create_<%= @from %>';
+    const url = '/custom/create_<%= @for %>';
     const display_name = $('[id^=custom_][class~=selected]').data('name');
     $.post(url, { display_name:display_name }, (data) => {
       window.location.replace(data.redirect);
