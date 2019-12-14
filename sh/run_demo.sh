@@ -18,4 +18,4 @@ ip_address()
   fi
 }
 
-open "http://$(ip_address):${PORT}/custom/show?for=kata"
+open "http://$(ip_address):${PORT}/custom/index?for=kata"

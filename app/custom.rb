@@ -42,7 +42,7 @@ class Custom < Sinatra::Base
     settings.environment.call(env)
   end
 
-  get '/show' do
+  get '/index' do
     @display_names = start_points.display_names
     @for = params['for']
     erb :show
