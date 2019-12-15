@@ -18,21 +18,26 @@ ip_address()
   fi
 }
 
-curl_json_format_create()
+json_curl()
 {
-  TYPE=${1}
+  URL=${1}
   DISPLAY_NAME='Java Countdown, Round 1'
   curl  \
     --data-urlencode "display_name=${DISPLAY_NAME}" \
     --header 'Accept: application/json' \
     --silent \
     -X POST \
-    "http://$(ip_address):${PORT}/custom/create_${TYPE}" \
+    "http://$(ip_address):${PORT}/${URL}" \
       | jq .id
 }
 
-printf "\nCreate kata  :$(curl_json_format_create kata)"
-printf "\nCreate group :$(curl_json_format_create group)"
+echo
+echo Json
+printf "custom/create_kata  => $(json_curl custom/create_kata)\n"
+printf "custom/create_group => $(json_curl custom/create_group)\n"
+echo 'Deprecated Json (nginx redirect)'
+printf ".../save_individual_json => $(json_curl setup_custom_start_point/save_individual_json)\n"
+printf ".../save_group_json      => $(json_curl setup_custom_start_point/save_group_json)\n"
 echo
 
 #open "http://$(ip_address):${PORT}/custom/index?for=kata"
