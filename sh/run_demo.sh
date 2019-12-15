@@ -35,6 +35,7 @@ echo
 echo Json
 printf "custom/create_kata  => $(json_curl custom/create_kata)\n"
 printf "custom/create_group => $(json_curl custom/create_group)\n"
+
 echo 'Deprecated Json (nginx redirect)'
 printf ".../save_individual_json => $(json_curl setup_custom_start_point/save_individual_json)\n"
 printf ".../save_group_json      => $(json_curl setup_custom_start_point/save_group_json)\n"

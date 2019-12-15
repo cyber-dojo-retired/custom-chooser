@@ -9,7 +9,7 @@ services:
       args: [ SHA ]
     depends_on:
       - custom
-    image: cyberdojo/nginx_stub
+    image: cyberdojo/nginx_custom_stub
     init: true
     container_name: test-nginx
     ports: [ "80:80" ]
