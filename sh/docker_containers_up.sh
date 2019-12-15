@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
-export PORT=4536
-export NO_PROMETHEUS=true
-
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address()
 {
@@ -14,6 +10,11 @@ ip_address()
     echo localhost
   fi
 }
+
+readonly IP_ADDRESS=$(ip_address)
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+export PORT=4536
+export NO_PROMETHEUS=true
 
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
@@ -50,8 +51,8 @@ ready()
     curl \
       --output $(ready_response_filename) \
       --silent \
-      --fail \
-      -X GET http://$(ip_address):${port}/${path}"
+      -X GET \
+        http://${IP_ADDRESS}:${port}/${path}"
   rm -f "$(ready_response_filename)"
   if ${ready_cmd} && [ "$(ready_response)" = '{"ready?":true}' ]; then
     true
