@@ -27,12 +27,12 @@ class Custom < Sinatra::Base
 
   get '/alive' do
     content_type :json
-    { "alive?": true }.to_json
+    { 'alive?': true }.to_json
   end
 
   get '/ready' do
     content_type :json
-    { "ready?": start_points.ready? && creator.ready? }.to_json
+    { 'ready?': start_points.ready? && creator.ready? }.to_json
   end
 
   get '/assets/*' do
@@ -46,12 +46,12 @@ class Custom < Sinatra::Base
     erb :index
   end
 
-  post '/create_group',:provides => [:html, :json] do
+  post '/create_group', :provides => [:html, :json] do
     manifest = start_points.manifest(display_name)
     id = creator.create_group(manifest)
     respond_to do |format|
       format.html { redirect "/kata/group/#{id}" }
-      format.json { {id:id}.to_json }
+      format.json { { id:id }.to_json }
     end
   end
 
@@ -60,7 +60,7 @@ class Custom < Sinatra::Base
     id = creator.create_kata(manifest)
     respond_to do |format|
       format.html { redirect "/kata/edit/#{id}" }
-      format.json { {id:id}.to_json }
+      format.json { { id:id }.to_json }
     end
   end
 
