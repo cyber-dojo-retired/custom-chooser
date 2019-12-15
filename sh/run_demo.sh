@@ -66,7 +66,7 @@ demo_deprecated_routes()
 {
   local -r OLD_CONTROLLER=setup_custom_start_point
   printf "\n"
-  printf "Deprecated (nginx redirect) ${OLD_CONTROLLER}/...\n"
+  printf "Deprecated routes (nginx redirect) /${OLD_CONTROLLER}/...\n"
   printf "\tHTTP .../save_individual => $(http_curl ${OLD_CONTROLLER}/save_individual)\n"
   printf "\tHTTP .../save_group      => $(http_curl ${OLD_CONTROLLER}/save_group)\n"
   printf "\n"
