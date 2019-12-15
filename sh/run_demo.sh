@@ -18,4 +18,21 @@ ip_address()
   fi
 }
 
-open "http://$(ip_address):${PORT}/custom/index?for=kata"
+curl_json_format_create()
+{
+  TYPE=${1}
+  DISPLAY_NAME='Java Countdown, Round 1'
+  curl  \
+    --data-urlencode "display_name=${DISPLAY_NAME}" \
+    --header 'Accept: application/json' \
+    --silent \
+    -X POST \
+    "http://$(ip_address):${PORT}/custom/create_${TYPE}" \
+      | jq .id
+}
+
+printf "\nCreate kata  :$(curl_json_format_create kata)"
+printf "\nCreate group :$(curl_json_format_create group)"
+echo
+
+#open "http://$(ip_address):${PORT}/custom/index?for=kata"

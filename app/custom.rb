@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'sinatra/base'
+require 'sinatra/contrib'
 require 'sprockets'
 #require 'uglifier'
 
 class Custom < Sinatra::Base
+  register Sinatra::Contrib
 
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
@@ -44,16 +46,22 @@ class Custom < Sinatra::Base
     erb :index
   end
 
-  post '/create_group' do
+  post '/create_group',:provides => [:html, :json] do
     manifest = start_points.manifest(display_name)
     id = creator.create_group(manifest)
-    redirect "/kata/group/#{id}"
+    respond_to do |format|
+      format.html { redirect "/kata/group/#{id}" }
+      format.json { {id:id}.to_json }
+    end
   end
 
-  post '/create_kata' do
+  post '/create_kata', :provides => [:html, :json] do
     manifest = start_points.manifest(display_name)
     id = creator.create_kata(manifest)
-    redirect "/kata/edit/#{id}"
+    respond_to do |format|
+      format.html { redirect "/kata/edit/#{id}" }
+      format.json { {id:id}.to_json }
+    end
   end
 
   private
