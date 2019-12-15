@@ -48,9 +48,9 @@ curl_http_302()
     -X ${TYPE} \
     "http://${IP_ADDRESS}:${PORT}/${ROUTE}" \
      > ${LOG} 2>&1
-  grep --quiet 302 ${LOG}             # HTTP/1.1 302 Moved Temporarily
-  LOCATION=$(grep Location ${LOG})    # Location: http://192.168.99.100/kata/edit/mzCS1h
-  printf "%s" "kata${LOCATION#*kata}" # /kata/edit/mzCS1h
+  grep --quiet 302 ${LOG}             # eg HTTP/1.1 302 Moved Temporarily
+  LOCATION=$(grep Location ${LOG})    # eg Location: http://192.168.99.100/kata/edit/mzCS1h
+  printf "%s" "kata${LOCATION#*kata}" # eg /kata/edit/mzCS1h
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -58,16 +58,16 @@ demo_api()
 {
   local -r CONTROLLER=custom
   printf "\n"
-  printf "New api /${CONTROLLER}/...\n"
-  printf "\tGET 200 .../alive? => $(curl_json GET ${CONTROLLER}/alive?)\n"
-  printf "\tGET 200 .../ready? => $(curl_json GET ${CONTROLLER}/ready?)\n"
-  printf "\tGET 200 .../sha    => $(curl_json GET ${CONTROLLER}/sha)\n"
+  printf "API /${CONTROLLER}/...\n"
+  printf "\t200 GET .../alive? => $(curl_json GET ${CONTROLLER}/alive?)\n"
+  printf "\t200 GET .../ready? => $(curl_json GET ${CONTROLLER}/ready?)\n"
+  printf "\t200 GET .../sha    => $(curl_json GET ${CONTROLLER}/sha)\n"
   printf "\n"
-  printf "\tPOST HTTP 302 .../create_kata  => $(curl_http_302 POST ${CONTROLLER}/create_kata)\n"
-  printf "\tPOST HTTP 302 .../create_group => $(curl_http_302 POST ${CONTROLLER}/create_group)\n"
+  printf "\t302 POST HTTP .../create_kata  => $(curl_http_302 POST ${CONTROLLER}/create_kata)\n"
+  printf "\t302 POST HTTP .../create_group => $(curl_http_302 POST ${CONTROLLER}/create_group)\n"
   printf "\n"
-  printf "\tPOST JSON 200 .../create_kata  => $(curl_json POST ${CONTROLLER}/create_kata)\n"
-  printf "\tPOST JSON 200 .../create_group => $(curl_json POST ${CONTROLLER}/create_group)\n"
+  printf "\t200 POST JSON .../create_kata  => $(curl_json POST ${CONTROLLER}/create_kata)\n"
+  printf "\t200 POST JSON .../create_group => $(curl_json POST ${CONTROLLER}/create_group)\n"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -75,16 +75,22 @@ demo_deprecated_api()
 {
   local -r CONTROLLER=setup_custom_start_point
   printf "\n"
-  printf "Deprecated api (nginx redirect) /${CONTROLLER}/...\n"
-  printf "\tPOST HTTP 302 .../save_individual => $(curl_http_302 POST ${CONTROLLER}/save_individual)\n"
-  printf "\tPOST HTTP 302 .../save_group      => $(curl_http_302 POST ${CONTROLLER}/save_group)\n"
+  printf "Deprecated API (nginx redirect) /${CONTROLLER}/...\n"
+  printf "\t302 POST HTTP .../save_individual => $(curl_http_302 POST ${CONTROLLER}/save_individual)\n"
+  printf "\t302 POST HTTP .../save_group      => $(curl_http_302 POST ${CONTROLLER}/save_group)\n"
   printf "\n"
-  printf "\tPOST JSON 200 .../save_individual_json => $(curl_json POST ${CONTROLLER}/save_individual_json)\n"
-  printf "\tPOST JSON 200 .../save_group_json      => $(curl_json POST ${CONTROLLER}/save_group_json)\n"
+  printf "\t200 POST JSON .../save_individual_json => $(curl_json POST ${CONTROLLER}/save_individual_json)\n"
+  printf "\t200 POST JSON .../save_group_json      => $(curl_json POST ${CONTROLLER}/save_group_json)\n"
+}
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+open_index_in_browser()
+{
+  printf "\n"
+  open "http://${IP_ADDRESS}:${PORT}/custom/index?for=kata"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 demo_api
 demo_deprecated_api
-printf "\n"
-open "http://$(ip_address):${PORT}/custom/index?for=kata"
+open_index_in_browser
