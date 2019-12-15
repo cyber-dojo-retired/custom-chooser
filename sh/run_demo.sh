@@ -16,8 +16,8 @@ readonly PORT=80
 readonly DISPLAY_NAME='Java Countdown, Round 1'
 readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
 export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
-#"${SH_DIR}/build_docker_images.sh"
-#"${SH_DIR}/docker_containers_up.sh"
+"${SH_DIR}/build_docker_images.sh"
+"${SH_DIR}/docker_containers_up.sh"
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json()
@@ -34,7 +34,7 @@ curl_json()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-curl_http()
+curl_http_302()
 {
   local -r TYPE=${1}
   local -r ROUTE=${2}
@@ -54,36 +54,37 @@ curl_http()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-demo_new_api()
+demo_api()
 {
+  local -r CONTROLLER=custom
   printf "\n"
-  printf "New api /custom/...\n"
-  printf "\tGET HTTP .../alive? => $(curl_json GET custom/alive?)\n"
-  printf "\tGET HTTP .../ready? => $(curl_json GET custom/ready?)\n"
-  printf "\tGET HTTP .../sha    => $(curl_json GET custom/sha)\n"
+  printf "New api /${CONTROLLER}/...\n"
+  printf "\tGET 200 .../alive? => $(curl_json GET ${CONTROLLER}/alive?)\n"
+  printf "\tGET 200 .../ready? => $(curl_json GET ${CONTROLLER}/ready?)\n"
+  printf "\tGET 200 .../sha    => $(curl_json GET ${CONTROLLER}/sha)\n"
   printf "\n"
-  printf "\tPOST HTTP .../create_kata  => $(curl_http POST custom/create_kata)\n"
-  printf "\tPOST HTTP .../create_group => $(curl_http POST custom/create_group)\n"
+  printf "\tPOST HTTP 302 .../create_kata  => $(curl_http_302 POST ${CONTROLLER}/create_kata)\n"
+  printf "\tPOST HTTP 302 .../create_group => $(curl_http_302 POST ${CONTROLLER}/create_group)\n"
   printf "\n"
-  printf "\tPOST JSON .../create_kata  => $(curl_json POST custom/create_kata)\n"
-  printf "\tPOST JSON .../create_group => $(curl_json POST custom/create_group)\n"
+  printf "\tPOST JSON 200 .../create_kata  => $(curl_json POST ${CONTROLLER}/create_kata)\n"
+  printf "\tPOST JSON 200 .../create_group => $(curl_json POST ${CONTROLLER}/create_group)\n"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 demo_deprecated_api()
 {
-  local -r OLD_CONTROLLER=setup_custom_start_point
+  local -r CONTROLLER=setup_custom_start_point
   printf "\n"
-  printf "Deprecated api (nginx redirect) /${OLD_CONTROLLER}/...\n"
-  printf "\tPOST HTTP .../save_individual => $(curl_http POST ${OLD_CONTROLLER}/save_individual)\n"
-  printf "\tPOST HTTP .../save_group      => $(curl_http POST ${OLD_CONTROLLER}/save_group)\n"
+  printf "Deprecated api (nginx redirect) /${CONTROLLER}/...\n"
+  printf "\tPOST HTTP 302 .../save_individual => $(curl_http_302 POST ${CONTROLLER}/save_individual)\n"
+  printf "\tPOST HTTP 302 .../save_group      => $(curl_http_302 POST ${CONTROLLER}/save_group)\n"
   printf "\n"
-  printf "\tPOST JSON .../save_individual_json => $(curl_json POST ${OLD_CONTROLLER}/save_individual_json)\n"
-  printf "\tPOST JSON .../save_group_json      => $(curl_json POST ${OLD_CONTROLLER}/save_group_json)\n"
+  printf "\tPOST JSON 200 .../save_individual_json => $(curl_json POST ${CONTROLLER}/save_individual_json)\n"
+  printf "\tPOST JSON 200 .../save_group_json      => $(curl_json POST ${CONTROLLER}/save_group_json)\n"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-demo_new_api
+demo_api
 demo_deprecated_api
 printf "\n"
 open "http://$(ip_address):${PORT}/custom/index?for=kata"
