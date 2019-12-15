@@ -25,6 +25,7 @@ json_curl()
   local -r ROUTE=${1}
   curl  \
     --data-urlencode "display_name=${DISPLAY_NAME}" \
+    --fail \
     --header 'Accept: application/json' \
     --silent \
     -X POST \
@@ -38,6 +39,7 @@ http_curl()
   local -r LOG=/tmp/custom.log
   curl  \
     --data-urlencode "display_name=${DISPLAY_NAME}" \
+    --fail \
     --header 'Accept: text/html' \
     --silent \
     --verbose \

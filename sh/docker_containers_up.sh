@@ -49,6 +49,7 @@ ready()
   local -r path=ready
   local -r ready_cmd="\
     curl \
+      --fail \
       --output $(ready_response_filename) \
       --silent \
       -X GET \
