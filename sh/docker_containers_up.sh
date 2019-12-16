@@ -106,17 +106,6 @@ echo_docker_log()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_ready_and_clean()
-{
-  local -r port="${1}"
-  local -r service_name="${2}"
-  local -r container_name="test-${service_name}"
-  container_up "${port}" "${service_name}"
-  wait_briefly_until_ready "${port}" "${container_name}"
-  exit_unless_clean "${container_name}"
-}
-
-# - - - - - - - - - - - - - - - - - - -
 container_up()
 {
   local -r port="${1}"
@@ -129,13 +118,19 @@ container_up()
     -d \
     --force-recreate \
       "${service_name}"
+  if [ "${3}" = 'ready' ]; then
+    wait_briefly_until_ready "${port}" "${container_name}"
+  fi
+  if [ "${4}" = 'clean' ]; then
+    exit_unless_clean "${container_name}"
+  fi
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_ready_and_clean 4526 custom-start-points
-container_up_ready_and_clean 4537 saver
-container_up_ready_and_clean 4523 creator
-container_up 4536 custom
+container_up 4526 custom-start-points ready clean
+container_up 4537 saver               ready clean
+container_up 4523 creator             ready clean
+container_up 4536 custom              ready
 # can't do clean-check for custom as sinatra-contrib
 # does several method redefinitions which cause warnings
 container_up 80 nginx
