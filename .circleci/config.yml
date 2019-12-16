@@ -56,7 +56,7 @@ jobs:
               --install \
               --namespace=beta \
               --set-string containers[0].tag=${TAG} \
-              -f .circleci/custom-values.yaml \
+              --values .circleci/custom-values.yaml \
               beta-custom \
               praqma/cyber-dojo-service \
               --version 0.2.4
@@ -85,7 +85,7 @@ jobs:
               --install \
               --namespace=prod \
               --set-string containers[0].tag=${TAG} \
-              -f .circleci/custom-values.yaml \
+              --values .circleci/custom-values.yaml \
               prod-custom \
               praqma/cyber-dojo-service \
               --version 0.2.4
