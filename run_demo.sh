@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
+readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )/sh"
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 ip_address_slow()
@@ -9,15 +9,15 @@ ip_address_slow()
   if [ -n "${DOCKER_MACHINE_NAME}" ]; then
     docker-machine ip ${DOCKER_MACHINE_NAME}
   else
-    echo localhost
+    printf localhost
   fi
 }
 readonly IP_ADDRESS=$(ip_address_slow)
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 build_images() { "${SH_DIR}/build_docker_images.sh"; }
-containers_up() { "${SH_DIR}/docker_containers_up.sh"; }
-containers_down() { "${SH_DIR}/docker_containers_down.sh"; }
+containers_up() { "${SH_DIR}/containers_up.sh"; }
+containers_down() { "${SH_DIR}/containers_down.sh"; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { printf 80; }

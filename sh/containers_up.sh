@@ -1,8 +1,12 @@
 #!/bin/bash
 set -e
 
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+export PORT=4536
+export NO_PROMETHEUS=true
+
 # - - - - - - - - - - - - - - - - - - - - - -
-ip_address()
+ip_address_slow()
 {
   if [ -n "${DOCKER_MACHINE_NAME}" ]; then
     docker-machine ip ${DOCKER_MACHINE_NAME}
@@ -10,11 +14,7 @@ ip_address()
     echo localhost
   fi
 }
-
-readonly IP_ADDRESS=$(ip_address)
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
-export PORT=4536
-export NO_PROMETHEUS=true
+readonly IP_ADDRESS=$(ip_address_slow)
 
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
