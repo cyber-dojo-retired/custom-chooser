@@ -26,13 +26,13 @@ wait_briefly_until_ready()
   for _ in $(seq ${max_tries}); do
     printf .
     if ready ${port}; then
-      printf "OK\n"
+      printf 'OK\n'
       return
     else
       sleep 0.1
     fi
   done
-  printf "FAIL\n"
+  printf 'FAIL\n'
   printf "${name} not ready after ${max_tries} tries\n"
   if [ -f "$(ready_response_filename)" ]; then
     printf "$(ready_response)\n"
@@ -85,9 +85,9 @@ exit_unless_clean()
   #Maximum connections set to 1024
   #Listening on 0.0.0.0:4536, CTRL+C to stop
   if [ "${line_count}" == '3' ]; then
-    printf "OK\n"
+    printf 'OK\n'
   else
-    printf "FAIL\n"
+    printf 'FAIL\n'
     print_docker_log "${name}" "${docker_log}"
     exit 42
   fi
@@ -99,9 +99,9 @@ print_docker_log()
   local -r name="${1}"
   local -r docker_log="${2}"
   printf "[docker logs ${name}]\n"
-  printf "<docker_log>\n"
+  printf '<docker_log>\n'
   printf "${docker_log}\n"
-  printf "</docker_log>\n"
+  printf '</docker_log>\n'
 }
 
 # - - - - - - - - - - - - - - - - - - -
@@ -110,7 +110,7 @@ container_up()
   local -r port="${1}"
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
-  printf "\n"
+  printf '\n'
   docker-compose \
     --file "${ROOT_DIR}/docker-compose.yml" \
     up \

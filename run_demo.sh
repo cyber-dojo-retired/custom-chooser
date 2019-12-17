@@ -54,9 +54,9 @@ curl_http_302()
     -X ${TYPE} \
     "http://${IP_ADDRESS}:$(port)/${ROUTE}" \
      > ${LOG} 2>&1
-  grep --quiet 302 ${LOG}             # eg HTTP/1.1 302 Moved Temporarily
-  LOCATION=$(grep Location ${LOG})    # eg Location: http://192.168.99.100/kata/edit/mzCS1h
-  printf "%s" "kata${LOCATION#*kata}" # eg /kata/edit/mzCS1h
+  grep --quiet 302 ${LOG}          # eg HTTP/1.1 302 Moved Temporarily
+  LOCATION=$(grep Location ${LOG}) # eg Location: http://192.168.99.100/kata/edit/mzCS1h
+  printf "kata${LOCATION#*kata}"   # eg /kata/edit/mzCS1h
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -67,10 +67,10 @@ demo_api()
   printf "\t200 GET .../alive? => $(curl_json GET ${CONTROLLER}/alive?)\n"
   printf "\t200 GET .../ready? => $(curl_json GET ${CONTROLLER}/ready?)\n"
   printf "\t200 GET .../sha    => $(curl_json GET ${CONTROLLER}/sha)\n"
-  printf "\n"
+  printf '\n'
   printf "\t302 POST HTTP .../create_kata  => $(curl_http_302 POST ${CONTROLLER}/create_kata)\n"
   printf "\t302 POST HTTP .../create_group => $(curl_http_302 POST ${CONTROLLER}/create_group)\n"
-  printf "\n"
+  printf '\n'
   printf "\t200 POST JSON .../create_kata  => $(curl_json POST ${CONTROLLER}/create_kata)\n"
   printf "\t200 POST JSON .../create_group => $(curl_json POST ${CONTROLLER}/create_group)\n"
 }
@@ -82,7 +82,7 @@ demo_deprecated_api()
   printf "Deprecated API (nginx redirect) /${CONTROLLER}/...\n"
   printf "\t302 POST HTTP .../save_individual => $(curl_http_302 POST ${CONTROLLER}/save_individual)\n"
   printf "\t302 POST HTTP .../save_group      => $(curl_http_302 POST ${CONTROLLER}/save_group)\n"
-  printf "\n"
+  printf '\n'
   printf "\t200 POST JSON .../save_individual_json => $(curl_json POST ${CONTROLLER}/save_individual_json)\n"
   printf "\t200 POST JSON .../save_group_json      => $(curl_json POST ${CONTROLLER}/save_group_json)\n"
 }
@@ -91,10 +91,10 @@ demo_deprecated_api()
 export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
 build_images
 containers_up
-printf "\n"
+printf '\n'
 demo_api
-printf "\n"
+printf '\n'
 demo_deprecated_api
-printf "\n"
+printf '\n'
 containers_down
 #open http://${IP_ADDRESS}:$(port)/custom/index
