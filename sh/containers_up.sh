@@ -24,7 +24,7 @@ wait_briefly_until_ready()
   local -r max_tries=10
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
-    printf '.'
+    printf .
     if ready ${port}; then
       printf "OK\n"
       return
@@ -32,7 +32,7 @@ wait_briefly_until_ready()
       sleep 0.1
     fi
   done
-  printf FAIL
+  printf "FAIL\n"
   printf "${name} not ready after ${max_tries} tries\n"
   if [ -f "$(ready_response_filename)" ]; then
     printf "$(ready_response)\n"
@@ -114,7 +114,7 @@ container_up()
   docker-compose \
     --file "${ROOT_DIR}/docker-compose.yml" \
     up \
-    -d \
+    --detach \
     --force-recreate \
       "${service_name}"
   if [ "${3}" = 'ready' ]; then
