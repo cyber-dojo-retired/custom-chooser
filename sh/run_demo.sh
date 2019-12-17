@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
+
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 ip_address_slow()
 {
@@ -13,33 +15,15 @@ ip_address_slow()
 readonly IP_ADDRESS=$(ip_address_slow)
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
-readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )"
-
-build_and_bring_up()
-{
-  "${SH_DIR}/build_docker_images.sh"
-  "${SH_DIR}/docker_containers_up.sh"
-}
+build_images() { "${SH_DIR}/build_docker_images.sh"; }
+containers_up() { "${SH_DIR}/docker_containers_up.sh"; }
+containers_down() { "${SH_DIR}/docker_containers_down.sh"; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-bring_down()
-{
-  "${SH_DIR}/docker_containers_down.sh"
-}
-
+port() { printf 80; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-port()
-{
-  printf 80
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
-display_name()
-{
-  printf 'Java Countdown, Round 1'
-}
+display_name() { printf 'Java Countdown, Round 1'; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json()
@@ -104,10 +88,13 @@ demo_deprecated_api()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-build_and_bring_up
+export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
+build_images
+containers_up
 printf "\n"
 demo_api
 printf "\n"
 demo_deprecated_api
 printf "\n"
-bring_down
+containers_down
+#open http://${IP_ADDRESS}:$(port)/custom/index
