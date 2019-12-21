@@ -10,27 +10,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build tested docker image
+          name: Build image, test it, tag it, publish it
           command: |
             set -e
-            ./pipe_build_up_test.sh
-      - run:
-          name: Tag docker image
-          command: |
-            set -e
-            NAME="${CIRCLE_PROJECT_REPONAME}"
-            TAG="${CIRCLE_SHA1:0:7}"
-            docker tag cyberdojo/${NAME}:latest cyberdojo/${NAME}:${TAG}
-      - run:
-          name: Publish tagged docker image on dockerhub
-          command: |
-            set -e
-            NAME="${CIRCLE_PROJECT_REPONAME}"
-            TAG="${CIRCLE_SHA1:0:7}"
-            echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
-            docker push cyberdojo/${NAME}:${TAG}
-            docker push cyberdojo/${NAME}:latest
-            docker logout
+            ./build_test_tag_publish.sh
 
   deploy-to-beta:
     docker:
@@ -38,7 +21,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Authenticate with gcloud and deploy to beta with helm
+          name: Authenticate and deploy to beta
           command: |
             set -e
             echo ${GCP_K8S_CREDENTIALS} > /gcp/gcp-credentials.json
@@ -67,7 +50,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Authenticate with gcloud and deploy to prod with helm
+          name: Authenticate and deploy to prod
           command: |
             set -e
             echo ${GCP_K8S_CREDENTIALS} > /gcp/gcp-credentials.json

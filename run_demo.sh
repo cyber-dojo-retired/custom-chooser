@@ -2,27 +2,11 @@
 set -e
 
 readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )/sh"
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
-ip_address_slow()
-{
-  if [ -n "${DOCKER_MACHINE_NAME}" ]; then
-    docker-machine ip ${DOCKER_MACHINE_NAME}
-  else
-    printf localhost
-  fi
-}
-readonly IP_ADDRESS=$(ip_address_slow)
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
-build_images() { "${SH_DIR}/build_docker_images.sh"; }
-containers_up() { "${SH_DIR}/containers_up.sh"; }
-containers_down() { "${SH_DIR}/containers_down.sh"; }
+source ${SH_DIR}/ip_address.sh
+readonly IP_ADDRESS=$(ip_address)
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { printf 80; }
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
 display_name() { printf 'Java Countdown, Round 1'; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -88,13 +72,15 @@ demo_deprecated_api()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-export $(docker run --rm cyberdojo/versioner:latest sh -c 'cat /app/.env')
-build_images
-containers_up
+source ${SH_DIR}/cat_env_vars.sh
+export $(cat_env_vars)
+
+${SH_DIR}/build_images.sh
+${SH_DIR}/containers_up.sh
 printf '\n'
 demo_api
 printf '\n'
 demo_deprecated_api
 printf '\n'
-containers_down
+${SH_DIR}/containers_down.sh
 #open http://${IP_ADDRESS}:$(port)/custom/index

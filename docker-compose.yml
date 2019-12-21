@@ -6,7 +6,6 @@ services:
   nginx:
     build:
       context: ./nginx_stub
-      args: [ SHA ]
     depends_on:
       - custom
     image: cyberdojo/nginx_custom_stub
@@ -18,50 +17,51 @@ services:
   custom:
     build:
       context: .
-      args: [ SHA, PORT ]
+      args: [ GIT_COMMIT_SHA, CYBER_DOJO_CUSTOM_PORT ]
     depends_on:
       - custom-start-points
       - saver
-    image: cyberdojo/custom
+    image: ${CYBER_DOJO_CUSTOM_IMAGE}
     init: true
-    container_name: test-custom
+    container_name: test-custom-server
     environment: [ NO_PROMETHEUS ]
-    ports: [ "4536:4536" ]
+    ports: [ "${CYBER_DOJO_CUSTOM_PORT}:${CYBER_DOJO_CUSTOM_PORT}" ]
     user: nobody
     read_only: true
     restart: "no"
+    volumes: [ "./test_server:/app/test:ro" ]    
     tmpfs: [ "/tmp:exec,mode=1777" ] # Sticky bit must be set on /tmp otherwise
                                      # Dir.mktmpdir(id,'/tmp') complains
   custom-start-points:
     user: nobody
-    image: ${CYBER_DOJO_CUSTOM}
+    image: ${CYBER_DOJO_CUSTOM_START_POINTS} # TODO: IMAGE:TAG from .env
     init: true
     container_name: test-custom-start-points
     environment: [ NO_PROMETHEUS ]
     read_only: true
-    ports: [ "4526:4526" ]
+    ports: [ "4526:4526" ] # TODO: From .env? Better=DROP
     tmpfs: /tmp
     restart: 'no'
 
   creator:
     user: nobody
-    image: cyberdojo/creator:latest
+    image: ${CYBER_DOJO_CREATOR_IMAGE}:latest # TODO: TAG from .env
     init: true
     container_name: test-creator
     environment: [ NO_PROMETHEUS ]
     read_only: true
-    ports: [ "4523:4523" ]
+    ports: [ "4523:4523" ] # TODO: From .env? Better=DROP
     tmpfs: /tmp
     restart: 'no'
 
   saver:
     user: saver
-    image: cyberdojo/saver:${CYBER_DOJO_SAVER_TAG}
+    image: ${CYBER_DOJO_SAVER_IMAGE}:${CYBER_DOJO_SAVER_TAG}
     init: true
     container_name: test-saver
     environment: [ NO_PROMETHEUS ]
     read_only: true
-    ports: [ "4537:4537" ]
+    ports: [ "4537:4537" ] # TODO: From .env? Better=DROP
     restart: 'no'
     tmpfs:
       - /cyber-dojo:uid=19663,gid=65533
