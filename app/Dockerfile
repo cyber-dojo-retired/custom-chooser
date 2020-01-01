@@ -1,8 +1,7 @@
 FROM cyberdojo/sinatra-base
 LABEL maintainer=jon@jaggersoft.com
 
-COPY --chown=nobody:nogroup . /
-WORKDIR /app
+COPY --chown=nobody:nogroup . /app
 
 ARG COMMIT_SHA
 ENV SHA=${COMMIT_SHA}

@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/bash -Ee
 
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 
@@ -25,19 +24,18 @@ assert_equal()
   local -r name="${1}"
   local -r expected="${2}"
   local -r actual="${3}"
-  echo "expected: ${name}='${expected}'"
-  echo "  actual: ${name}='${actual}'"
   if [ "${expected}" != "${actual}" ]; then
-    echo "ERROR: unexpected ${name} inside image ${IMAGE}:latest"
+    echo "ERROR: unexpected ${name} inside image"
+    echo "expected: ${name}='${expected}'"
+    echo "  actual: ${name}='${actual}'"
     exit 42
   fi
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - -
 readonly SH_DIR="${ROOT_DIR}/sh"
-source ${SH_DIR}/cat_env_vars.sh
-readonly VERSION=${1:-latest}
-export $(cat_env_vars ${VERSION})
+source ${SH_DIR}/versioner_env_vars.sh
+export $(versioner_env_vars)
 source ${SH_DIR}/image_sha.sh
 
 build_images

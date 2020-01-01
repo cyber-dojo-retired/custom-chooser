@@ -16,8 +16,8 @@ services:
 
   custom:
     build:
-      context: .
-      args: [ GIT_COMMIT_SHA, CYBER_DOJO_CUSTOM_PORT ]
+      context: app
+      args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_PORT ]
     depends_on:
       - custom-start-points
       - saver
@@ -29,17 +29,17 @@ services:
     user: nobody
     read_only: true
     restart: "no"
-    volumes: [ "./test_server:/app/test:ro" ]    
+    volumes: [ "./test_server:/app/test:ro" ]
     tmpfs: [ "/tmp:exec,mode=1777" ] # Sticky bit must be set on /tmp otherwise
                                      # Dir.mktmpdir(id,'/tmp') complains
   custom-start-points:
     user: nobody
-    image: ${CYBER_DOJO_CUSTOM_START_POINTS} # TODO: IMAGE:TAG from .env
+    image: ${CYBER_DOJO_CUSTOM_START_POINTS_IMAGE}:${CYBER_DOJO_CUSTOM_START_POINTS_TAG}
     init: true
     container_name: test-custom-start-points
     environment: [ NO_PROMETHEUS ]
     read_only: true
-    ports: [ "4526:4526" ] # TODO: From .env? Better=DROP
+    ports: [ "${CYBER_DOJO_CUSTOM_START_POINTS_PORT}:${CYBER_DOJO_CUSTOM_START_POINTS_PORT}" ] # TODO: DROP
     tmpfs: /tmp
     restart: 'no'
 

@@ -1,14 +1,12 @@
-#!/bin/bash
-set -e
+#!/bin/bash -Ee
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
 tag_the_image()
 {
-  local -r IMAGE="$(image_name)"
-  local -r SHA="$(image_sha)"
-  local -r cmd="docker tag ${IMAGE}:latest ${IMAGE}:${SHA:0:7}"
-  eval ${cmd}
-  echo "${cmd}"
+  local -r image="$(image_name)"
+  local -r sha="$(image_sha)"
+  local -r tag="${sha:0:7}"
+  docker tag "${image}:latest" "${image}:${tag}"
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
@@ -25,23 +23,24 @@ on_ci_publish_tagged_images()
     return
   fi
   echo 'on CI so publishing tagged images'
-  local -r IMAGE="$(image_name)"
-  local -r SHA="$(image_sha)"
+  local -r image="$(image_name)"
+  local -r sha="$(image_sha)"
+  local -r tag="${sha:0:7}"
   # DOCKER_USER, DOCKER_PASS are in ci context
   echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
-  docker push ${IMAGE}:latest
-  docker push ${IMAGE}:${SHA:0:7}
+  docker push "${image}:latest"
+  docker push "${image}:${tag}"
   docker logout
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
 readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )/sh"
-source ${SH_DIR}/cat_env_vars.sh
-export $(cat_env_vars)
+source ${SH_DIR}/versioner_env_vars.sh
+export $(versioner_env_vars)
 
 ${SH_DIR}/build_images.sh
 ${SH_DIR}/containers_up.sh
-${SH_DIR}/run_tests_in_containers.sh "$@"
+${SH_DIR}/test_in_containers.sh "$@"
 ${SH_DIR}/containers_down.sh
 
 source ${SH_DIR}/image_name.sh
