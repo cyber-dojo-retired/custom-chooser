@@ -1,9 +1,6 @@
-#!/bin/bash
-set -e
+#!/bin/bash -Ee
 
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
-export PORT=4536
-export NO_PROMETHEUS=true
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )/.." && pwd )"
 
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address_slow()
@@ -21,14 +18,14 @@ wait_briefly_until_ready()
 {
   local -r port="${1}"
   local -r name="${2}"
-  local -r max_tries=10
+  local -r max_tries=20
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
-    printf .
     if ready ${port}; then
-      printf 'OK\n'
+      printf '.OK\n'
       return
     else
+      printf .
       sleep 0.1
     fi
   done
@@ -111,26 +108,33 @@ container_up()
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
   printf '\n'
+  export NO_PROMETHEUS=true  
   docker-compose \
     --file "${ROOT_DIR}/docker-compose.yml" \
     up \
     --detach \
     --force-recreate \
       "${service_name}"
-  if [ "${3}" = 'ready' ]; then
+  if [ "${3}" == 'ready' ]; then
     wait_briefly_until_ready "${port}" "${container_name}"
   fi
-  if [ "${4}" = 'clean' ]; then
+  if [ "${4}" == 'clean' ]; then
     exit_unless_clean "${container_name}"
   fi
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up 4526 custom-start-points ready clean
-container_up 4537 saver               ready clean
-container_up 4523 creator             ready clean
-container_up 4536 custom              ready
-# can't do clean-check for custom as sinatra-contrib
-# does several method redefinitions which cause warnings
-container_up 80 nginx
+port=${CYBER_DOJO_CUSTOM_START_POINTS_PORT}
+container_up ${port} custom-start-points ready clean
+port=${CYBER_DOJO_SAVER_PORT}
+container_up ${port} saver               ready clean
+port=${CYBER_DOJO_CREATOR_PORT}
+container_up ${port} creator             ready clean
+port=${CYBER_DOJO_CUSTOM_PORT}
+container_up ${port} custom-server       ready  #[1]
+port=${CYBER_DOJO_NGINX_PORT}
+container_up ${port} nginx
 sleep 1
+
+# [1] can't do clean-check for custom as sinatra-contrib
+# does several method redefinitions which cause warnings
