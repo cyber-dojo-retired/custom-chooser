@@ -1,56 +1,69 @@
 #!/bin/bash -Eeu
 
-readonly root_dir="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+readonly root_dir="$( cd "$( dirname "${0}" )/.." && pwd )"
 readonly my_name=custom
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_tests()
 {
-  local -r coverage_root=/tmp/coverage
-  local -r user="${1}"
-  local -r test_dir="test_${2}"
-  local -r container_name="test-${my_name}-${2}"
+  local -r user="${1}" # eg nobody
+  local -r type="${2}" # eg client|server
+  local -r reports_dir=reports
+  local -r coverage_root=/tmp/${reports_dir}
+  local -r test_log=test.log
+  local -r container_name="test-${my_name}-${type}" # eg test-ragger-server
+  local -r coverage_code_group_name=tested
+  local -r coverage_test_group_name=tester
 
+  echo '=================================='
+  echo "Running ${type} tests"
+  echo '=================================='
+
+  set +e
   docker exec \
+    --env COVERAGE_CODE_GROUP_NAME=${coverage_code_group_name} \
+    --env COVERAGE_TEST_GROUP_NAME=${coverage_test_group_name} \
     --user "${user}" \
-    --env COVERAGE_ROOT=${coverage_root} \
     "${container_name}" \
-      sh -c "/app/test/util/run.sh ${@:3}"
+      sh -c "/test/run.sh ${coverage_root} ${test_log} ${type} ${*:3}"
+  set -e
 
-  local -r status=$?
-
-  # You can't [docker cp] from a tmpfs,
-  # so tar-piping coverage out.
+  # You can't [docker cp] from a tmpfs, so tar-piping coverage out...
+  local -r test_dir="${root_dir}/test/${type}" # ...to this dir
   docker exec \
     "${container_name}" \
     tar Ccf \
       "$(dirname "${coverage_root}")" \
       - "$(basename "${coverage_root}")" \
-        | tar Cxf "${root_dir}/${test_dir}/" -
+        | tar Cxf "${test_dir}/" -
 
-  printf "Coverage report copied to ${test_dir}/coverage/\n"
+  set +e
+  local -r data_dir=/tmp
+  docker run --rm \
+    --env COVERAGE_CODE_GROUP_NAME=${coverage_code_group_name} \
+    --env COVERAGE_TEST_GROUP_NAME=${coverage_test_group_name} \
+    --volume ${test_dir}/${reports_dir}:${data_dir}:ro \
+    --volume ${test_dir}/metrics.rb:/app/metrics.rb:ro \
+    cyberdojo/check-test-results:latest \
+    sh -c "ruby /app/check_test_results.rb ${data_dir}/${test_log} ${data_dir}/index.html" \
+      | tee -a ${test_dir}/${reports_dir}/${test_log}
+  local -r status=${PIPESTATUS[0]}
+  set -e
+
+  echo "Test files copied to test/${type}/${reports_dir}/"
+  echo "${type} test status == ${status}"
+  if [ "${status}" != '0' ]; then
+    docker logs "${container_name}"
+  fi
   return ${status}
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-declare server_status=0
-run_server_tests()
-{
-  run_tests nobody server "${*}"
-  server_status=$?
-}
-
-declare client_status=0
-run_client_tests()
-{
-  run_tests nobody client "${*}"
-  client_status=$?
-}
+run_server_tests() { run_tests nobody server "${@:-}"; }
+run_client_tests() { run_tests nobody client "${@:-}"; }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo GOT TO HERE
-exit 42
-
+echo
 if [ "${1:-}" == 'server' ]; then
   shift
   run_server_tests "${@:-}"
@@ -61,15 +74,4 @@ else
   run_server_tests "${@:-}"
   run_client_tests "${@:-}"
 fi
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-if [ "${server_status}" == '0' ] && [ "${client_status}" == '0' ];  then
-  echo All passed
-  exit 0
-else
-  echo
-  echo "test-${my_name}-server: status = ${server_status}"
-  echo "test-${my_name}-client: status = ${client_status}"
-  echo
-  exit 42
-fi
+echo All passed

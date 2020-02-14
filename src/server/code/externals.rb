@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require_relative 'services/creator'
 require_relative 'services/custom_start_points'
 

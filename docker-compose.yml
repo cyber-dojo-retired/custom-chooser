@@ -22,7 +22,7 @@ services:
     container_name: test-custom-server
     depends_on:
       - custom-start-points
-      - saver
+      - creator
     environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_CUSTOM_IMAGE} # TODO: TAG from .env
     init: true
@@ -31,7 +31,7 @@ services:
     restart: "no"
     tmpfs: [ "/tmp:exec,mode=1777" ] # [1]
     user: nobody
-    volumes: [ "./test:/test:ro" ]
+    volumes: [ "./test:/test/:ro" ]
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   custom-start-points:
@@ -48,6 +48,8 @@ services:
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   creator:
     container_name: test-creator
+    depends_on:
+      - saver
     environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_CREATOR_IMAGE}:${CYBER_DOJO_CREATOR_TAG}
     init: true

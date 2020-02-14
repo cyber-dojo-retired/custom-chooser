@@ -8,9 +8,5 @@ unless ENV['NO_PROMETHEUS']
   use Prometheus::Middleware::Exporter
 end
 
-require_relative 'code/externals'
 require_relative 'code/custom'
-require 'rack'
-externals = Externals.new
-custom = Custom.new(nil, externals)
-run custom
+run Custom

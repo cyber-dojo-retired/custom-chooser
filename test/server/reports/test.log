@@ -1,0 +1,76 @@
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old config_file
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of config_file was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old options
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of options was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old patch
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of patch was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old get
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of get was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old head
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of head was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old put
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of put was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old delete
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of delete was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old post
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of post was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old mime_type
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of mime_type was here
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: method redefined; discarding old respond_to
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1917: warning: previous definition of respond_to was here
+/usr/local/bundle/gems/sinatra-contrib-2.0.8.1/lib/sinatra/reloader.rb:308: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1360: warning: The called method `add_filter' is defined here
+/usr/local/bundle/gems/sinatra-contrib-2.0.8.1/lib/sinatra/respond_with.rb:226: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/usr/local/bundle/gems/sinatra-2.0.8.1/lib/sinatra/base.rb:1622: warning: The called method `compile!' is defined here
+Run options: --seed 28854
+
+# Running:
+
+--- expected
++++ actual
+@@ -1 +1,3 @@
+-"{\"xready?\":true}"
++# encoding: ASCII-8BIT
++#    valid: true
++"{\"ready?\":true}"
+F--- expected
++++ actual
+@@ -1 +1,3 @@
+-"{\"xalive?\":true}"
++# encoding: ASCII-8BIT
++#    valid: true
++"{\"alive?\":true}"
+FSimpleCov failed with exit 1
+
+Finished in 0.030517s, 65.5381 runs/s, 131.0762 assertions/s.
+
+  1) Failure:
+ReadyTest#test_
+id58 '15D',
+'its ready if custom-start-points and saver are both ready' [/test/server/ready_test.rb:18]:
+--- expected
++++ actual
+@@ -1 +1,3 @@
+-"{\"xready?\":true}"
++# encoding: ASCII-8BIT
++#    valid: true
++"{\"ready?\":true}"
+
+
+  2) Failure:
+AliveTest#test_
+id58 '15D',
+'its alive' [/test/server/alive_test.rb:16]:
+--- expected
++++ actual
+@@ -1 +1,3 @@
+-"{\"xalive?\":true}"
++# encoding: ASCII-8BIT
++#    valid: true
++"{\"alive?\":true}"
+
+
+2 runs, 4 assertions, 2 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 10461 / 22093 LOC (47.35%) covered.
+
+

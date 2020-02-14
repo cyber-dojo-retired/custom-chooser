@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_relative 'externals'
 require 'sinatra/base'
 require 'sinatra/contrib'
 require 'sprockets'
@@ -11,11 +12,6 @@ class Custom < Sinatra::Base
   environment.append_path('assets/stylesheets')
   environment.append_path('assets/javascripts')
   environment.css_compressor = :scss
-
-  def initialize(app = nil, externals)
-    super(app)
-    @externals = externals
-  end
 
   get '/sha' do
     content_type :json
@@ -68,11 +64,15 @@ class Custom < Sinatra::Base
   end
 
   def creator
-    @externals.creator
+    externals.creator
   end
 
   def start_points
-    @externals.custom_start_points
+    externals.custom_start_points
+  end
+
+  def externals
+    @externals ||= Externals.new
   end
 
 end
