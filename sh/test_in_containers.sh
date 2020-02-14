@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -Eeu
 
 readonly root_dir="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
 readonly my_name=custom
@@ -48,16 +48,18 @@ run_client_tests()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo
-if [ "${1}" == 'server' ]; then
+echo GOT TO HERE
+exit 42
+
+if [ "${1:-}" == 'server' ]; then
   shift
-  run_server_tests "$@"
-elif [ "${1}" == 'client' ]; then
+  run_server_tests "${@:-}"
+elif [ "${1:-}" == 'client' ]; then
   shift
-  run_client_tests "$@"
+  run_client_tests "${@:-}"
 else
-  run_server_tests "$@"
-  run_client_tests "$@"
+  run_server_tests "${@:-}"
+  run_client_tests "${@:-}"
 fi
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -

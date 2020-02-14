@@ -1,11 +1,11 @@
-#!/bin/bash -Ee
+#!/bin/bash -Eeu
 
 export RUBYOPT='-W2'
 
 rackup \
   --env production \
   --host 0.0.0.0   \
-  --port 4536      \
+  --port ${PORT}   \
   --server thin    \
   --warn           \
-    config.ru
+    /app/config.ru

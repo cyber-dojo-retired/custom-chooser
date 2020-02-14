@@ -2,7 +2,7 @@
 
 module HttpJson
 
-  class Error < StandardError
+  class Error < RuntimeError
     def initialize(message)
       super
     end

@@ -5,69 +5,71 @@ services:
 
   nginx:
     build:
-      context: ./nginx_stub
+      context: src/nginx_stub
+    container_name: test-nginx
     depends_on:
       - custom-server
     image: cyberdojo/nginx_custom_stub
     init: true
-    container_name: test-nginx
     ports: [ "80:80" ]
     user: root
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   custom-server:
     build:
-      context: app
       args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_PORT ]
+      context: src/server
+    container_name: test-custom-server
     depends_on:
       - custom-start-points
       - saver
+    environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_CUSTOM_IMAGE} # TODO: TAG from .env
     init: true
-    container_name: test-custom-server
-    environment: [ NO_PROMETHEUS ]
     ports: [ "${CYBER_DOJO_CUSTOM_PORT}:${CYBER_DOJO_CUSTOM_PORT}" ]
-    user: nobody
     read_only: true
     restart: "no"
-    volumes: [ "./test_server:/app/test:ro" ]
-    tmpfs: [ "/tmp:exec,mode=1777" ] # Sticky bit must be set on /tmp otherwise
-                                     # Dir.mktmpdir(id,'/tmp') complains
+    tmpfs: [ "/tmp:exec,mode=1777" ] # [1]
+    user: nobody
+    volumes: [ "./test:/test:ro" ]
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   custom-start-points:
-    user: nobody
-    image: ${CYBER_DOJO_CUSTOM_START_POINTS_IMAGE}:${CYBER_DOJO_CUSTOM_START_POINTS_TAG}
-    init: true
     container_name: test-custom-start-points
     environment: [ NO_PROMETHEUS ]
-    read_only: true
+    image: ${CYBER_DOJO_CUSTOM_START_POINTS_IMAGE}:${CYBER_DOJO_CUSTOM_START_POINTS_TAG}
+    init: true
     ports: [ "${CYBER_DOJO_CUSTOM_START_POINTS_PORT}:${CYBER_DOJO_CUSTOM_START_POINTS_PORT}" ]
-    tmpfs: /tmp
+    read_only: true
     restart: 'no'
+    tmpfs: /tmp
+    user: nobody
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   creator:
-    user: nobody
-    image: ${CYBER_DOJO_CREATOR_IMAGE}:latest # TODO: TAG from .env
-    init: true
     container_name: test-creator
     environment: [ NO_PROMETHEUS ]
-    read_only: true
+    image: ${CYBER_DOJO_CREATOR_IMAGE}:${CYBER_DOJO_CREATOR_TAG}
+    init: true
     ports: [ "${CYBER_DOJO_CREATOR_PORT}:${CYBER_DOJO_CREATOR_PORT}" ]
-    tmpfs: /tmp
+    read_only: true
     restart: 'no'
+    tmpfs: /tmp
+    user: nobody
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   saver:
-    user: saver
-    image: ${CYBER_DOJO_SAVER_IMAGE}:${CYBER_DOJO_SAVER_TAG}
-    init: true
     container_name: test-saver
     environment: [ NO_PROMETHEUS ]
-    read_only: true
+    image: ${CYBER_DOJO_SAVER_IMAGE}:${CYBER_DOJO_SAVER_TAG}
+    init: true
     ports: [ "${CYBER_DOJO_SAVER_PORT}:${CYBER_DOJO_SAVER_PORT}" ]
+    read_only: true
     restart: 'no'
     tmpfs:
       - /cyber-dojo:uid=19663,gid=65533
       - /tmp:uid=19663,gid=65533
+    user: saver
+
+# [1] Sticky bit must be set on /tmp otherwise
+#     Dir.mktmpdir(id,'/tmp') complains

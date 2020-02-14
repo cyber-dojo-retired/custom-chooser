@@ -45,6 +45,7 @@ ready()
   local -r path=ready
   local -r ready_cmd="\
     curl \
+      --data "{}" \
       --fail \
       --output $(ready_response_filename) \
       --silent \
@@ -108,7 +109,7 @@ container_up()
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
   printf '\n'
-  export NO_PROMETHEUS=true  
+  export NO_PROMETHEUS=true
   docker-compose \
     --file "${ROOT_DIR}/docker-compose.yml" \
     up \
@@ -126,12 +127,16 @@ container_up()
 # - - - - - - - - - - - - - - - - - - -
 port=${CYBER_DOJO_CUSTOM_START_POINTS_PORT}
 container_up ${port} custom-start-points ready clean
+
 port=${CYBER_DOJO_SAVER_PORT}
 container_up ${port} saver               ready clean
+
 port=${CYBER_DOJO_CREATOR_PORT}
 container_up ${port} creator             ready clean
+
 port=${CYBER_DOJO_CUSTOM_PORT}
 container_up ${port} custom-server       ready  #[1]
+
 port=${CYBER_DOJO_NGINX_PORT}
 container_up ${port} nginx
 sleep 1
