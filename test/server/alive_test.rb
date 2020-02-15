@@ -9,7 +9,7 @@ class AliveTest < CustomTestBase
 
   # - - - - - - - - - - - - - - - - -
 
-  test '15D',
+  test 'e5K',
   %w( its alive ) do
     browser.get '/alive'
     assert browser.last_response.ok?

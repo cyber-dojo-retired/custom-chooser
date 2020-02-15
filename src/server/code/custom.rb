@@ -19,6 +19,14 @@ class Custom < Sinatra::Base
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
+  # ctor
+
+  def initialize(app=nil, externals=Externals.new)
+    super(app)
+    @externals = externals
+  end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
   # identity
 
   get '/sha' do
@@ -73,15 +81,11 @@ class Custom < Sinatra::Base
   end
 
   def creator
-    externals.creator
+    @externals.creator
   end
 
   def start_points
-    externals.custom_start_points
-  end
-
-  def externals
-    @externals ||= Externals.new
+    @externals.custom_start_points
   end
 
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require_relative '../id58_test_base'
 require_src 'custom'
+require_src 'externals'
 
 class CustomTestBase < Id58TestBase
 
@@ -8,8 +9,12 @@ class CustomTestBase < Id58TestBase
     super(arg)
   end
 
+  def externals
+    @externals ||= Externals.new
+  end
+
   def app
-    Custom
+    @app ||= Custom.new(nil, externals)
   end
 
   def browser
