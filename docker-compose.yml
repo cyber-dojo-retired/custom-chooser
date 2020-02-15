@@ -8,14 +8,14 @@ services:
       context: src/nginx_stub
     container_name: test-nginx
     depends_on:
-      - custom-server
+      - custom
     image: cyberdojo/nginx_custom_stub
     init: true
     ports: [ "80:80" ]
     user: root
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  custom-server:
+  custom:
     build:
       args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_PORT ]
       context: src/server

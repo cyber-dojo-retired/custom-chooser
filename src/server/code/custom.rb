@@ -9,14 +9,25 @@ class Custom < Sinatra::Base
 
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
-  environment.append_path('assets/stylesheets')
-  environment.append_path('assets/javascripts')
-  environment.css_compressor = :scss
+  environment.append_path('code/assets/stylesheets')
+  environment.append_path('code/assets/javascripts')
+  #environment.css_compressor = :scss
+
+  get '/assets/*' do
+    env['PATH_INFO'].sub!('/assets', '')
+    settings.environment.call(env)
+  end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
+  # identity
 
   get '/sha' do
     content_type :json
     { 'sha': ENV['SHA'] }.to_json
   end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
+  # k8s/curl probing
 
   get '/alive' do
     content_type :json
@@ -28,10 +39,8 @@ class Custom < Sinatra::Base
     { 'ready?': start_points.ready? && creator.ready? }.to_json
   end
 
-  get '/assets/*' do
-    env['PATH_INFO'].sub!('/assets', '')
-    settings.environment.call(env)
-  end
+  # - - - - - - - - - - - - - - - - - - - - - -
+  # main routes
 
   get '/index' do
     @display_names = start_points.display_names

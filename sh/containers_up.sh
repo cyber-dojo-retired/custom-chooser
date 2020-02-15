@@ -116,17 +116,21 @@ container_up()
     --detach \
     --force-recreate \
       "${service_name}"
-  wait_briefly_until_ready "${port}" "${container_name}"
+  if [ "${3:-}" == 'ready' ]; then
+    wait_briefly_until_ready "${port}" "${container_name}"
+  fi
   #exit_unless_clean "${container_name}"
 }
 
 # - - - - - - - - - - - - - - - - - - -
 
 port=${CYBER_DOJO_CUSTOM_PORT}
-container_up ${port} custom-server  #[1]
+container_up ${port} custom ready  #[1]
 
 #port=${CYBER_DOJO_CUSTOM_CLIENT_PORT}
 #container_up ${port} custom-client
+
+container_up 80 nginx
 sleep 1
 
 # [1] can't do clean-check for custom as sinatra-contrib
