@@ -59,8 +59,14 @@ run_tests()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-run_server_tests() { run_tests nobody server "${@:-}"; }
-run_client_tests() { run_tests nobody client "${@:-}"; }
+run_server_tests()
+{
+  run_tests nobody server "${@:-}"
+}
+run_client_tests()
+{
+  : # run_tests nobody client "${@:-}"
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo

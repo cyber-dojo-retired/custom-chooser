@@ -40,7 +40,7 @@ export $(versioner_env_vars)
 
 ${SH_DIR}/build_images.sh
 ${SH_DIR}/containers_up.sh
-${SH_DIR}/test_in_containers.sh server "$@"
+${SH_DIR}/test_in_containers.sh "$@"
 ${SH_DIR}/containers_down.sh
 
 source ${SH_DIR}/image_name.sh
