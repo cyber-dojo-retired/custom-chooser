@@ -1,4 +1,4 @@
-#!/bin/bash -Ee
+#!/bin/bash -Eeu
 
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )/.." && pwd )"
 
@@ -72,12 +72,30 @@ ready_response_filename()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-exit_unless_clean()
+strip_known_warning()
+{
+  local -r log="${1}"
+  local -r known_warning="${2}"
+  local stripped=$(printf "${log}" | grep --invert-match -E "${known_warning}")
+  if [ "${log}" != "${stripped}" ]; then
+    >&2 echo "SERVICE START-UP WARNING: ${known_warning}"
+  else
+    >&2 echo "DID _NOT_ FIND WARNING!!: ${known_warning}"
+  fi
+  echo "${stripped}"
+}
+
+# - - - - - - - - - - - - - - - - - - -
+warn_if_unclean()
 {
   local -r name="${1}"
-  local -r docker_log=$(docker logs "${name}" 2>&1)
-  local -r line_count=$(echo -n "${docker_log}" | grep -c '^')
+  local log=$(docker logs "${name}" 2>&1)
+
+  local -r mismatched_indent_warning="application(.*): warning: mismatched indentations at 'rescue' with 'begin'"
+  log=$(strip_known_warning "${log}" "${mismatched_indent_warning}")
+
   printf "Checking ${name} started cleanly..."
+  local -r line_count=$(echo -n "${log}" | grep -c '^')
   # 3 lines on Thin (Unicorn=6, Puma=6)
   #Thin web server (v1.7.2 codename Bachmanity)
   #Maximum connections set to 1024
@@ -86,7 +104,7 @@ exit_unless_clean()
     printf 'OK\n'
   else
     printf 'FAIL\n'
-    print_docker_log "${name}" "${docker_log}"
+    print_docker_log "${name}" "${log}"
     exit 42
   fi
 }
@@ -95,10 +113,10 @@ exit_unless_clean()
 print_docker_log()
 {
   local -r name="${1}"
-  local -r docker_log="${2}"
+  local -r log="${2}"
   printf "[docker logs ${name}]\n"
   printf '<docker_log>\n'
-  printf "${docker_log}\n"
+  printf "${log}\n"
   printf '</docker_log>\n'
 }
 
@@ -121,9 +139,10 @@ container_up()
 # - - - - - - - - - - - - - - - - - - -
 
 container_up 80 nginx
-port=${CYBER_DOJO_CUSTOM_PORT}
-container_name=custom
-wait_briefly_until_ready "${port}" "${container_name}"
 
-# Can't do clean-check at the moment as sinatra-contrib
-# does several method redefinitions which cause warnings
+port=${CYBER_DOJO_CUSTOM_PORT}
+service_name=custom
+wait_briefly_until_ready "${port}" "${service_name}"
+
+container_name="test-${service_name}-server"
+warn_if_unclean "${container_name}"

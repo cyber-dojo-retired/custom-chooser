@@ -4,6 +4,7 @@ require_src 'custom'
 require_src 'externals'
 
 class CustomTestBase < Id58TestBase
+  include Rack::Test::Methods
 
   def initialize(arg)
     super(arg)

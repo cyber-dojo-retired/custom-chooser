@@ -3,7 +3,6 @@ require_relative 'custom_test_base'
 require 'ostruct'
 
 class ReadyTest < CustomTestBase
-  include Rack::Test::Methods
 
   def self.id58_prefix
     'a86'
