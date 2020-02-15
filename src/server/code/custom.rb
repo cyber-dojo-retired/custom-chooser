@@ -44,20 +44,20 @@ class Custom < Sinatra::Base
 
   get '/ready' do
     content_type :json
-    { 'ready?': start_points.ready? && creator.ready? }.to_json
+    { 'ready?': custom_start_points.ready? && creator.ready? }.to_json
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
   # main routes
 
   get '/index' do
-    @display_names = start_points.display_names
+    @display_names = custom_start_points.display_names
     @for = params['for']
     erb :index
   end
 
   post '/create_group', :provides => [:html, :json] do
-    manifest = start_points.manifest(display_name)
+    manifest = custom_start_points.manifest(display_name)
     id = creator.create_group(manifest)
     respond_to do |format|
       format.html { redirect "/kata/group/#{id}" }
@@ -66,7 +66,7 @@ class Custom < Sinatra::Base
   end
 
   post '/create_kata', :provides => [:html, :json] do
-    manifest = start_points.manifest(display_name)
+    manifest = custom_start_points.manifest(display_name)
     id = creator.create_kata(manifest)
     respond_to do |format|
       format.html { redirect "/kata/edit/#{id}" }
@@ -84,7 +84,7 @@ class Custom < Sinatra::Base
     @externals.creator
   end
 
-  def start_points
+  def custom_start_points
     @externals.custom_start_points
   end
 
