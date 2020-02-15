@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 require_relative 'externals'
 require 'sinatra/base'
-require 'sinatra/contrib'
+require_relative 'silent_warnings'
+require_silent 'sinatra/contrib' # N x "warning: method redefined"
 require 'sprockets'
 
 class Custom < Sinatra::Base
-  register Sinatra::Contrib
+  silent_warnings { register Sinatra::Contrib }
 
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
