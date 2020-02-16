@@ -18,8 +18,8 @@ class CustomTestBase < Id58TestBase
     @app ||= Custom.new(nil, externals)
   end
 
-  def browser
-    @browser ||= Rack::Test::Session.new(Rack::MockSession.new(app))
-  end
+  #def browser
+  #  @browser ||= Rack::Test::Session.new(Rack::MockSession.new(app))
+  #end
 
 end

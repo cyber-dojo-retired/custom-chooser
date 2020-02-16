@@ -11,9 +11,9 @@ class AliveTest < CustomTestBase
 
   test 'e5K',
   %w( its alive! ) do
-    browser.get '/alive'
-    assert browser.last_response.ok?
-    assert_equal '{"alive?":true}', browser.last_response.body
+    get '/alive'
+    assert last_response.ok?
+    assert_equal '{"alive?":true}', last_response.body
   end
 
 end
