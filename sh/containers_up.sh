@@ -68,7 +68,7 @@ ready_response()
 # - - - - - - - - - - - - - - - - - - -
 ready_response_filename()
 {
-  printf /tmp/curl-custom-ready-output
+  printf /tmp/curl-custom-chooser-ready-output
 }
 
 # - - - - - - - - - - - - - - - - - - -
@@ -140,8 +140,8 @@ container_up()
 
 container_up 80 nginx
 
-port=${CYBER_DOJO_CUSTOM_PORT}
-service_name=custom
+port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
+service_name=custom-chooser
 wait_briefly_until_ready "${port}" "${service_name}"
 
 container_name="test-${service_name}-server"

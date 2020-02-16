@@ -1,6 +1,6 @@
-#!/bin/bash -Ee
+#!/bin/bash -Eeu
 
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )" && cd .. && pwd )"
+readonly ROOT_DIR="$( cd "$( dirname "${0}" )/.." && pwd )"
 
 #- - - - - - - - - - - - - - - - - - - - - - - -
 build_images()
@@ -14,8 +14,7 @@ build_images()
 # - - - - - - - - - - - - - - - - - - - - - - - -
 git_commit_sha()
 {
-  echo $(cd "${ROOT_DIR}" \
-    && git rev-parse HEAD)
+  echo $(cd "${ROOT_DIR}" && git rev-parse HEAD)
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -

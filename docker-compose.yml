@@ -8,25 +8,25 @@ services:
       context: src/nginx_stub
     container_name: test-nginx
     depends_on:
-      - custom
+      - custom-chooser
     image: cyberdojo/nginx_custom_stub
     init: true
     ports: [ "80:80" ]
     user: root
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  custom:
+  custom-chooser:
     build:
-      args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_PORT ]
+      args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_PORT ]
       context: src/server
-    container_name: test-custom-server
+    container_name: test-custom-chooser-server
     depends_on:
       - custom-start-points
       - creator
     environment: [ NO_PROMETHEUS ]
-    image: ${CYBER_DOJO_CUSTOM_IMAGE} # TODO: TAG from .env
+    image: ${CYBER_DOJO_CUSTOM_CHOOSER_IMAGE}
     init: true
-    ports: [ "${CYBER_DOJO_CUSTOM_PORT}:${CYBER_DOJO_CUSTOM_PORT}" ]
+    ports: [ "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}:${CYBER_DOJO_CUSTOM_CHOOSER_PORT}" ]
     read_only: true
     restart: "no"
     tmpfs: [ "/tmp:exec,mode=1777" ] # [1]

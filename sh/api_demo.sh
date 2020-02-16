@@ -45,7 +45,7 @@ curl_http_302()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 demo_api()
 {
-  local -r controller=custom
+  local -r controller=custom-chooser
   printf "API /${controller}/...\n"
   printf "\t200 GET .../alive? => $(curl_json GET ${controller}/alive?)\n"
   printf "\t200 GET .../ready? => $(curl_json GET ${controller}/ready?)\n"

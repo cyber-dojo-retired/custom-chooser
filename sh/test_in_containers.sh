@@ -1,7 +1,7 @@
 #!/bin/bash -Eeu
 
 readonly root_dir="$( cd "$( dirname "${0}" )/.." && pwd )"
-readonly my_name=custom
+readonly my_name=custom-chooser
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_tests()
@@ -11,7 +11,7 @@ run_tests()
   local -r reports_dir=reports
   local -r coverage_root=/tmp/${reports_dir}
   local -r test_log=test.log
-  local -r container_name="test-${my_name}-${type}" # eg test-ragger-server
+  local -r container_name="test-${my_name}-${type}" # eg test-custom-chooser-server
   local -r coverage_code_group_name=tested
   local -r coverage_test_group_name=tester
 

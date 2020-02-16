@@ -1,4 +1,4 @@
-#!/bin/bash -Ee
+#!/bin/bash -Eeu
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
 tag_the_image()
