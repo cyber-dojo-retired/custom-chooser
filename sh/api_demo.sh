@@ -1,63 +1,65 @@
 #!/bin/bash -Eeu
 
 readonly SH_DIR="$( cd "$(dirname "${0}")" && pwd )"
-source ${SH_DIR}/versioner_env_vars.sh # for build-image
+source "${SH_DIR}/versioner_env_vars.sh" # for build-image
 export $(versioner_env_vars)
-source ${SH_DIR}/ip_address.sh # slow
-readonly IP_ADDRESS=$(ip_address)
-readonly PORT=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
+source "${SH_DIR}/ip_address.sh" # slow
+readonly IP_ADDRESS="$(ip_address)"
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 main()
 {
-  ${SH_DIR}/build_images.sh
-  ${SH_DIR}/containers_up.sh
+  "${SH_DIR}/build_images.sh"
+  "${SH_DIR}/containers_up.sh"
   echo
   demo
   echo
   if [ "${1:-}" == '--http' ]; then
-    open http://${IP_ADDRESS}:${PORT}/index?for=group
+    open "http://${IP_ADDRESS}:$(port)/index?for=group"
   else
-    ${SH_DIR}/containers_down.sh
+    "${SH_DIR}/containers_down.sh"
   fi
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 demo()
 {
-  local -r json_display_name='{"display_name":"Java Countdown, Round 1"}'
   echo API
   curl_json_body_200 GET  sha
   curl_json_body_200 GET  alive
   curl_json_body_200 GET  ready
   echo
-  curl_json_body_200 POST create_kata  "${json_display_name}"
-  curl_json_body_200 POST create_group "${json_display_name}"
+  curl_json_body_200 POST create_kata  "$(json_display_name)"
+  curl_json_body_200 POST create_group "$(json_display_name)"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json_body_200()
 {
   local -r log=/tmp/creator.log
-  local -r type=${1}     # eg GET|POST
-  local -r route=${2}    # eg sha
+  local -r type="${1}"   # eg GET|POST
+  local -r route="${2}"  # eg sha
   local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
-  local -r tab='\t'
   curl  \
     --data "${json}" \
     --fail \
     --header 'Content-type: application/json' \
     --header 'Accept: application/json' \
-    --request ${type} \
+    --request "${type}" \
     --silent \
     --verbose \
-      "http://${IP_ADDRESS}:${PORT}/${route}" \
-      > ${log} 2>&1
+      "http://${IP_ADDRESS}:$(port)/${route}" \
+      > "${log}" 2>&1
 
-    grep --quiet 200 ${log}             # eg HTTP/1.1 200 OK
-    local -r result=$(tail -n 1 ${log}) # eg {"sha":"78c19640aa43ea214da17d0bcb16abbd420d7642"}
-    printf "${tab}${type} ${route} => 200 ${result}\n"
+    grep --quiet 200 "${log}"             # eg HTTP/1.1 200 OK
+    local -r result=$(tail -n 1 "${log}") # eg {"sha":"78c19640aa43ea214da17d0bcb16abbd420d7642"}
+    echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-main ${1:-}
+port() { echo "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}"; }
+json_display_name() { echo -n '{"display_name":"Java Countdown, Round 1"}'; }
+tab() { printf '\t'; }
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+main "${1:-}"
