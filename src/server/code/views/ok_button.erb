@@ -2,19 +2,42 @@
 'use strict';
 $(() => {
 
-  const post = (url) => {
-    $('<form>', {
-      method: 'post',
-      action: url
-    }).hide().appendTo($('body')).submit().remove();
-  };
-
   $('button#ok').click(() => {
     const display_name = $('.selected.display-name').text().trim();
-    const param = $.param({display_name:display_name});
-    const url = `/custom/create_<%= @for %>?${param}`;
-    post(url);
+    $.ajax({
+         timeout: 1000, // 1 second
+            type: 'POST',
+             url: `<%= @create_url %>`,
+            data: `{"display_name": "${display_name}"}`,
+     contentType: 'application/json',
+        dataType: 'json',
+         success: complete,
+           error: error
+    });
   });
+
+  const complete = (data) => {
+    //window.open(data.redirect_url);
+    //window.location.href = '/';
+    // TODO
+    // The redirect need to have a different port....
+    alert(`redirect_url:${data.redirect_url}`);
+    window.location.href = data.redirect_url;
+  };
+
+  const error = (data, status, xhr) => {
+    const msg = `${JSON.stringify(data)}...${JSON.stringify(status)}...${JSON.stringify(xhr)}`;
+    alert(`error:${msg}`);
+  };
+
+  const error2 = (request, status, thrown) => {
+    cd.dialogError([
+      request.responseText,
+      '----------------------------',
+      `Status=${status}`,
+      thrown
+    ].join("\n"));
+  };
 
 });
 </script>

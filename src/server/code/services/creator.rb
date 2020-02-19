@@ -26,12 +26,12 @@ class Creator
     @http.get(__method__, {})
   end
 
-  def create_group(manifest)
-    @http.post(__method__, { manifest:manifest })
+  def create_custom_group(display_name)
+    @http.post(__method__, { display_name:display_name })
   end
 
-  def create_kata(manifest)
-    @http.post(__method__, { manifest:manifest })
+  def create_custom_kata(display_name)
+    @http.post(__method__, { display_name:display_name })
   end
 
 end

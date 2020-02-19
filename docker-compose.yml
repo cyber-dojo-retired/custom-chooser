@@ -51,7 +51,7 @@ services:
     depends_on:
       - saver
     environment: [ NO_PROMETHEUS ]
-    image: ${CYBER_DOJO_CREATOR_IMAGE}:${CYBER_DOJO_CREATOR_TAG}
+    image: ${CYBER_DOJO_CREATOR_IMAGE}:latest
     init: true
     ports: [ "${CYBER_DOJO_CREATOR_PORT}:${CYBER_DOJO_CREATOR_PORT}" ]
     read_only: true
