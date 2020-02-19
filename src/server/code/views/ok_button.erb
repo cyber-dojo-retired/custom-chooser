@@ -17,12 +17,7 @@ $(() => {
   });
 
   const complete = (data) => {
-    //window.open(data.redirect_url);
-    //window.location.href = '/';
-    // TODO
-    // The redirect need to have a different port....
-    alert(`redirect_url:${data.redirect_url}`);
-    window.location.href = data.redirect_url;
+    window.location = `http://${window.location.hostname}${data.route}`;
   };
 
   const error = (data, status, xhr) => {

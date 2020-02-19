@@ -94,14 +94,14 @@ class Custom < Sinatra::Base
   post '/create_group', provides:[:html, :json] do
     id = creator.create_custom_group(display_name)
     respond_to do |format|
-      format.json { json id:id, redirect_url:"/kata/group/#{id}" } # [8]
+      format.json { json id:id, route:"/kata/group/#{id}" } # [8]
     end
   end
 
   post '/create_kata', provides:[:html, :json] do
     id = creator.create_custom_kata(display_name)
     respond_to do |format|
-      format.json { json id: id, redirect_url:"/kata/edit/#{id}" } # [8]
+      format.json { json id: id, route:"/kata/edit/#{id}" } # [8]
     end
   end
 
