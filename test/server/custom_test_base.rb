@@ -15,7 +15,7 @@ class CustomTestBase < Id58TestBase
   end
 
   def app
-    @app ||= App.new(nil, externals)
+    @app ||= App.new(externals)
   end
 
   #def browser
