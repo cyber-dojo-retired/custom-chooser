@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require_relative 'externals'
 require_relative 'silent_warnings'
-require_silent 'sinatra/contrib' # N x "warning: method redefined"
 require 'sinatra/base'
+require_silent 'sinatra/contrib' # N x "warning: method redefined"
 require 'sprockets'
 
 class Custom < Sinatra::Base
@@ -67,10 +67,14 @@ class Custom < Sinatra::Base
   # stylesheets and javascript
 
   set :environment, Sprockets::Environment.new
+  # append asset paths
   environment.append_path('code/assets/stylesheets')
   environment.append_path('code/assets/javascripts')
+  # compress assets
+  #environment.js_compressor  = :uglify
   #environment.css_compressor = :scss
 
+  # get assets
   get '/assets/*' do
     env['PATH_INFO'].sub!('/assets', '')
     settings.environment.call(env)
