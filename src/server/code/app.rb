@@ -1,35 +1,8 @@
 # frozen_string_literal: true
 require_relative 'externals'
-require_relative 'silent_warnings'
-require 'sinatra/base'
-require_silent 'sinatra/contrib' # N x "warning: method redefined"
-require 'sprockets'
+require_relative 'json_app_base'
 
-class Custom < Sinatra::Base
-
-  silent_warnings { register Sinatra::Contrib }
-  set :port, ENV['PORT']
-  set :show_exceptions, false
-
-  # TODO: 1 add error handler (see creator)
-  # TODO: 2 create super thin separate App class (see creator)
-  # TODO: 3 ensure Custom.new object is created for each incoming request
-  #         but as @custom in tests so externals can be stubbed
-  # TODO: 4 add **splat handling
-  # TODO: 5 add button disable/enable wrapping around ajax call
-  # TODO: 6 check error handling in JS when creator fails
-  # TODO: 7 check error handling in JS when saver fails. creator needs to pass saver error 'through'
-  # TODO: 8 should create_group should return id:id and ALSO create_group:id to follow the pattern
-  #         of main path returning info against a key that matches the method name
-  # TODO: 8 same for create_kata()
-
-  error do
-    error = $!
-    puts "(500):#{error.message}:"
-    status(500)
-    #content_type('application/json')
-    body(error.message)
-  end
+class App < JsonAppBase
 
   # - - - - - - - - - - - - - - - - - - - - - -
   # ctor
@@ -64,33 +37,16 @@ class Custom < Sinatra::Base
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
-  # stylesheets and javascript
-
-  set :environment, Sprockets::Environment.new
-  # append asset paths
-  environment.append_path('code/assets/stylesheets')
-  environment.append_path('code/assets/javascripts')
-  # compress assets
-  #environment.js_compressor  = :uglify
-  #environment.css_compressor = :scss
-
-  # get assets
-  get '/assets/*' do
-    env['PATH_INFO'].sub!('/assets', '')
-    settings.environment.call(env)
-  end
-
-  # - - - - - - - - - - - - - - - - - - - - - -
   # html page
 
   get '/index', provides:[:html] do
     @display_names = custom_start_points.display_names
-    if params['for'] === 'group'
-      @possessive = 'our'
-      @create_url = '/create_group'
-    else
+    if params['for'] === 'kata'
       @possessive = 'my'
       @create_url = '/create_kata'
+    else
+      @possessive = 'our'
+      @create_url = '/create_group'
     end
     erb :index
   end
