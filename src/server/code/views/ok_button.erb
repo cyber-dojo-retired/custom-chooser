@@ -17,21 +17,37 @@ $(() => {
   });
 
   const complete = (data) => {
+    //window.open(url);
+    //window.location.href = cd.homePageUrl();
     window.location = `http://${window.location.hostname}${data.route}`;
   };
 
-  const error = (data, status, xhr) => {
-    const msg = `${JSON.stringify(data)}...${JSON.stringify(status)}...${JSON.stringify(xhr)}`;
-    alert(`error:${msg}`);
+  const error = (data) => {
+    const pretty = JSON.stringify(data, null, 2);
+    const html = $('<textarea>', {
+               'id':'error',
+         'readonly':'readonly'
+    }).val(pretty);
+    makeDialog(html, 'error', 'close').dialog('open');
   };
 
-  const error2 = (request, status, thrown) => {
-    cd.dialogError([
-      request.responseText,
-      '----------------------------',
-      `Status=${status}`,
-      thrown
-    ].join("\n"));
+  const makeDialog = function(html, title, close) {
+    let buttons = {};
+    buttons[close] = function() { $(this).remove(); };
+    return $('<div>')
+      .html(html)
+      .dialog({
+        title: dialogTitle(title),
+        autoOpen: false,
+        width: 580,
+        height: 280,
+        modal: true,
+        buttons: buttons
+      });
+  };
+
+  const dialogTitle = (title) => {
+    return `<span class="large dialog title">${title}<span>`;
   };
 
 });

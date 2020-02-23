@@ -40,15 +40,6 @@ class Custom < Sinatra::Base
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
-  # identity
-
-  get '/sha', provides:[:json] do
-    respond_to do |format|
-      format.json { json sha: ENV['SHA'] }
-    end
-  end
-
-  # - - - - - - - - - - - - - - - - - - - - - -
   # k8s/curl probing
 
   get '/alive?', provides:[:json] do
@@ -64,6 +55,28 @@ class Custom < Sinatra::Base
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
+  # identity
+
+  get '/sha', provides:[:json] do
+    respond_to do |format|
+      format.json { json sha: ENV['SHA'] }
+    end
+  end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
+  # stylesheets and javascript
+
+  set :environment, Sprockets::Environment.new
+  environment.append_path('code/assets/stylesheets')
+  environment.append_path('code/assets/javascripts')
+  #environment.css_compressor = :scss
+
+  get '/assets/*' do
+    env['PATH_INFO'].sub!('/assets', '')
+    settings.environment.call(env)
+  end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
   # html page
 
   get '/index', provides:[:html] do
@@ -76,16 +89,6 @@ class Custom < Sinatra::Base
       @create_url = '/create_kata'
     end
     erb :index
-  end
-
-  set :environment, Sprockets::Environment.new
-  environment.append_path('code/assets/stylesheets')
-  environment.append_path('code/assets/javascripts')
-  #environment.css_compressor = :scss
-
-  get '/assets/*' do
-    env['PATH_INFO'].sub!('/assets', '')
-    settings.environment.call(env)
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -

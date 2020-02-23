@@ -12,7 +12,7 @@ class IndexTest < CustomTestBase
   test '18w',
   %w( index ) do
     get '/index'
-    assert last_response.ok?    
+    assert last_response.ok?
     a_display_name = 'Java Countdown, Round 1'
     html = last_response.body
     expected = /<div class="display-name">\s*#{a_display_name}\s*<\/div>/

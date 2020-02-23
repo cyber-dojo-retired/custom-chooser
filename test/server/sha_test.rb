@@ -22,7 +22,7 @@ class ShaTest < CustomTestBase
   def git_sha?(s)
     s.is_a?(String) &&
       s.size === 40 &&
-        s.each_char.all?{ |ch| is_lo_hex?(ch) }
+        s.chars.all?{ |ch| is_lo_hex?(ch) }
   end
 
   def is_lo_hex?(ch)
