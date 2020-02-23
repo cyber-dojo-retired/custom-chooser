@@ -98,14 +98,14 @@ class Custom < Sinatra::Base
   # - - - - - - - - - - - - - - - - - - - - - -
   # ajax calls
 
-  post '/create_group', provides:[:html, :json] do
+  post '/create_group', provides:[:json] do
     id = creator.create_custom_group(display_name)
     respond_to do |format|
       format.json { json id:id, route:"/kata/group/#{id}" } # [8]
     end
   end
 
-  post '/create_kata', provides:[:html, :json] do
+  post '/create_kata', provides:[:json] do
     id = creator.create_custom_kata(display_name)
     respond_to do |format|
       format.json { json id: id, route:"/kata/edit/#{id}" } # [8]
