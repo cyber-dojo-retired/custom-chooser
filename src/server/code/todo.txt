@@ -7,6 +7,3 @@
 # 5 add button disable/enable wrapping around ajax call
 # 6 check error handling in JS when creator fails
 # 7 check error handling in JS when saver fails. creator needs to pass saver error 'through'
-# 8 should create_group should return id:id and ALSO create_group:id to follow the pattern
-#   of main path returning info against a key that matches the method name
-# 8 same for create_kata()

@@ -37,14 +37,14 @@ class App < JsonAppBase
   post '/create_group', provides:[:json] do
     id = target.create_custom_group(**args)
     respond_to do |format|
-      format.json { json id:id, route:"/kata/group/#{id}" } # [8]
+      format.json { json id:id, route:"/kata/group/#{id}" }
     end
   end
 
   post '/create_kata', provides:[:json] do
     id = target.create_custom_kata(**args)
     respond_to do |format|
-      format.json { json id: id, route:"/kata/edit/#{id}" } # [8]
+      format.json { json id:id, route:"/kata/edit/#{id}" }
     end
   end
 

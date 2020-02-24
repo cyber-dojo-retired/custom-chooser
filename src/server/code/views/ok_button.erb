@@ -2,7 +2,12 @@
 'use strict';
 $(() => {
 
-  $('button#ok').click(() => {
+  const disable = (node) => node.prop('disabled', true );
+  const enable  = (node) => node.prop('disabled', false);
+
+  const ok = $('button#ok');
+
+  ok.click(() => {
     const display_name = $('.selected.display-name').text().trim();
     $.ajax({
          timeout: 1000, // 1 second
@@ -11,12 +16,14 @@ $(() => {
             data: `{"display_name": "${display_name}"}`,
      contentType: 'application/json',
         dataType: 'json',
-         success: complete,
+      beforeSend: () => disable(ok),
+        complete: () => enable(ok),
+         success: success,
            error: error
     });
   });
 
-  const complete = (data) => {
+  const success = (data) => {
     //window.open(url);
     //window.location.href = cd.homePageUrl();
     window.location = `http://${window.location.hostname}${data.route}`;
@@ -37,17 +44,13 @@ $(() => {
     return $('<div>')
       .html(html)
       .dialog({
-        title: dialogTitle(title),
+        title: title,
         autoOpen: false,
         width: 580,
         height: 280,
         modal: true,
         buttons: buttons
       });
-  };
-
-  const dialogTitle = (title) => {
-    return `<span class="large dialog title">${title}<span>`;
   };
 
 });
