@@ -1,17 +1,10 @@
 # frozen_string_literal: true
-require_relative 'services/http_json/service'
-require_relative 'services/http_json/error'
+require_relative 'http_json_hash/service'
 
-class ExternalsCustomStartPoints
-
-  class Error < HttpJson::Error
-    def initialize(message)
-      super
-    end
-  end
+class ExternalCustomStartPoints
 
   def initialize(http)
-    @http = HttpJson::service(http, 'custom-start-points', 4526, Error)
+    @http = HttpJsonHash::service(self.class.name, http, 'custom-start-points', 4526)
   end
 
   def alive?

@@ -1,19 +1,20 @@
 # frozen_string_literal: true
-require_relative 'externals_creator'
-require_relative 'externals_custom_start_points'
+require_relative 'external_creator'
+require_relative 'external_custom_start_points'
+require_relative 'external_http'
 
 class Externals
 
   def creator
-    @creator ||= ExternalsCreator.new(http)
+    @creator ||= ExternalCreator.new(http)
   end
 
   def custom_start_points
-    @custom_start_points ||= ExternalsCustomStartPoints.new(http)
+    @custom_start_points ||= ExternalCustomStartPoints.new(http)
   end
 
   def http
-    @http ||= Net::HTTP
+    @http ||= ExternalHttp.new
   end
 
 end

@@ -1,17 +1,10 @@
 # frozen_string_literal: true
-require_relative 'services/http_json/service'
-require_relative 'services/http_json/error'
+require_relative 'http_json_hash/service'
 
-class ExternalsCreator
-
-  class Error < HttpJson::Error
-    def initialize(message)
-      super
-    end
-  end
+class ExternalCreator
 
   def initialize(http)
-    @http = HttpJson::service(http, 'creator', 4523, Error)
+    @http = HttpJsonHash::service(self.class.name, http, 'creator', 4523)
   end
 
   def alive?
