@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require_relative 'silent_warnings'
+require_relative 'silently'
 require 'sinatra/base'
-require_silent 'sinatra/contrib' # N x "warning: method redefined"
+silently { require 'sinatra/contrib' } # N x "warning: method redefined"
 require 'sprockets'
 
 class JsonAppBase < Sinatra::Base
@@ -10,7 +10,7 @@ class JsonAppBase < Sinatra::Base
     super(nil)
   end
 
-  silent_warnings { register Sinatra::Contrib }
+  silently { register Sinatra::Contrib }
   set :port, ENV['PORT']
 
   # - - - - - - - - - - - - - - - - - - - - - -
