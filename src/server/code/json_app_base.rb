@@ -18,9 +18,9 @@ class JsonAppBase < Sinatra::Base
 
   error do
     error = $!
-    puts "(500):#{error.message}:"
+    puts "(500):#{error.message}:" # TODO
     status(500)
-    #content_type('application/json')
+    #content_type('application/json') # TODO
     body(error.message)
   end
 
