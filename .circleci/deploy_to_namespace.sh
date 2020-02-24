@@ -21,7 +21,7 @@ helm upgrade \
   --install \
   --namespace=${NAMESPACE} \
   --set-string containers[0].tag=${TAG} \
-  --values .circleci/custom-values.yaml \
-  ${NAMESPACE}-custom \
+  --values .circleci/custom-chooser-values.yaml \
+  ${NAMESPACE}-custom-chooser \
   praqma/cyber-dojo-service \
   --version 0.2.4

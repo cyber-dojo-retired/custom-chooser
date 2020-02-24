@@ -1,5 +1,5 @@
 
-fullnameOverride: "custom"
+fullnameOverride: "custom-chooser"
 
 replicaCount: 3
 
@@ -10,7 +10,7 @@ service:
     prometheus.io/port: "4536"
 
 volumes:
-  - name: custom-tmp-dir
+  - name: custom-chooser-tmp-dir
     emptyDir:
       medium: Memory
       sizeLimit: "16Mi"
@@ -20,13 +20,13 @@ podSecurityContext:
   fsGroup: 65534 # nobody
 
 containers:
-  - name: custom
-    image: cyberdojo/custom
+  - name: custom-chooser
+    image: cyberdojo/custom-chooser
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
     volumeMounts:
-      - name: custom-tmp-dir
+      - name: custom-chooser-tmp-dir
         mountPath: /tmp
         readOnly: false
     resources:
