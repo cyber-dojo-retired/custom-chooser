@@ -1,21 +1,21 @@
-Run options: --seed 10962
+Run options: --seed 25035
 
 # Running:
 
 .........
 
-Finished in 0.086426s, 104.1357 runs/s, 173.5594 assertions/s.
+Finished in 0.093367s, 96.3937 runs/s, 160.6561 assertions/s.
 
 9 runs, 15 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10907 / 22369 LOC (48.76%) covered.
+Coverage report generated for MiniTest to /tmp/reports. 10904 / 22366 LOC (48.75%) covered.
 
 Slowest 5 tests are...
-0.0214 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0182 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
-0.0119 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0100 - a7318w:index_test.rb:12:index                                           
-0.0084 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
-0.0062 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
+0.0333 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0194 - a7318w:index_test.rb:12:index                                           
+0.0110 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
+0.0108 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
+0.0063 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
+0.0019 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
 
 
                  failures |       0   <=     0 | [32m true [0m
@@ -24,8 +24,8 @@ Slowest 5 tests are...
                     skips |       0   <=     0 | [32m true [0m
         duration(test)[s] |    0.09   <=     2 | [32m true [0m
                     tests |       9   >=     1 | [32m true [0m
-         coverage(app)[%] |   81.86   >=   100 | [31m false [0m
+         coverage(app)[%] |    81.6   >=   100 | [31m false [0m
         coverage(test)[%] |   100.0   >=   100 | [32m true [0m
    lines(test)/lines(app) |    0.36   >=   1.2 | [31m false [0m
-     hits(app)/hits(test) |    0.75   >=   2.7 | [31m false [0m
+     hits(app)/hits(test) |    0.76   >=   2.7 | [31m false [0m
 

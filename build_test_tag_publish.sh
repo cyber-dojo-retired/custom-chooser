@@ -34,7 +34,7 @@ on_ci_publish_tagged_images()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
-readonly SH_DIR="$( cd "$( dirname "${0}" )" && pwd )/sh"
+readonly SH_DIR="$(cd "$(dirname "${0}")/sh" && pwd)"
 source ${SH_DIR}/versioner_env_vars.sh
 export $(versioner_env_vars)
 
