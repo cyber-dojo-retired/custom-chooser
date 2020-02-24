@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require_relative 'http_json/service'
-require_relative 'http_json/error'
+require_relative 'services/http_json/service'
+require_relative 'services/http_json/error'
 
-class Creator
+class ExternalsCreator
 
   class Error < HttpJson::Error
     def initialize(message)

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
-require_relative 'services/creator'
-require_relative 'services/custom_start_points'
+require_relative 'externals_creator'
+require_relative 'externals_custom_start_points'
 
 class Externals
 
   def creator
-    @creator ||= Creator.new(http)
+    @creator ||= ExternalsCreator.new(http)
   end
 
   def custom_start_points
-    @custom_start_points ||= CustomStartPoints.new(http)
+    @custom_start_points ||= ExternalsCustomStartPoints.new(http)
   end
 
   def http
