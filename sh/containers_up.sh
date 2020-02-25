@@ -141,8 +141,8 @@ container_up()
 container_up 80 nginx
 
 port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
-service_name=custom-chooser
+service_name=custom-chooser-server
 wait_briefly_until_ready "${port}" "${service_name}"
 
-container_name="test-${service_name}-server"
+container_name="test-${service_name}"
 warn_if_unclean "${container_name}"

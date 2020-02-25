@@ -8,7 +8,7 @@ services:
       context: src/nginx_stub
     container_name: test-nginx
     depends_on:
-      - custom-chooser
+      - custom-chooser-server
     image: cyberdojo/nginx_custom_stub
     init: true
     ports: [ "80:80" ]
@@ -20,7 +20,7 @@ services:
       context: src/client
     container_name: test-custom-chooser-client
     depends_on:
-      - custom-chooser
+      - custom-chooser-server
       - selenium
     image: cyberdojo/test-custom-chooser-client
     init: true
@@ -30,7 +30,7 @@ services:
     user: nobody
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  custom-chooser:
+  custom-chooser-server:
     build:
       args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_PORT ]
       context: src/server
