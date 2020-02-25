@@ -10,7 +10,7 @@ readonly IP_ADDRESS="$(ip_address)"
 main()
 {
   "${SH_DIR}/build_images.sh"
-  "${SH_DIR}/containers_up.sh"
+  "${SH_DIR}/containers_up.sh" --api-demo
   echo
   demo
   echo
@@ -25,9 +25,9 @@ main()
 demo()
 {
   echo API
-  curl_json_body_200 GET  sha
   curl_json_body_200 GET  alive
   curl_json_body_200 GET  ready
+  curl_json_body_200 GET  sha
   echo
   curl_json_body_200 POST create_kata  "$(json_display_name)"
   curl_json_body_200 POST create_group "$(json_display_name)"

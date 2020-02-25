@@ -1,28 +1,28 @@
-Run options: --seed 18395
+Run options: --seed 33283
 
 # Running:
 
 .........
 
-Finished in 0.092308s, 97.4994 runs/s, 162.4989 assertions/s.
+Finished in 0.082407s, 109.2141 runs/s, 182.0235 assertions/s.
 
 9 runs, 15 assertions, 0 failures, 0 errors, 0 skips
 Coverage report generated for MiniTest to /tmp/reports. 10904 / 22366 LOC (48.75%) covered.
 
 Slowest 5 tests are...
-0.0430 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
-0.0117 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0066 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
-0.0064 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0061 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
-0.0059 - a7318w:index_test.rb:12:index                                           
+0.0225 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0178 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
+0.0097 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
+0.0077 - a7318w:index_test.rb:12:index                                           
+0.0075 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0064 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.09   <=     2 | [32m true [0m
+        duration(test)[s] |    0.08   <=     2 | [32m true [0m
                     tests |       9   >=     1 | [32m true [0m
          coverage(app)[%] |    81.6   >=   100 | [31m false [0m
         coverage(test)[%] |   100.0   >=   100 | [32m true [0m
