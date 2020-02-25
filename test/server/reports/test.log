@@ -1,28 +1,28 @@
-Run options: --seed 25035
+Run options: --seed 19814
 
 # Running:
 
 .........
 
-Finished in 0.093367s, 96.3937 runs/s, 160.6561 assertions/s.
+Finished in 0.084154s, 106.9470 runs/s, 178.2450 assertions/s.
 
 9 runs, 15 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10904 / 22366 LOC (48.75%) covered.
+Coverage report generated for MiniTest to /tmp/reports. 10905 / 22366 LOC (48.76%) covered.
 
 Slowest 5 tests are...
-0.0333 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0194 - a7318w:index_test.rb:12:index                                           
-0.0110 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
-0.0108 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
-0.0063 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
-0.0019 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0400 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
+0.0119 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0057 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0057 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
+0.0056 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
+0.0055 - a7318w:index_test.rb:12:index                                           
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.09   <=     2 | [32m true [0m
+        duration(test)[s] |    0.08   <=     2 | [32m true [0m
                     tests |       9   >=     1 | [32m true [0m
          coverage(app)[%] |    81.6   >=   100 | [31m false [0m
         coverage(test)[%] |   100.0   >=   100 | [32m true [0m
