@@ -1,31 +1,31 @@
-Run options: --seed 6696
+Run options: --seed 14330
 
 # Running:
 
 .........
 
-Finished in 0.085699s, 105.0183 runs/s, 175.0305 assertions/s.
+Finished in 0.084412s, 106.6203 runs/s, 177.7006 assertions/s.
 
 9 runs, 15 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10904 / 22366 LOC (48.75%) covered.
+Coverage report generated for MiniTest to /tmp/reports. 10897 / 22382 LOC (48.69%) covered.
 
 Slowest 5 tests are...
-0.0244 - d5ae5K:alive_test.rb:12:its alive!                                      
-0.0184 - a7318w:index_test.rb:12:index                                           
-0.0122 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0091 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
-0.0059 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
-0.0055 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
+0.0235 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0185 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
+0.0121 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0084 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
+0.0058 - a7318w:index_test.rb:12:index                                           
+0.0057 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.09   <=     2 | [32m true [0m
+        duration(test)[s] |    0.08   <=     2 | [32m true [0m
                     tests |       9   >=     1 | [32m true [0m
-         coverage(app)[%] |    81.6   >=   100 | [31m false [0m
+         coverage(app)[%] |   78.95   >=   100 | [31m false [0m
         coverage(test)[%] |   100.0   >=   100 | [32m true [0m
-   lines(test)/lines(app) |    0.36   >=   1.2 | [31m false [0m
-     hits(app)/hits(test) |    0.76   >=   2.7 | [31m false [0m
+   lines(test)/lines(app) |    0.34   >=   1.2 | [31m false [0m
+     hits(app)/hits(test) |    0.72   >=   2.7 | [31m false [0m
 
