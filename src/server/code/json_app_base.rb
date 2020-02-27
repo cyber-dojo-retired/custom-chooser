@@ -47,7 +47,7 @@ class JsonAppBase < Sinatra::Base
       respond_to do |format|
         format.json {
           result = instance_eval {
-            target.public_send(name, **args)
+            target.public_send(name, **json_args)
           }
           json({ name => result })
         }
@@ -71,9 +71,16 @@ class JsonAppBase < Sinatra::Base
 
   # - - - - - - - - - - - - - - - - - - - - - -
 
-  def args
-    payload = json_hash_parse(request.body.read)
-    Hash[payload.map{ |key,value| [key.to_sym, value] }]
+  def json_args
+    keyworded(json_hash_parse(request.body.read))
+  end
+
+  def params_args
+    keyworded(params)
+  end
+
+  def keyworded(args)
+    Hash[args.map{ |key,value| [key.to_sym, value] }]
   end
 
   private

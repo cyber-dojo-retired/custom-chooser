@@ -2,56 +2,12 @@
 'use strict';
 $(() => {
 
-  const disable = (node) => node.prop('disabled', true );
-  const enable  = (node) => node.prop('disabled', false);
-
-  const ok = $('button#ok');
-
-  ok.click(() => {
+  $('button#ok').click(() => {
     const display_name = $('.selected.display-name').text().trim();
-    $.ajax({
-         timeout: 1000, // 1 second
-            type: 'POST',
-             url: `<%= @create_url %>`,
-            data: `{"display_name": "${display_name}"}`,
-     contentType: 'application/json',
-        dataType: 'json',
-      beforeSend: () => disable(ok),
-        complete: () => enable(ok),
-         success: success,
-           error: error
-    });
+    const url = `<%= @create_url %>?display_name=` + encodeURIComponent(display_name);
+    window.open(url);
+    window.location = '/'
   });
-
-  const success = (data) => {
-    //window.open(url);
-    //window.location.href = cd.homePageUrl();
-    window.location = `http://${window.location.hostname}${data.route}`;
-  };
-
-  const error = (data) => {
-    const pretty = JSON.stringify(data, null, 2);
-    const html = $('<textarea>', {
-               'id':'error',
-         'readonly':'readonly'
-    }).val(pretty);
-    makeDialog(html, 'error', 'close').dialog('open');
-  };
-
-  const makeDialog = function(html, title, close) {
-    let buttons = {};
-    buttons[close] = function() { $(this).remove(); };
-    return $('<div>')
-      .html(html)
-      .dialog({
-        title: title,
-        autoOpen: false,
-        width: 580,
-        height: 280,
-        modal: true,
-        buttons: buttons
-      });
-  };
 
 });
 </script>

@@ -32,20 +32,47 @@ class App < JsonAppBase
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
-  # ajax calls
+  # create a group
+
+  get '/create_group', provides:[:html] do
+    id = target.create_custom_group(**params_args)
+    respond_to do |format|
+      format.html { redirect group_path(id) }
+    end
+  end
 
   post '/create_group', provides:[:json] do
-    id = target.create_custom_group(**args)
+    id = target.create_custom_group(**json_args)
     respond_to do |format|
-      format.json { json id:id, route:"/kata/group/#{id}" }
+      format.json { json id:id, route:group_path(id) }
+    end
+  end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
+  # create a kata
+
+  get '/create_kata', provides:[:html] do
+    id = target.create_custom_kata(**params_args)
+    respond_to do |format|
+      format.html { redirect kata_path(id) }
     end
   end
 
   post '/create_kata', provides:[:json] do
-    id = target.create_custom_kata(**args)
+    id = target.create_custom_kata(**json_args)
     respond_to do |format|
-      format.json { json id:id, route:"/kata/edit/#{id}" }
+      format.json { json id:id, route:kata_path(id) }
     end
+  end
+
+  private
+
+  def kata_path(id)
+    "/kata/edit/#{id}"
+  end
+
+  def group_path(id)
+    "/kata/group/#{id}"
   end
 
 end
