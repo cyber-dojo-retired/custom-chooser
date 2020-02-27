@@ -1,6 +1,6 @@
 #!/bin/bash -Eeu
 
-readonly root_dir="$( cd "$( dirname "${0}" )/.." && pwd )"
+readonly root_dir="$(cd "$(dirname "${0}")/.." && pwd)"
 readonly my_name=custom-chooser
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -50,9 +50,11 @@ run_tests()
   local -r status=${PIPESTATUS[0]}
   set -e
 
-  echo "Coverage files copied to test/${type}/${reports_dir}/index.html"
+  local -r coverage_path="test/${type}/${reports_dir}/index.html"
+  echo "Coverage files copied to ${coverage_path}"
   echo "${type} test status == ${status}"
   if [ "${status}" != '0' ]; then
+    open "${root_dir}/${coverage_path}"
     docker logs "${container_name}"
   fi
   return ${status}
