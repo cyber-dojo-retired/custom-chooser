@@ -15,7 +15,7 @@ main()
   demo
   echo
   if [ "${1:-}" == '--http' ]; then
-    open "http://${IP_ADDRESS}:$(port)/index_group"
+    open "http://${IP_ADDRESS}:80/custom-chooser/index_group"    
   else
     "${SH_DIR}/containers_down.sh"
   fi
