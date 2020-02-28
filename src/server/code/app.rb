@@ -24,7 +24,7 @@ class App < JsonAppBase
       format.html do
         @display_names = target.display_names
         @possessive = 'our'
-        @create_url = '/create_group'
+        @create_url = '/custom-chooser/create_group'
         erb :index
       end
     end
@@ -56,7 +56,7 @@ class App < JsonAppBase
       format.html do
         @display_names = target.display_names
         @possessive = 'my'
-        @create_url = '/create_kata'
+        @create_url = '/custom-chooser/create_kata'
         erb :index
       end
     end
