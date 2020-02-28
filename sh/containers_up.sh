@@ -1,4 +1,4 @@
-#!/bin/bash -Eeu
+#!/bin/bash -Eeux
 
 readonly ROOT_DIR="$( cd "$( dirname "${0}" )/.." && pwd )"
 
@@ -46,15 +46,14 @@ curl_ready()
   local -r port="${1}"
   local -r path=ready?
   local -r url="http://${IP_ADDRESS}:${port}/${path}"
-  rm -f "$(ready_filename)"
   curl \
     --fail \
-    --output $(ready_filename) \
     --request GET \
-    --silent \
     "${url}"
 
   [ "$?" == '0' ] && [ "$(ready_response)" == '{"ready?":true}' ]
+  #--output $(ready_filename) \
+  #--silent \
 }
 
 # - - - - - - - - - - - - - - - - - - -
