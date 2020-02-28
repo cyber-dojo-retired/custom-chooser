@@ -31,8 +31,10 @@ wait_briefly_until_ready()
   done
   printf 'FAIL\n'
   printf "${name} not ready after ${max_tries} tries\n"
-  if [ -f "$(ready_response_filename)" ]; then
+  if [ -f "$(ready_filename)" ]; then
     printf "$(ready_response)\n"
+  else
+    printf "$(ready_filename) does not exist?!\n"
   fi
   docker logs ${name}
   exit 42
