@@ -26,7 +26,7 @@ wait_briefly_until_ready()
       return
     else
       printf .
-      sleep 0.1
+      sleep 0.2
     fi
   done
   printf 'FAIL\n'
