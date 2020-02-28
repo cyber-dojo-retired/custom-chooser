@@ -145,7 +145,7 @@ fi
 port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
 service_name=custom-chooser-server
 container_up "${port}" "${service_name}"
-wait_briefly_until_ready "${port}" "${service_name}"
 
 container_name="test-${service_name}"
+wait_briefly_until_ready "${port}" "${container_name}"
 warn_if_unclean "${container_name}"
