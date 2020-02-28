@@ -10,43 +10,42 @@ class IndexTest < CustomTestBase
   # - - - - - - - - - - - - - - - - -
 
   test '18w',
-  %w( index ) do
-    get '/index'
+  %w( index where selection creates a group ) do
+    get '/index_group'
     assert last_response.ok?
-    a_display_name = 'Java Countdown, Round 1'
     html = last_response.body
-    expected = /<div class="display-name">\s*#{a_display_name}\s*<\/div>/
-    assert html =~ expected, html
+    assert heading(html).include?('our'), html
+    refute heading(html).include?('my'), html
+    display_names.each do |display_name|
+      expected = /<div class="display-name">\s*#{display_name}\s*<\/div>/
+      assert html =~ expected, display_name
+    end
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test '19w',
-  %w( heading possessive is 'my' when 'for' param is 'kata') do
-    get '/index', for:'kata'
+  %w( index where selection creates a kata ) do
+    get '/index_kata'
+    assert last_response.ok?
     html = last_response.body
-    assert heading(html).include?('my')
-  end
-
-  # - - - - - - - - - - - - - - - - -
-
-  test '20w',
-  %w( heading possessive is 'our' when 'for' param is 'group') do
-    get '/index', for:'group'
-    html = last_response.body
-    assert heading(html).include?('our')
-  end
-
-  # - - - - - - - - - - - - - - - - -
-
-  test '21w',
-  %w( heading possessive is 'our' when 'for' param is unknown) do
-    get '/index', for:'unknown'
-    html = last_response.body
-    assert heading(html).include?('our')
+    assert heading(html).include?('my'), html
+    refute heading(html).include?('our'), html
+    display_names.each do |display_name|
+      expected = /<div class="display-name">\s*#{display_name}\s*<\/div>/
+      assert html =~ expected, display_name
+    end
   end
 
   private
+
+  def display_names
+    [
+      'Java Countdown, Round 1',
+      'Java Countdown, Round 2',
+      'Java Countdown, Round 3'
+    ]
+  end
 
   def heading(html)
     # (.*?) for non-greedy match

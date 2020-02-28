@@ -1,31 +1,30 @@
-Run options: --seed 14330
+Run options: --seed 15547
 
 # Running:
 
-.........
+.......
 
-Finished in 0.084412s, 106.6203 runs/s, 177.7006 assertions/s.
+Finished in 0.068861s, 101.6536 runs/s, 319.4826 assertions/s.
 
-9 runs, 15 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10897 / 22382 LOC (48.69%) covered.
+7 runs, 22 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 10877 / 22388 LOC (48.58%) covered.
 
 Slowest 5 tests are...
-0.0235 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0185 - a7319w:index_test.rb:24:heading possessive is 'my' when 'for' param is 'kata'
-0.0121 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0084 - a7320w:index_test.rb:33:heading possessive is 'our' when 'for' param is 'group'
-0.0058 - a7318w:index_test.rb:12:index                                           
-0.0057 - a7321w:index_test.rb:42:heading possessive is 'our' when 'for' param is unknown
+0.0388 - a7318w:index_test.rb:12:index where selection creates a group           
+0.0079 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0076 - a7319w:index_test.rb:27:index where selection creates a kata            
+0.0054 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0019 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0008 - a8615E:ready_test.rb:22:not ready when creator is not ready             
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.08   <=     2 | [32m true [0m
-                    tests |       9   >=     1 | [32m true [0m
-         coverage(app)[%] |   78.95   >=   100 | [31m false [0m
+        duration(test)[s] |    0.07   <=     2 | [32m true [0m
+         coverage(app)[%] |    79.4   >=   100 | [31m false [0m
         coverage(test)[%] |   100.0   >=   100 | [32m true [0m
-   lines(test)/lines(app) |    0.34   >=   1.2 | [31m false [0m
-     hits(app)/hits(test) |    0.72   >=   2.7 | [31m false [0m
+   lines(test)/lines(app) |    0.33   >=   1.2 | [31m false [0m
+     hits(app)/hits(test) |    0.56   >=   2.7 | [31m false [0m
 

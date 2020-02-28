@@ -15,7 +15,7 @@ main()
   demo
   echo
   if [ "${1:-}" == '--http' ]; then
-    open "http://${IP_ADDRESS}:$(port)/index?for=group"
+    open "http://${IP_ADDRESS}:$(port)/index_group"
   else
     "${SH_DIR}/containers_down.sh"
   fi
@@ -29,10 +29,12 @@ demo()
   curl_json_body_200 GET  ready
   curl_json_body_200 GET  sha
   echo
+  curl_params_200    GET  index_group
   curl_params_302    GET  create_group "$(params_display_name)"
-  curl_params_302    GET  create_kata  "$(params_display_name)"
-  echo
   curl_json_body_200 POST create_group "$(json_display_name)"
+  echo
+  curl_params_200    GET  index_kata
+  curl_params_302    GET  create_kata  "$(params_display_name)"
   curl_json_body_200 POST create_kata  "$(json_display_name)"
 }
 
@@ -78,6 +80,25 @@ curl_params_302()
     grep --quiet 302 "${log}"                 # eg HTTP/1.1 302 Moved Temporarily
     local -r result=$(grep Location "${log}") # Location: http://192.168.99.100:4536/kata/edit/5B65RC
     echo "$(tab)${type} ${route} => 302 ${result}"
+}
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+curl_params_200()
+{
+  local -r log=/tmp/creator.log
+  local -r type="${1}"     # eg GET|POST
+  local -r route="${2}"    # eg index_kata
+  curl  \
+    --fail \
+    --request "${type}" \
+    --silent \
+    --verbose \
+      "http://${IP_ADDRESS}:$(port)/${route}" \
+      > "${log}" 2>&1
+
+    grep --quiet 200 "${log}"                 # eg HTTP/1.1 200 OK
+    local -r result=$(grep session "${log}")
+    echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -

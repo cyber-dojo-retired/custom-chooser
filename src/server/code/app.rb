@@ -17,22 +17,18 @@ class App < JsonAppBase
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
-  # html page
+  # group
 
-  get '/index', provides:[:html] do
-    @display_names = target.display_names
-    if params['for'] === 'kata'
-      @possessive = 'my'
-      @create_url = '/create_kata'
-    else
-      @possessive = 'our'
-      @create_url = '/create_group'
+  get '/index_group', provides:[:html] do
+    respond_to do |format|
+      format.html do
+        @display_names = target.display_names
+        @possessive = 'our'
+        @create_url = '/create_group'
+        erb :index
+      end
     end
-    erb :index
   end
-
-  # - - - - - - - - - - - - - - - - - - - - - -
-  # create a group
 
   get '/create_group', provides:[:html] do
     id = target.create_custom_group(**params_args)
@@ -48,8 +44,23 @@ class App < JsonAppBase
     end
   end
 
+  def group_path(id)
+    "/kata/group/#{id}"
+  end
+
   # - - - - - - - - - - - - - - - - - - - - - -
-  # create a kata
+  # kata
+
+  get '/index_kata', provides:[:html] do
+    respond_to do |format|
+      format.html do
+        @display_names = target.display_names
+        @possessive = 'my'
+        @create_url = '/create_kata'
+        erb :index
+      end
+    end
+  end
 
   get '/create_kata', provides:[:html] do
     id = target.create_custom_kata(**params_args)
@@ -65,14 +76,8 @@ class App < JsonAppBase
     end
   end
 
-  private
-
   def kata_path(id)
     "/kata/edit/#{id}"
-  end
-
-  def group_path(id)
-    "/kata/group/#{id}"
   end
 
 end
