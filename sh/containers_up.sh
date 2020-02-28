@@ -21,7 +21,7 @@ wait_briefly_until_ready()
   local -r max_tries=20
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
-    if ready ${port}; then
+    if curl_ready ${port}; then
       printf '.OK\n'
       return
     else
@@ -39,34 +39,30 @@ wait_briefly_until_ready()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-ready()
+curl_ready()
 {
   local -r port="${1}"
-  local -r path=ready
-  local -r ready_cmd="\
-    curl \
-      --data "{}" \
-      --fail \
-      --output $(ready_response_filename) \
-      --silent \
-      -X GET \
-        http://${IP_ADDRESS}:${port}/${path}"
-  rm -f "$(ready_response_filename)"
-  if ${ready_cmd} && [ "$(ready_response)" = '{"ready?":true}' ]; then
-    true
-  else
-    false
-  fi
+  local -r path=ready?
+  local -r url="http://${IP_ADDRESS}:${port}/${path}"
+  rm -f "$(ready_filename)"
+  curl \
+    --fail \
+    --output $(ready_filename) \
+    --request GET \
+    --silent \
+    "${url}"
+
+  [ "$?" == '0' ] && [ "$(ready_response)" == '{"ready?":true}' ]
 }
 
 # - - - - - - - - - - - - - - - - - - -
 ready_response()
 {
-  cat "$(ready_response_filename)"
+  cat "$(ready_filename)"
 }
 
 # - - - - - - - - - - - - - - - - - - -
-ready_response_filename()
+ready_filename()
 {
   printf /tmp/curl-custom-chooser-ready-output
 }
