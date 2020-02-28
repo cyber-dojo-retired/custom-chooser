@@ -1,11 +1,11 @@
-#!/bin/bash -Eeux
+#!/bin/bash -Eeu
 
-readonly ROOT_DIR="$( cd "$( dirname "${0}" )/.." && pwd )"
+readonly ROOT_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
 
 # - - - - - - - - - - - - - - - - - - - - - -
 ip_address_slow()
 {
-  if [ -n "${DOCKER_MACHINE_NAME}" ]; then
+  if [ -n "${DOCKER_MACHINE_NAME:-}" ]; then
     docker-machine ip ${DOCKER_MACHINE_NAME}
   else
     printf localhost
@@ -26,7 +26,7 @@ wait_briefly_until_ready()
       return
     else
       printf .
-      sleep 0.2
+      sleep 0.1
     fi
   done
   printf 'FAIL\n'
@@ -48,12 +48,12 @@ curl_ready()
   local -r url="http://${IP_ADDRESS}:${port}/${path}"
   curl \
     --fail \
+    --output $(ready_filename) \
     --request GET \
+    --silent \
     "${url}"
 
   [ "$?" == '0' ] && [ "$(ready_response)" == '{"ready?":true}' ]
-  #--output $(ready_filename) \
-  #--silent \
 }
 
 # - - - - - - - - - - - - - - - - - - -
