@@ -16,14 +16,6 @@ class App < JsonAppBase
     Chooser.new(@externals)
   end
 
-  # - - - - - - - - - - - - - - - - - - - - - -
-  # assets
-
-  get '/assets/*' do
-    env['PATH_INFO'].sub!('/assets', '')
-    settings.environment.call(env)
-  end
-
   get_probe(:alive?) # curl/k8s
   get_probe(:ready?) # curl/k8s
   get_json(:sha)     # identity
