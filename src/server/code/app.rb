@@ -17,6 +17,18 @@ class App < JsonAppBase
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
+  # assets
+
+  get '/assets/*' do
+    env['PATH_INFO'].sub!('/assets', '')
+    settings.environment.call(env)
+  end
+
+  get_probe(:alive?) # curl/k8s
+  get_probe(:ready?) # curl/k8s
+  get_json(:sha) # identity
+
+  # - - - - - - - - - - - - - - - - - - - - - -
   # group
 
   get '/index_group', provides:[:html] do

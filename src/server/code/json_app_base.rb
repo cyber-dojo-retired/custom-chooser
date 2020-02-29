@@ -35,11 +35,6 @@ class JsonAppBase < Sinatra::Base
   #environment.js_compressor  = :uglify
   #environment.css_compressor = :scss
 
-  get '/assets/*' do
-    env['PATH_INFO'].sub!('/assets', '')
-    settings.environment.call(env)
-  end
-
   # - - - - - - - - - - - - - - - - - - - - - -
 
   def self.get_json(name)
@@ -55,19 +50,14 @@ class JsonAppBase < Sinatra::Base
     end
   end
 
-  get_json(:sha) # identity
-
   # - - - - - - - - - - - - - - - - - - - - - -
 
-  def self.probe(name)
+  def self.get_probe(name)
     get "/#{name}" do
       result = instance_eval { target.public_send(name) }
       json({ name => result })
     end
   end
-
-  probe(:alive?) # curl/k8s
-  probe(:ready?) # curl/k8s
 
   # - - - - - - - - - - - - - - - - - - - - - -
 
