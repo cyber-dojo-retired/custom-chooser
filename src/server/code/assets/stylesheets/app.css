@@ -1,5 +1,1 @@
-/*
- * In Sprockets 3 I could split the CSS across several files and it just worked.
- * In Sprockets 4 not so. For now I'm just dumping all the CSS into one file.
- */
 //= require ./custom
