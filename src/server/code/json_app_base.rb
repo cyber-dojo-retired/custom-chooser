@@ -33,7 +33,6 @@ class JsonAppBase < Sinatra::Base
   environment.append_path('code/assets/javascripts')
   # compress assets
   #environment.js_compressor  = :uglify
-  #TODO: look into why css_compressor is not working
   #environment.css_compressor = :scss
 
   get '/assets/*' do
