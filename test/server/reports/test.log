@@ -1,30 +1,30 @@
-Run options: --seed 44201
+Run options: --seed 47410
 
 # Running:
 
 .......
 
-Finished in 0.079236s, 88.3439 runs/s, 277.6524 assertions/s.
+Finished in 0.073639s, 95.0579 runs/s, 298.7533 assertions/s.
 
 7 runs, 22 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10875 / 22392 LOC (48.57%) covered.
+Coverage report generated for MiniTest to /tmp/reports. 10875 / 22396 LOC (48.56%) covered.
 
 Slowest 5 tests are...
-0.0302 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0220 - a7318w:index_test.rb:12:index where selection creates a group           
-0.0097 - a7319w:index_test.rb:27:index where selection creates a kata            
-0.0084 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0008 - a8615E:ready_test.rb:22:not ready when creator is not ready             
-0.0007 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
+0.0418 - a7319w:index_test.rb:27:index where selection creates a kata            
+0.0135 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0084 - a7318w:index_test.rb:12:index where selection creates a group           
+0.0017 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0009 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
+0.0007 - a8615E:ready_test.rb:22:not ready when creator is not ready             
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.08   <=     2 | [32m true [0m
-      coverage(tested)[%] |   78.06   >=    78 | [32m true [0m
+        duration(test)[s] |    0.07   <=     2 | [32m true [0m
+      coverage(tested)[%] |   76.76   >=    78 | [31m false [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.33   >=   0.3 | [32m true [0m
-      hits(tested/tester) |    0.56   >=   0.5 | [32m true [0m
+     lines(tester/tested) |    0.32   >=   0.3 | [32m true [0m
+      hits(tested/tester) |    0.54   >=   0.5 | [32m true [0m
 
