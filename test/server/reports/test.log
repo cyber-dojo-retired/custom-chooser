@@ -1,25 +1,30 @@
-Run options: --seed 59278
+Run options: --seed 42570
 
 # Running:
 
-.
+.......
 
-Finished in 0.053976s, 18.5267 runs/s, 111.1603 assertions/s.
+Finished in 0.074249s, 94.2770 runs/s, 296.2990 assertions/s.
 
-1 runs, 6 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10684 / 22303 LOC (47.9%) covered.
+7 runs, 22 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 10875 / 22388 LOC (48.58%) covered.
 
-Slowest 1 tests are...
-0.0514 - a7318w:index_test.rb:12:index where selection creates a group           
+Slowest 5 tests are...
+0.0354 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0191 - a7318w:index_test.rb:12:index where selection creates a group           
+0.0079 - a7319w:index_test.rb:27:index where selection creates a kata            
+0.0021 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0013 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0009 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.05   <=     2 | [32m true [0m
-      coverage(tested)[%] |   66.52   >=    79 | [31m false [0m
-      coverage(tester)[%] |   57.69   >=   100 | [31m false [0m
+        duration(test)[s] |    0.07   <=     2 | [32m true [0m
+      coverage(tested)[%] |    79.4   >=    79 | [32m true [0m
+      coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
      lines(tester/tested) |    0.33   >=   0.3 | [32m true [0m
-      hits(tested/tester) |    0.72   >=   0.5 | [32m true [0m
+      hits(tested/tester) |    0.56   >=   0.5 | [32m true [0m
 
