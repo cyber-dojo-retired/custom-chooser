@@ -4,7 +4,8 @@ $(() => {
 
   $('button#ok').click(() => {
     const display_name = $('.selected.display-name').text().trim();
-    const url = `<%= @create_url %>?display_name=` + encodeURIComponent(display_name);
+    const params = 'display_name=' + encodeURIComponent(display_name);
+    const url = `<%= @create_url %>?${params}`;
     window.open(url);
     window.location = '/'
   });
