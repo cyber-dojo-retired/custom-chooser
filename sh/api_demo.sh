@@ -15,7 +15,7 @@ main()
   demo
   echo
   if [ "${1:-}" == '--http' ]; then
-    open "http://${IP_ADDRESS}:80/custom-chooser/index_group"    
+    open "http://${IP_ADDRESS}:80/custom-chooser/index_group"
   else
     "${SH_DIR}/containers_down.sh"
   fi
@@ -29,11 +29,11 @@ demo()
   curl_json_body_200 GET  ready
   curl_json_body_200 GET  sha
   echo
-  curl_params_200    GET  index_group
+  curl_200           GET  index_group
   curl_params_302    GET  create_group "$(params_display_name)"
   curl_json_body_200 POST create_group "$(json_display_name)"
   echo
-  curl_params_200    GET  index_kata
+  curl_200           GET  index_kata
   curl_params_302    GET  create_kata  "$(params_display_name)"
   curl_json_body_200 POST create_kata  "$(json_display_name)"
 }
@@ -83,11 +83,11 @@ curl_params_302()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-curl_params_200()
+curl_200()
 {
   local -r log=/tmp/creator.log
-  local -r type="${1}"     # eg GET|POST
-  local -r route="${2}"    # eg index_kata
+  local -r type="${1}"  # eg GET|POST
+  local -r route="${2}" # eg index_kata
   curl  \
     --fail \
     --request "${type}" \
@@ -103,8 +103,11 @@ curl_params_200()
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { echo -n "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}"; }
-json_display_name() { echo -n '{"display_name":"Java Countdown, Round 1"}'; }
-params_display_name() { echo -n "display_name=Java Countdown, Round 1"; }
+json_display_name()   { json   display_name "$(display_name)"; }
+params_display_name() { params display_name "$(display_name)"; }
+json() { echo -n "{\"${1}\":\"${2}\"}"; }
+params() { echo -n "${1}=${2}"; }
+display_name() { echo -n 'Java Countdown, Round 1'; }
 tab() { printf '\t'; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -

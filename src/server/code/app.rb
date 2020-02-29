@@ -43,16 +43,20 @@ class App < JsonAppBase
   end
 
   get '/create_group', provides:[:html] do
-    id = target.create_custom_group(**params_args)
     respond_to do |format|
-      format.html { redirect group_path(id) }
+      format.html {
+        id = target.create_custom_group(**params_args)
+        redirect group_path(id)
+      }
     end
   end
 
   post '/create_group', provides:[:json] do
-    id = target.create_custom_group(**json_args)
     respond_to do |format|
-      format.json { json id:id, route:group_path(id) }
+      format.json {
+        id = target.create_custom_group(**json_args)
+        json id:id, route:group_path(id)
+      }
     end
   end
 
@@ -75,16 +79,20 @@ class App < JsonAppBase
   end
 
   get '/create_kata', provides:[:html] do
-    id = target.create_custom_kata(**params_args)
     respond_to do |format|
-      format.html { redirect kata_path(id) }
+      format.html {
+        id = target.create_custom_kata(**params_args)
+        redirect kata_path(id)
+      }
     end
   end
 
   post '/create_kata', provides:[:json] do
-    id = target.create_custom_kata(**json_args)
     respond_to do |format|
-      format.json { json id:id, route:kata_path(id) }
+      format.json {
+        id = target.create_custom_kata(**json_args)
+        json id:id, route:kata_path(id)
+      }
     end
   end
 
