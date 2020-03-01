@@ -10,7 +10,7 @@ class IndexTest < CustomTestBase
   # - - - - - - - - - - - - - - - - -
 
   test '18w',
-  %w( index where selection creates a group ) do
+  %w( index_group offers selection to create a group ) do
     get '/index_group'
     assert last_response.ok?
     html = last_response.body
@@ -25,7 +25,7 @@ class IndexTest < CustomTestBase
   # - - - - - - - - - - - - - - - - -
 
   test '19w',
-  %w( index where selection creates a kata ) do
+  %w( index_kata offers selection to create a kata ) do
     get '/index_kata'
     assert last_response.ok?
     html = last_response.body

@@ -1,31 +1,31 @@
-Run options: --seed 6409
+Run options: --seed 25397
 
 # Running:
 
-.......
+.........
 
-Finished in 0.070150s, 99.7863 runs/s, 313.6140 assertions/s.
+Finished in 0.120403s, 74.7489 runs/s, 249.1629 assertions/s.
 
-7 runs, 22 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10875 / 22396 LOC (48.56%) covered.
+9 runs, 30 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 11112 / 22454 LOC (49.49%) covered.
 
 Slowest 5 tests are...
-0.0241 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
-0.0200 - a7318w:index_test.rb:12:index where selection creates a group           
-0.0092 - a7319w:index_test.rb:27:index where selection creates a kata            
-0.0075 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0015 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0014 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0225 - a7318w:index_test.rb:12:index_group offers selection to create a group  
+0.0222 - v42w9B:create_test.rb:33:|GET /create_kata |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0207 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0205 - v42w9A:create_test.rb:15:|GET /create_group |redirects to /kata/group/:id page |and a group with :id exists
+0.0087 - a7319w:index_test.rb:27:index_kata offers selection to create a kata    
+0.0083 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.07   <=     2 | [32m true [0m
-                    tests |       7   >=     1 | [32m true [0m
-      coverage(tested)[%] |   76.76   >=    78 | [31m false [0m
+        duration(test)[s] |    0.12   <=     2 | [32m true [0m
+                    tests |       9   >=     1 | [32m true [0m
+      coverage(tested)[%] |   85.06   >=    84 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.32   >=   0.3 | [32m true [0m
-      hits(tested/tester) |    0.54   >=   0.5 | [32m true [0m
+     lines(tester/tested) |    0.49   >=   0.4 | [32m true [0m
+      hits(tested/tester) |    1.01   >=   1.0 | [32m true [0m
 

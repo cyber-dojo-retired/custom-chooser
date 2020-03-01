@@ -4,7 +4,7 @@ require_src 'app'
 require_src 'externals'
 
 class CustomTestBase < Id58TestBase
-  include Rack::Test::Methods
+  include Rack::Test::Methods # [1]
 
   def initialize(arg)
     super(arg)
@@ -15,11 +15,7 @@ class CustomTestBase < Id58TestBase
   end
 
   def app
-    App.new(externals)
+    App.new(externals) # [1]
   end
-
-  #def browser
-  #  @browser ||= Rack::Test::Session.new(Rack::MockSession.new(app))
-  #end
 
 end
