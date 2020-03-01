@@ -7,15 +7,7 @@ class ExternalCreator
     @http = HttpJsonHash::service(self.class.name, http, 'creator', 4523)
   end
 
-  def alive?
-    @http.get(__method__, {})
-  end
-
   def ready?
-    @http.get(__method__, {})
-  end
-
-  def sha
     @http.get(__method__, {})
   end
 
