@@ -7,7 +7,6 @@ readonly server_user="${1}"; shift
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 main()
 {
-  echo
   if [ "${1:-}" == 'client' ]; then
     shift
     run_client_tests "${@:-}"
@@ -18,7 +17,7 @@ main()
     run_client_tests "${@:-}"
     run_server_tests "${@:-}"
   fi
-  echo All passed
+  echo All passed  
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
