@@ -17,7 +17,7 @@ services:
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   custom-chooser-client:
     build:
-      args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT ]      
+      args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT ]
       context: src/client
     container_name: test-custom-chooser-client
     depends_on:

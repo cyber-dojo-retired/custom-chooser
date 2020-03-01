@@ -3,5 +3,7 @@
 versioner_env_vars()
 {
   docker run --rm cyberdojo/versioner:latest
-  echo CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT=4537
+  echo CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT=9999
+  echo CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_USER=nobody
+  echo CYBER_DOJO_CUSTOM_CHOOSER_SERVER_USER=nobody
 }
