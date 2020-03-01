@@ -1,26 +1,31 @@
-Run options: --seed 16936
+Run options: --seed 6409
 
 # Running:
 
-.
+.......
 
-Finished in 0.043597s, 22.9372 runs/s, 137.6231 assertions/s.
+Finished in 0.070150s, 99.7863 runs/s, 313.6140 assertions/s.
 
-1 runs, 6 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 10685 / 22311 LOC (47.89%) covered.
+7 runs, 22 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 10875 / 22396 LOC (48.56%) covered.
 
-Slowest 1 tests are...
-0.0414 - a7318w:index_test.rb:12:index where selection creates a group           
+Slowest 5 tests are...
+0.0241 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
+0.0200 - a7318w:index_test.rb:12:index where selection creates a group           
+0.0092 - a7319w:index_test.rb:27:index where selection creates a kata            
+0.0075 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0015 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0014 - d5ae5K:alive_test.rb:12:its alive!                                      
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.04   <=     2 | [32m true [0m
-                    tests |       1   >=     1 | [32m true [0m
-      coverage(tested)[%] |   64.32   >=    78 | [31m false [0m
-      coverage(tester)[%] |   57.69   >=   100 | [31m false [0m
+        duration(test)[s] |    0.07   <=     2 | [32m true [0m
+                    tests |       7   >=     1 | [32m true [0m
+      coverage(tested)[%] |   76.76   >=    78 | [31m false [0m
+      coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
      lines(tester/tested) |    0.32   >=   0.3 | [32m true [0m
-      hits(tested/tester) |    0.71   >=   0.5 | [32m true [0m
+      hits(tested/tester) |    0.54   >=   0.5 | [32m true [0m
 

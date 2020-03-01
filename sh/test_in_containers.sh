@@ -1,9 +1,29 @@
 #!/bin/bash -Eeu
-
 readonly root_dir="$(cd "$(dirname "${0}")/.." && pwd)"
 readonly my_name=custom-chooser
 readonly client_user="${1}"; shift
 readonly server_user="${1}"; shift
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+main()
+{
+  echo
+  if [ "${1:-}" == 'client' ]; then
+    shift
+    run_client_tests "${@:-}"
+  elif [ "${1:-}" == 'server' ]; then
+    shift
+    run_server_tests "${@:-}"
+  else
+    run_client_tests "${@:-}"
+    run_server_tests "${@:-}"
+  fi
+  echo All passed
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+#run_client_tests() { run_tests "${client_user}" client "${@:-}"; }
+run_server_tests() { run_tests "${server_user}" server "${@:-}"; }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_tests()
@@ -17,6 +37,7 @@ run_tests()
   local -r coverage_code_group_name=tested
   local -r coverage_test_group_name=tester
 
+  echo
   echo '=================================='
   echo "Running ${type} tests"
   echo '=================================='
@@ -62,19 +83,4 @@ run_tests()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-run_server_tests() { run_tests "${server_user}" server "${@:-}"; }
-#run_client_tests() { run_tests "${client_user}" client "${@:-}"; }
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo
-if [ "${1:-}" == 'server' ]; then
-  shift
-  run_server_tests "${@:-}"
-elif [ "${1:-}" == 'client' ]; then
-  shift
-  run_client_tests "${@:-}"
-else
-  run_server_tests "${@:-}"
-  run_client_tests "${@:-}"
-fi
-echo All passed
+main "$@"
