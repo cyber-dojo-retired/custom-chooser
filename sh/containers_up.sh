@@ -155,5 +155,6 @@ fi
 if [ "${1:-}" == 'server' ]; then
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
 else
+  container_up 80 nginx  
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
 fi
