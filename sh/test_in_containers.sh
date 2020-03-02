@@ -29,8 +29,11 @@ run_tests()
 {
   local -r user="${1}" # eg nobody
   local -r type="${2}" # eg client|server
-  local -r reports_dir=reports
-  local -r coverage_root=/tmp/${reports_dir}
+  local -r reports_dir_name=reports
+  local -r tmp_dir=/tmp # fs is read-only with tmpfs at /tmp
+  local -r coverage_root=/${tmp_dir}/${reports_dir_name}
+  local -r test_dir="${root_dir}/test/${type}"
+  local -r reports_dir=${test_dir}/${reports_dir_name}
   local -r test_log=test.log
   local -r container_name="test-${my_name}-${type}" # eg test-custom-chooser-server
   local -r coverage_code_tab_name=tested
@@ -50,8 +53,7 @@ run_tests()
       sh -c "/test/run.sh ${coverage_root} ${test_log} ${type} ${*:3}"
   set -e
 
-  # You can't [docker cp] from a tmpfs, so tar-piping coverage out...
-  local -r test_dir="${root_dir}/test/${type}" # ...to this dir
+  # You can't [docker cp] from a tmpfs, so tar-piping coverage out
   docker exec \
     "${container_name}" \
     tar Ccf \
@@ -60,20 +62,21 @@ run_tests()
         | tar Cxf "${test_dir}/" -
 
   set +e
-  local -r data_dir=/tmp
-  docker run --rm \
+  docker run \
     --env COVERAGE_CODE_TAB_NAME=${coverage_code_tab_name} \
     --env COVERAGE_TEST_TAB_NAME=${coverage_test_tab_name} \
-    --volume ${test_dir}/${reports_dir}:${data_dir}:ro \
+    --rm \
+    --volume ${reports_dir}/${test_log}:${tmp_dir}/${test_log}:ro \
+    --volume ${reports_dir}/index.html:${tmp_dir}/index.html:ro \
     --volume ${test_dir}/metrics.rb:/app/metrics.rb:ro \
     cyberdojo/check-test-results:latest \
-    sh -c "ruby /app/check_test_results.rb ${data_dir}/${test_log} ${data_dir}/index.html" \
-      | tee -a ${test_dir}/${reports_dir}/${test_log}
+    sh -c "ruby /app/check_test_results.rb ${tmp_dir}/${test_log} ${tmp_dir}/index.html" \
+      | tee -a ${reports_dir}/${test_log}
   local -r status=${PIPESTATUS[0]}
   set -e
 
-  local -r coverage_path="test/${type}/${reports_dir}/index.html"
-  echo "Coverage files copied to ${coverage_path}"
+  local -r coverage_path="${reports_dir}/index.html"
+  echo "${type} test coverage at ${coverage_path}"
   echo "${type} test status == ${status}"
   if [ "${status}" != '0' ]; then
     docker logs "${container_name}"
