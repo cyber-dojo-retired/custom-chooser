@@ -29,11 +29,14 @@ demo()
   curl_json_body_200 GET  ready
   curl_json_body_200 GET  sha
   echo
-  curl_200           GET  index_group
+  curl_200           GET  assets/app.js  'Content-Type: application/javascript'
+  curl_200           GET  assets/app.css 'Content-Type: text/css'
+  echo
+  curl_200           GET  index_group  session
   curl_params_302    GET  create_group "$(params_display_name)"
   curl_json_body_200 POST create_group "$(json_display_name)"
   echo
-  curl_200           GET  index_kata
+  curl_200           GET  index_kata   session
   curl_params_302    GET  create_kata  "$(params_display_name)"
   curl_json_body_200 POST create_kata  "$(json_display_name)"
 }
@@ -86,8 +89,9 @@ curl_params_302()
 curl_200()
 {
   local -r log=/tmp/creator.log
-  local -r type="${1}"  # eg GET|POST
-  local -r route="${2}" # eg index_kata
+  local -r type="${1}"    # eg GET|POST
+  local -r route="${2}"   # eg index_kata
+  local -r pattern="${3}" # eg session
   curl  \
     --fail \
     --request "${type}" \
@@ -96,8 +100,8 @@ curl_200()
       "http://${IP_ADDRESS}:$(port)/${route}" \
       > "${log}" 2>&1
 
-    grep --quiet 200 "${log}"                 # eg HTTP/1.1 200 OK
-    local -r result=$(grep session "${log}")
+    grep --quiet 200 "${log}" # eg HTTP/1.1 200 OK
+    local -r result=$(grep "${pattern}" "${log}")
     echo "$(tab)${type} ${route} => 200 ${result}"
 }
 

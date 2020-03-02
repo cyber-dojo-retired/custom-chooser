@@ -35,9 +35,22 @@ class JsonAppBase < Sinatra::Base
   #environment.js_compressor  = :uglify
   #environment.css_compressor = :scss
 
-  get '/assets/*' do
-    env['PATH_INFO'].sub!('/assets', '')
-    settings.environment.call(env)
+  get '/assets/app.css', provides:[:css] do
+    respond_to do |format|
+      format.css do
+        env['PATH_INFO'].sub!('/assets', '')
+        settings.environment.call(env)
+      end
+    end
+  end
+
+  get '/assets/app.js', provides:[:js] do
+    respond_to do |format|
+      format.js do
+        env['PATH_INFO'].sub!('/assets', '')
+        settings.environment.call(env)
+      end
+    end
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
