@@ -1,31 +1,31 @@
-Run options: --seed 14157
+Run options: --seed 42037
 
 # Running:
 
-.........
+...........
 
-Finished in 0.109213s, 82.4074 runs/s, 274.6915 assertions/s.
+Finished in 0.166485s, 66.0720 runs/s, 240.2617 assertions/s.
 
-9 runs, 30 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 11110 / 22450 LOC (49.49%) covered.
+11 runs, 40 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 11165 / 22484 LOC (49.66%) covered.
 
 Slowest 5 tests are...
-0.0236 - v42w9A:create_test.rb:15:|GET /create_group?display_name=DISPLAY_NAME |redirects to /kata/group/:id page |and a group with :id exists
-0.0201 - d5ae5K:alive_test.rb:12:its alive!                                      
-0.0188 - a7318w:index_test.rb:12:index_group offers selection to create a group  
-0.0179 - v42w9B:create_test.rb:33:|GET /create_kata?display_name=DISPLAY_NAME |redirects to /kata/edit/:id page |and a kata with :id exists
-0.0122 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0064 - a7319w:index_test.rb:27:index_kata offers selection to create a kata    
+0.0365 - a7318w:index_test.rb:12:index_group offers selection to create a group  
+0.0279 - v42w9D:create_test.rb:73:|POST /create_kata body={"display_name":"..."} |returns json payload |with {"create_kata":"ID"} |where a kata with ID exists |and for backwards compatibility |also returns the ID against an :id key
+0.0278 - v42w9B:create_test.rb:34:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0248 - v42w9A:create_test.rb:16:|GET /create_group?display_name=... |redirects to /kata/group/:id page |and a group with :id exists
+0.0198 - v42w9C:create_test.rb:52:|POST /create_group body={"display_name":"..."} |returns json payload |with {"create_group":"ID"} |where a group with ID exists |and for backwards compatibility |also returns the ID against an :id key
+0.0091 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.11   <=     2 | [32m true [0m
-                    tests |       9   >=     1 | [32m true [0m
-      coverage(tested)[%] |   85.65   >=    84 | [32m true [0m
+        duration(test)[s] |    0.17   <=     2 | [32m true [0m
+                    tests |      11   >=     1 | [32m true [0m
+      coverage(tested)[%] |   90.72   >=    90 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.50   >=   0.4 | [32m true [0m
-      hits(tested/tester) |    1.02   >=   1.0 | [32m true [0m
+     lines(tester/tested) |    0.65   >=   0.6 | [32m true [0m
+      hits(tested/tester) |    1.67   >=   1.6 | [32m true [0m
 
