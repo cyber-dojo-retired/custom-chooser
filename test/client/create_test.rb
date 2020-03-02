@@ -25,7 +25,7 @@ class CreateTest < TestBase
     find('div.display-name', text:display_name).click
     find('#ok').click
     assert %r"/kata/group/(?<id>.*)" =~ current_path, current_path
-    assert group_exists?(id), "id:#{id}:" # eg xCSKgZ
+    assert group_exists?(id), "id:#{id}:"
     manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
   end
@@ -44,7 +44,7 @@ class CreateTest < TestBase
     find('div.display-name', text:display_name).click
     find('#ok').click
     assert %r"/kata/edit/(?<id>.*)" =~ current_path, current_path
-    assert kata_exists?(id), "id:#{id}:" # eg xCSKgZ
+    assert kata_exists?(id), "id:#{id}:"
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
   end
