@@ -10,7 +10,7 @@ readonly IP_ADDRESS="$(ip_address)"
 main()
 {
   "${SH_DIR}/build_images.sh"
-  "${SH_DIR}/containers_up.sh" --api-demo
+  "${SH_DIR}/containers_up.sh" api-demo
   echo
   demo
   echo

@@ -18,7 +18,7 @@ wait_briefly_until_ready()
 {
   local -r port="${1}"
   local -r name="${2}"
-  local -r max_tries=20
+  local -r max_tries=40
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
     if curl_ready ${port}; then
@@ -46,6 +46,7 @@ curl_ready()
   local -r port="${1}"
   local -r path=ready?
   local -r url="http://${IP_ADDRESS}:${port}/${path}"
+  rm -f $(ready_filename)
   curl \
     --fail \
     --output $(ready_filename) \
@@ -83,15 +84,15 @@ strip_known_warning()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-warn_if_unclean()
+exit_if_unclean()
 {
-  local -r name="${1}"
-  local log=$(docker logs "${name}" 2>&1)
+  local -r container_name="${1}"
+  local log=$(docker logs "${container_name}" 2>&1)
 
   local -r mismatched_indent_warning="application(.*): warning: mismatched indentations at 'rescue' with 'begin'"
   log=$(strip_known_warning "${log}" "${mismatched_indent_warning}")
 
-  printf "Checking ${name} started cleanly..."
+  printf "Checking ${container_name} started cleanly..."
   local -r line_count=$(echo -n "${log}" | grep -c '^')
   # 3 lines on Thin (Unicorn=6, Puma=6)
   #Thin web server (v1.7.2 codename Bachmanity)
@@ -101,7 +102,7 @@ warn_if_unclean()
     printf 'OK\n'
   else
     printf 'FAIL\n'
-    print_docker_log "${name}" "${log}"
+    print_docker_log "${container_name}" "${log}"
     exit 42
   fi
 }
@@ -109,12 +110,23 @@ warn_if_unclean()
 # - - - - - - - - - - - - - - - - - - -
 print_docker_log()
 {
-  local -r name="${1}"
+  local -r container_name="${1}"
   local -r log="${2}"
-  printf "[docker logs ${name}]\n"
+  printf "[docker logs ${container_name}]\n"
   printf '<docker_log>\n'
   printf "${log}\n"
   printf '</docker_log>\n'
+}
+
+# - - - - - - - - - - - - - - - - - - -
+container_up_ready_and_clean()
+{
+  local -r port="${1}"
+  local -r service_name="${2}"
+  local -r container_name="test-${service_name}"
+  container_up "${port}" "${service_name}"
+  wait_briefly_until_ready "${port}" "${container_name}"
+  exit_if_unclean "${container_name}"
 }
 
 # - - - - - - - - - - - - - - - - - - -
@@ -135,14 +147,13 @@ container_up()
 
 # - - - - - - - - - - - - - - - - - - -
 
-if [ "${1:-}" == '--api-demo' ]; then
+if [ "${1:-}" == 'api-demo' ]; then
   container_up 80 nginx
+  wait_briefly_until_ready ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
 fi
 
-port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
-service_name=custom-chooser-server
-container_up "${port}" "${service_name}"
-
-container_name="test-${service_name}"
-wait_briefly_until_ready "${port}" "${container_name}"
-warn_if_unclean "${container_name}"
+if [ "${1:-}" == 'server' ]; then
+  container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
+else
+  container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
+fi

@@ -1,0 +1,51 @@
+Run options: --seed 5538
+
+# Running:
+
+/usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/driver.rb:39: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+/usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:44: warning: The called method `handshake' is defined here
+Reached error page: about:neterror?e=dnsNotFound&u=http%3A//custom-chooser%3A4536/index&c=UTF-8&f=regular&d=We%20can%E2%80%99t%20connect%20to%20the%20server%20at%20custom-chooser.
+ESimpleCov failed with exit 1
+
+Finished in 7.752774s, 0.1290 runs/s, 0.0000 assertions/s.
+
+  1) Error:
+CapybaraTest#test_
+id58 'e5D',
+'index and selection':
+Selenium::WebDriver::Error::UnknownError: Reached error page: about:neterror?e=dnsNotFound&u=http%3A//custom-chooser%3A4536/index&c=UTF-8&f=regular&d=We%20can%E2%80%99t%20connect%20to%20the%20server%20at%20custom-chooser.
+    WebDriverError@chrome://marionette/content/error.js:175:5
+    UnknownError@chrome://marionette/content/error.js:482:5
+    handleReadyState@chrome://marionette/content/listener.js:297:13
+    handleEvent@chrome://marionette/content/listener.js:263:14
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/response.rb:72:in `assert_ok'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/response.rb:34:in `initialize'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/http/common.rb:88:in `new'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/http/common.rb:88:in `create_response'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/http/default.rb:114:in `request'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/http/common.rb:64:in `call'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:167:in `execute'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/w3c/bridge.rb:567:in `execute'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/w3c/bridge.rb:59:in `get'
+    /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/common/navigation.rb:32:in `to'
+    /usr/local/bundle/gems/capybara-3.31.0/lib/capybara/selenium/driver.rb:70:in `visit'
+    /usr/local/bundle/gems/capybara-3.31.0/lib/capybara/session.rb:278:in `visit'
+    /usr/local/bundle/gems/capybara-3.31.0/lib/capybara/dsl.rb:53:in `call'
+    /usr/local/bundle/gems/capybara-3.31.0/lib/capybara/dsl.rb:53:in `visit'
+    /test/client/capybara_test.rb:41:in `block in <class:CapybaraTest>'
+    /test/id58_test_base.rb:36:in `instance_eval'
+    /test/id58_test_base.rb:36:in `block in test'
+
+1 runs, 0 assertions, 0 failures, 1 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 11344 / 26388 LOC (42.99%) covered.
+
+
+
+                 failures |       0   <=     0 | [32m true [0m
+                   errors |       1   <=     0 | [31m false [0m
+                 warnings |       2   <=     0 | [31m false [0m
+                    skips |       0   <=     0 | [32m true [0m
+        duration(test)[s] |    7.75   <=     2 | [31m false [0m
+                    tests |       1   >=     1 | [32m true [0m
+      coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
+      coverage(tester)[%] |   86.36   >=   100 | [31m false [0m
