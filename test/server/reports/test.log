@@ -1,28 +1,28 @@
-Run options: --seed 3063
+Run options: --seed 51015
 
 # Running:
 
 .............
 
-Finished in 0.269496s, 48.2382 runs/s, 170.6891 assertions/s.
+Finished in 0.308526s, 42.1358 runs/s, 149.0958 assertions/s.
 
 13 runs, 46 assertions, 0 failures, 0 errors, 0 skips
 Coverage report generated for MiniTest to /tmp/reports. 13006 / 24284 LOC (53.56%) covered.
 
 Slowest 5 tests are...
-0.0962 - v427Je:create_test.rb:16:GET/assets/app.css is served                   
-0.0254 - a7318w:index_test.rb:12:index_group offers selection to create a group  
-0.0244 - v42w9B:create_test.rb:49:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
-0.0210 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
-0.0206 - v42w9C:create_test.rb:68:|POST /create_group body={"display_name":"..."} |returns json payload |with {"create_group":"ID"} |where a group with ID exists |and for backwards compatibility |also returns the ID against an "id" key
-0.0197 - v42w9A:create_test.rb:30:|GET /create_group?display_name=... |redirects to /kata/group/:id page |and a group with :id exists
+0.1085 - v427Je:create_test.rb:16:GET/assets/app.css is served                   
+0.0249 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0246 - a7318w:index_test.rb:12:index_group offers selection to create a group  
+0.0235 - v42w9B:create_test.rb:49:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0228 - v42w9D:create_test.rb:89:|POST /create_kata body={"display_name":"..."} |returns json payload |with {"create_kata":"ID"} |where a kata with ID exists |and for backwards compatibility |also returns the ID against an "id" key
+0.0224 - d5ae5K:alive_test.rb:12:its alive!                                      
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.27   <=     2 | [32m true [0m
+        duration(test)[s] |    0.31   <=     2 | [32m true [0m
                     tests |      13   >=     1 | [32m true [0m
       coverage(tested)[%] |   93.22   >=    90 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m

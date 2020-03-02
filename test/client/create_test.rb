@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require_relative 'external_http'
-require_relative 'external_saver'
 require_relative 'id_pather'
 require_relative 'test_base'
+require_src 'external_http'
+require_src 'external_saver'
 require 'json'
 
 class CreateTest < TestBase
@@ -74,10 +74,10 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - - - - -
 
   def saver
-    ExternalSaver.new(http)
+    ExternalSaver.new(saver_http)
   end
 
-  def http
+  def saver_http
     ExternalHttp.new
   end
 
