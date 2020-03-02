@@ -14,7 +14,7 @@ main()
   echo
   demo
   echo
-  if [ "${1:-}" == '--http' ]; then
+  if [ "${1:-}" == 'browser' ]; then
     open "http://${IP_ADDRESS}:80/custom-chooser/index_group"
   else
     "${SH_DIR}/containers_down.sh"

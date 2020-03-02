@@ -25,7 +25,7 @@ services:
       - selenium
     image: cyberdojo/test-custom-chooser-client
     init: true
-    ports: [ "${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}:${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}" ]    
+    ports: [ "${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}:${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}" ]
     read_only: true
     restart: "no"
     tmpfs: /tmp

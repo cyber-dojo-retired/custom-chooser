@@ -1,25 +1,36 @@
 # frozen_string_literal: true
 require_relative '../id58_test_base'
-#require_src 'app'
-#require_src 'externals'
+require 'capybara/minitest'
 
 class CustomTestBase < Id58TestBase
-  #include Rack::Test::Methods
+
+  include Capybara::DSL
+  include Capybara::Minitest::Assertions
+
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app,
+      browser: :remote,
+      url: "http://selenium:4444/wd/hub",
+      desired_capabilities: :firefox
+    )
+  end
+
+  def setup
+    Capybara.app_host = "http://custom-chooser-server:4536"
+    Capybara.javascript_driver = :selenium
+    Capybara.current_driver    = :selenium
+    Capybara.run_server = false
+  end
+
+  def teardown
+    Capybara.reset_sessions!
+    Capybara.app_host = nil
+  end
+
+  # - - - - - - - - - - - - - - - - - - -
 
   def initialize(arg)
     super(arg)
   end
-
-  #def externals
-  #  @externals ||= Externals.new
-  #end
-
-  #def app
-  #  @app ||= App.new(externals)
-  #end
-
-  #def browser
-  #  @browser ||= Rack::Test::Session.new(Rack::MockSession.new(app))
-  #end
 
 end
