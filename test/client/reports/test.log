@@ -1,26 +1,26 @@
-Run options: --seed 3574
+Run options: --seed 53869
 
 # Running:
 
 /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/driver.rb:39: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
 /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:44: warning: The called method `handshake' is defined here
-"/custom-chooser/create_group"
-.
+..
 
-Finished in 6.881037s, 0.1453 runs/s, 0.0000 assertions/s.
+Finished in 7.590235s, 0.2635 runs/s, 0.7905 assertions/s.
 
-1 runs, 0 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 11623 / 26388 LOC (44.05%) covered.
+2 runs, 6 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 11838 / 26509 LOC (44.66%) covered.
 
-Slowest 1 tests are...
-6.6494 - xRae5D:index_group_test.rb:12:index_group and selection                 
+Slowest 2 tests are...
+6.5562 - xRae5D:create_test.rb:16:|PATH /custom-chooser/index_group |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
+0.7324 - xRae5E:create_test.rb:35:|PATH /custom-chooser/index_kata shows |custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
-                 warnings |       2   <=     0 | [31m false [0m
+                 warnings |       2   <=     2 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    6.88   <=     2 | [31m false [0m
-                    tests |       1   >=     1 | [32m true [0m
+        duration(test)[s] |    7.59   <=    12 | [32m true [0m
+                    tests |       2   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m

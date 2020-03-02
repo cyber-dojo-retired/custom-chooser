@@ -14,8 +14,8 @@ main()
     shift
     run_server_tests "${@:-}"
   else
-    run_client_tests "${@:-}"
     run_server_tests "${@:-}"
+    run_client_tests "${@:-}"
   fi
   echo All passed
 }
