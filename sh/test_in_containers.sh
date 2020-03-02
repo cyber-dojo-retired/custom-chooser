@@ -33,8 +33,8 @@ run_tests()
   local -r coverage_root=/tmp/${reports_dir}
   local -r test_log=test.log
   local -r container_name="test-${my_name}-${type}" # eg test-custom-chooser-server
-  local -r coverage_code_group_name=tested
-  local -r coverage_test_group_name=tester
+  local -r coverage_code_tab_name=tested
+  local -r coverage_test_tab_name=tester
 
   echo
   echo '=================================='
@@ -43,8 +43,8 @@ run_tests()
 
   set +e
   docker exec \
-    --env COVERAGE_CODE_GROUP_NAME=${coverage_code_group_name} \
-    --env COVERAGE_TEST_GROUP_NAME=${coverage_test_group_name} \
+    --env COVERAGE_CODE_TAB_NAME=${coverage_code_tab_name} \
+    --env COVERAGE_TEST_TAB_NAME=${coverage_test_tab_name} \
     --user "${user}" \
     "${container_name}" \
       sh -c "/test/run.sh ${coverage_root} ${test_log} ${type} ${*:3}"
@@ -62,8 +62,8 @@ run_tests()
   set +e
   local -r data_dir=/tmp
   docker run --rm \
-    --env COVERAGE_CODE_GROUP_NAME=${coverage_code_group_name} \
-    --env COVERAGE_TEST_GROUP_NAME=${coverage_test_group_name} \
+    --env COVERAGE_CODE_TAB_NAME=${coverage_code_tab_name} \
+    --env COVERAGE_TEST_TAB_NAME=${coverage_test_tab_name} \
     --volume ${test_dir}/${reports_dir}:${data_dir}:ro \
     --volume ${test_dir}/metrics.rb:/app/metrics.rb:ro \
     cyberdojo/check-test-results:latest \
