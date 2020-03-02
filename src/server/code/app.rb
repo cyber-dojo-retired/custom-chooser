@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require_relative 'chooser.rb'
-require_relative 'json_app_base'
+require_relative 'app_base'
 
-class App < JsonAppBase
+class App < AppBase
 
   # - - - - - - - - - - - - - - - - - - - - - -
   # ctor
