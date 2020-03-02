@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require_relative 'custom_test_base'
+require_relative 'test_base'
 require 'ostruct'
 
-class ReadyTest < CustomTestBase
+class ReadyTest < TestBase
 
   def self.id58_prefix
     'a86'

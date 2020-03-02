@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require_relative 'custom_test_base'
+require_relative 'test_base'
 
-class AliveTest < CustomTestBase
+class AliveTest < TestBase
 
   def self.id58_prefix
     'd5a'

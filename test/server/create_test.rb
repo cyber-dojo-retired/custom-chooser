@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-require_relative 'custom_test_base'
+require_relative 'test_base'
 require_relative 'external_saver'
 require_relative 'id_pather'
 require_src 'external_http'
 require 'json'
 
-class CreateTest < CustomTestBase
+class CreateTest < TestBase
 
   def self.id58_prefix
     'v42'

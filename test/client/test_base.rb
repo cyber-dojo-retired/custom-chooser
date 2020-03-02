@@ -2,7 +2,7 @@
 require_relative '../id58_test_base'
 require 'capybara/minitest'
 
-class CustomTestBase < Id58TestBase
+class TestBase < Id58TestBase
 
   include Capybara::DSL
   include Capybara::Minitest::Assertions

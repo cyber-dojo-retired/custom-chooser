@@ -3,7 +3,7 @@ require_relative '../id58_test_base'
 require_src 'app'
 require_src 'externals'
 
-class CustomTestBase < Id58TestBase
+class TestBase < Id58TestBase
   include Rack::Test::Methods # [1]
 
   def initialize(arg)

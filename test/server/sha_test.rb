@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require_relative 'custom_test_base'
+require_relative 'test_base'
 
-class ShaTest < CustomTestBase
+class ShaTest < TestBase
 
   def self.id58_prefix
     'de3'
