@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative 'http_json_hash/service'
+require_src 'http_json_hash/service'
 
 class ExternalSaver
 
