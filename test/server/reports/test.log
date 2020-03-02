@@ -1,21 +1,21 @@
-Run options: --seed 42037
+Run options: --seed 1848
 
 # Running:
 
 ...........
 
-Finished in 0.166485s, 66.0720 runs/s, 240.2617 assertions/s.
+Finished in 0.166177s, 66.1945 runs/s, 252.7428 assertions/s.
 
-11 runs, 40 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to /tmp/reports. 11165 / 22484 LOC (49.66%) covered.
+11 runs, 42 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to /tmp/reports. 11173 / 22492 LOC (49.68%) covered.
 
 Slowest 5 tests are...
-0.0365 - a7318w:index_test.rb:12:index_group offers selection to create a group  
-0.0279 - v42w9D:create_test.rb:73:|POST /create_kata body={"display_name":"..."} |returns json payload |with {"create_kata":"ID"} |where a kata with ID exists |and for backwards compatibility |also returns the ID against an :id key
-0.0278 - v42w9B:create_test.rb:34:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
-0.0248 - v42w9A:create_test.rb:16:|GET /create_group?display_name=... |redirects to /kata/group/:id page |and a group with :id exists
-0.0198 - v42w9C:create_test.rb:52:|POST /create_group body={"display_name":"..."} |returns json payload |with {"create_group":"ID"} |where a group with ID exists |and for backwards compatibility |also returns the ID against an :id key
-0.0091 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0254 - v42w9C:create_test.rb:54:|POST /create_group body={"display_name":"..."} |returns json payload |with {"create_group":"ID"} |where a group with ID exists |and for backwards compatibility |also returns the ID against an "id" key
+0.0241 - v42w9A:create_test.rb:16:|GET /create_group?display_name=... |redirects to /kata/group/:id page |and a group with :id exists
+0.0227 - v42w9B:create_test.rb:35:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0226 - v42w9D:create_test.rb:75:|POST /create_kata body={"display_name":"..."} |returns json payload |with {"create_kata":"ID"} |where a kata with ID exists |and for backwards compatibility |also returns the ID against an "id" key
+0.0217 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
+0.0210 - a7318w:index_test.rb:12:index_group offers selection to create a group  
 
 
                  failures |       0   <=     0 | [32m true [0m
@@ -26,6 +26,6 @@ Slowest 5 tests are...
                     tests |      11   >=     1 | [32m true [0m
       coverage(tested)[%] |   90.72   >=    90 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.65   >=   0.6 | [32m true [0m
-      hits(tested/tester) |    1.67   >=   1.6 | [32m true [0m
+     lines(tester/tested) |    0.68   >=   0.6 | [32m true [0m
+      hits(tested/tester) |    1.65   >=   1.6 | [32m true [0m
 

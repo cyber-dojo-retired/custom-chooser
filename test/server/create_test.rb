@@ -20,10 +20,11 @@ class CreateTest < CustomTestBase
   ) do
     display_name = any_display_name
     get '/create_group', :display_name => display_name
-    assert_status 302
+    assert status?(302), status
     follow_redirect!
-    path = last_request.url # eg http://example.org/kata/group/xCSKgZ
-    assert %r"http://example.org/kata/group/(?<id>.*)" =~ path, path
+    assert html_content?, content_type
+    url = last_request.url # eg http://example.org/kata/group/xCSKgZ
+    assert %r"http://example.org/kata/group/(?<id>.*)" =~ url, url
     assert group_exists?(id), "id:#{id}:" # eg xCSKgZ
     manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
@@ -38,10 +39,11 @@ class CreateTest < CustomTestBase
   ) do
     display_name = any_display_name
     get '/create_kata', :display_name => display_name
-    assert_status 302
+    assert status?(302), status
     follow_redirect!
-    path = last_request.url # eg http://example.org/kata/edit/H3Nqu2
-    assert %r"http://example.org/kata/edit/(?<id>.*)" =~ path, path
+    assert html_content?, content_type
+    url = last_request.url # eg http://example.org/kata/edit/H3Nqu2
+    assert %r"http://example.org/kata/edit/(?<id>.*)" =~ url, url
     assert kata_exists?(id), "id:#{id}:" # eg H3Nqu2
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
@@ -55,14 +57,14 @@ class CreateTest < CustomTestBase
   |with {"create_group":"ID"}
   |where a group with ID exists
   |and for backwards compatibility
-  |also returns the ID against an :id key
+  |also returns the ID against an "id" key
   ) do
     display_name = any_display_name
     json_post path='create_group', {display_name:display_name}
-    assert_status 200
-    assert_json_content
+    assert status?(200), status
+    assert json_content?, content_type
     assert_equal [path,'id'], json_response.keys.sort, :keys
-    id = json_response['id']
+    id = json_response['id'] # eg xCSKgZ
     assert group_exists?(id), "id:#{id}:"
     manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
@@ -76,14 +78,14 @@ class CreateTest < CustomTestBase
   |with {"create_kata":"ID"}
   |where a kata with ID exists
   |and for backwards compatibility
-  |also returns the ID against an :id key
+  |also returns the ID against an "id" key
   ) do
     display_name = any_display_name
     json_post path='create_kata', {display_name:display_name}
-    assert_status 200
-    assert_json_content
+    assert status?(200), status
+    assert json_content?, content_type
     assert_equal [path,'id'], json_response.keys.sort, :keys
-    id = json_response['id']
+    id = json_response['id'] # eg H3Nqu2
     assert kata_exists?(id), "id:#{id}:"
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
@@ -138,8 +140,8 @@ class CreateTest < CustomTestBase
   end
 
   JSON_REQUEST_HEADERS = {
-    'CONTENT_TYPE' => 'application/json', # sent request
-    'HTTP_ACCEPT' => 'application/json'   # received response
+    'CONTENT_TYPE' => 'application/json', # request sent by client
+    'HTTP_ACCEPT' => 'application/json'   # response received by client
   }
 
   # - - - - - - - - - - - - - - - - - - - -
@@ -148,12 +150,26 @@ class CreateTest < CustomTestBase
     @json_response ||= JSON.parse(last_response.body)
   end
 
-  def assert_status(expected)
-    assert_equal expected, last_response.status, :last_response_status
+  def status?(expected)
+    status === expected
   end
 
-  def assert_json_content
-    assert_equal 'application/json', last_response.headers['Content-Type']
+  def status
+    last_response.status
+  end
+
+  # - - - - - - - - - - - - - - - - - - - -
+
+  def html_content?
+    content_type === 'text/html;charset=utf-8'
+  end
+
+  def json_content?
+    content_type === 'application/json'
+  end
+
+  def content_type
+    last_response.headers['Content-Type']
   end
 
 end
