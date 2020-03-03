@@ -18,10 +18,31 @@ class AppBase < Sinatra::Base
 
   error do
     error = $!
-    puts "(500):#{error.message}:" # TODO
     status(500)
-    #content_type('application/json') # TODO
-    body(error.message)
+    info = {
+      exception: {
+        request: {
+          path:request.path,
+          body:request.body.read
+        },
+        backtrace: error.backtrace
+      }
+    }
+    exception = info[:exception]
+    if error.instance_of?(::HttpJsonHash::ServiceError)
+      exception[:http_service] = {
+        path:error.path,
+        args:error.args,
+        name:error.name,
+        body:error.body,
+        message:error.message
+      }
+    else
+      exception[:message] = error.message
+    end
+    @diagnostic = JSON.pretty_generate(info)
+    puts @diagnostic
+    erb :error
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
