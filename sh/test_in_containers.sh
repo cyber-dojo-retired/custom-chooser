@@ -7,6 +7,9 @@ readonly server_user="${1}"; shift
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 main()
 {
+  if on_ci; then
+    docker pull cyberdojo/check-test-results:latest
+  fi
   if [ "${1:-}" == 'client' ]; then
     shift
     run_client_tests "${@:-}"
@@ -19,6 +22,9 @@ main()
   fi
   echo All passed
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+on_ci() { [ -n "${CIRCLECI:-}" ]; }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_client_tests() { run_tests "${client_user}" client "${@:-}"; }
