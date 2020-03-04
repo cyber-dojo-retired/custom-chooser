@@ -18,4 +18,12 @@ class TestBase < Id58TestBase
     App.new(externals) # [1]
   end
 
+  def display_names
+    custom_start_points.display_names
+  end
+
+  def custom_start_points
+    externals.custom_start_points
+  end
+
 end

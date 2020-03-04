@@ -106,13 +106,9 @@ class CreateTest < TestBase
   end
 
   private
-
+  
   def any_display_name
-    custom_start_points.display_names.sample
-  end
-
-  def custom_start_points
-    externals.custom_start_points
+    display_names.sample
   end
 
   # - - - - - - - - - - - - - - - - - - - -
