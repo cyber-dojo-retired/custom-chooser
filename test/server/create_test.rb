@@ -106,7 +106,7 @@ class CreateTest < TestBase
   end
 
   private
-  
+
   def any_display_name
     display_names.sample
   end
@@ -158,14 +158,6 @@ class CreateTest < TestBase
 
   def json_response
     @json_response ||= JSON.parse(last_response.body)
-  end
-
-  def status?(expected)
-    status === expected
-  end
-
-  def status
-    last_response.status
   end
 
   # - - - - - - - - - - - - - - - - - - - -
