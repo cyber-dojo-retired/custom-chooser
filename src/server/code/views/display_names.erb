@@ -11,9 +11,10 @@ $(() => {
   });
 
   const random = (n) => Math.floor(Math.random() * n);
-  const displayName = $(displayNames[random(displayNames.size())]);
-  displayName.click();
-  displayName.scrollIntoView({ direction: 'vertical' });
+  const any = random(displayNames.size());
+  const anyDisplayName = $(displayNames[any]);
+  anyDisplayName.click();
+  anyDisplayName.scrollIntoView({ direction: 'vertical' });
 
 });
 </script>
