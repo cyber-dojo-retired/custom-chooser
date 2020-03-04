@@ -11,63 +11,53 @@ class ResponseErrorTest < TestBase
 
   test 'F8k', %w(
   |any http-service call
-  |is 500 error
+  |is a 500 error
   |when response's json.body is not JSON
   ) do
-    stub_custom_start_points_http(not_json='xxxx')
-    _stdout,_stderr = capture_stdout_stderr {
-      get '/index_group'
-    }
-    assert status?(500), status
-    #...
+    assert_get_500('/index_group', _not_json='xxxx')
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test 'F9k', %w(
   |any http-service call
-  |is 500 error
+  |is a 500 error
   |when response's json.body is not JSON-Hash
   ) do
-    stub_custom_start_points_http(not_json_hash='[]')
-    _stdout,_stderr = capture_stdout_stderr {
-      get '/index_kata'
-    }
-    assert status?(500), status
-    #...
+    assert_get_500('/index_kata', _not_json_hash='[]')
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test 'F9p', %w(
   |any http-serice call
-  |is 500 error
+  |is a 500 error
   |when response's json.body has embedded exception
   ) do
-    stub_custom_start_points_http(exception='{"exception":"xxx"}')
-    _stdout,_stderr = capture_stdout_stderr {
-      get '/index_kata'
-    }
-    assert status?(500), status
-    #...
+    assert_get_500('/index_kata', _exception='{"exception":"xxx"}')
   end
 
   # - - - - - - - - - - - - - - - - -
 
   test 'F9q', %w(
   |any http-servive call
-  |is 500 error
+  |is a 500 error
   |when response's json.body has no key for method
   ) do
-    stub_custom_start_points_http(no_key='{}')
-    _stdout,_stderr = capture_stdout_stderr {
-      get '/index_kata'
-    }
-    assert status?(500), status
-    #...
+    assert_get_500('/index_kata', _no_key='{}')
   end
 
   private
+
+  def assert_get_500(path, stub)
+    stub_custom_start_points_http(stub)
+    _stdout,stderr = capture_stdout_stderr {
+      get path
+    }
+    assert status?(500), status
+    assert_equal '', stderr, :stderr_is_empty
+    #stdout
+  end
 
   def stub_custom_start_points_http(body)
     externals.instance_exec {
