@@ -28,12 +28,36 @@ class TestBase < Id58TestBase
     externals.custom_start_points
   end
 
+  # - - - - - - - - - - - - - - -
+
   def status?(expected)
     status === expected
   end
 
   def status
     last_response.status
+  end
+
+  # - - - - - - - - - - - - - - -
+
+  def html_content?
+    content_type === 'text/html;charset=utf-8'
+  end
+
+  def json_content?
+    content_type === 'application/json'
+  end
+
+  def css_content?
+    content_type === 'text/css; charset=utf-8'
+  end
+
+  def js_content?
+    content_type === 'application/javascript'
+  end
+
+  def content_type
+    last_response.headers['Content-Type']
   end
 
 end

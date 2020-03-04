@@ -13,20 +13,6 @@ class CreateTest < TestBase
 
   # - - - - - - - - - - - - - - - - -
 
-  test '7Je', %w( GET/assets/app.css is served ) do
-    get '/assets/app.css'
-    assert status?(200), status
-    assert css_content?, content_type
-  end
-
-  test '7Jf', %w( GET/assets/app.js is served ) do
-    get '/assets/app.js'
-    assert status?(200), status
-    assert js_content?, content_type
-  end
-
-  # - - - - - - - - - - - - - - - - -
-
   test 'w9A', %w(
   |GET /create_group?display_name=...
   |redirects to /kata/group/:id page
@@ -158,28 +144,6 @@ class CreateTest < TestBase
 
   def json_response
     @json_response ||= JSON.parse(last_response.body)
-  end
-
-  # - - - - - - - - - - - - - - - - - - - -
-
-  def html_content?
-    content_type === 'text/html;charset=utf-8'
-  end
-
-  def json_content?
-    content_type === 'application/json'
-  end
-
-  def css_content?
-    content_type === 'text/css; charset=utf-8'
-  end
-
-  def js_content?
-    content_type === 'application/javascript'
-  end
-
-  def content_type
-    last_response.headers['Content-Type']
   end
 
 end
