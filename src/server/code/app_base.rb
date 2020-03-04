@@ -76,22 +76,7 @@ class AppBase < Sinatra::Base
 
   # - - - - - - - - - - - - - - - - - - - - - -
 
-  def self.get_json(name)
-    get "/#{name}", provides:[:json] do
-      respond_to do |format|
-        format.json {
-          result = instance_eval {
-            target.public_send(name, **json_args)
-          }
-          json({ name => result })
-        }
-      end
-    end
-  end
-
-  # - - - - - - - - - - - - - - - - - - - - - -
-
-  def self.get_probe(name)
+  def self.probe_get(name)
     get "/#{name}" do
       result = instance_eval { target.public_send(name) }
       json({ name => result })
@@ -108,11 +93,11 @@ class AppBase < Sinatra::Base
     keyworded(params)
   end
 
+  private
+
   def keyworded(args)
     Hash[args.map{ |key,value| [key.to_sym, value] }]
   end
-
-  private
 
   def json_hash_parse(body)
     json = (body === '') ? {} : JSON.parse!(body)

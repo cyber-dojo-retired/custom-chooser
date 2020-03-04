@@ -16,9 +16,9 @@ class App < AppBase
     Chooser.new(@externals)
   end
 
-  get_probe(:alive?) # curl/k8s
-  get_probe(:ready?) # curl/k8s
-  get_json(:sha)     # identity
+  probe_get(:alive?) # curl/k8s
+  probe_get(:ready?) # curl/k8s
+  probe_get(:sha)    # identity
 
   # - - - - - - - - - - - - - - - - - - - - - -
   # group
