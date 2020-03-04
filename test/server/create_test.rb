@@ -12,6 +12,8 @@ class CreateTest < TestBase
   end
 
   # - - - - - - - - - - - - - - - - -
+  # GET 302's
+  # - - - - - - - - - - - - - - - - -
 
   test 'w9A', %w(
   |GET /create_group?display_name=...
@@ -49,6 +51,8 @@ class CreateTest < TestBase
     assert_equal display_name, manifest['display_name'], manifest
   end
 
+  # - - - - - - - - - - - - - - - - -
+  # POST 200's
   # - - - - - - - - - - - - - - - - -
 
   test 'w9C', %w(
@@ -134,11 +138,6 @@ class CreateTest < TestBase
   def json_post(path, data)
     post '/'+path, data.to_json, JSON_REQUEST_HEADERS
   end
-
-  JSON_REQUEST_HEADERS = {
-    'CONTENT_TYPE' => 'application/json', # request sent by client
-    'HTTP_ACCEPT' => 'application/json'   # response received by client
-  }
 
   # - - - - - - - - - - - - - - - - - - - -
 

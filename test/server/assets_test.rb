@@ -9,13 +9,17 @@ class AssetsTest < TestBase
 
   # - - - - - - - - - - - - - - - - -
 
-  test '2Je', %w( GET/assets/app.css is served ) do
+  test '2Je', %w(
+  |GET /assets/app.css is served
+  ) do
     get '/assets/app.css'
     assert status?(200), status
     assert css_content?, content_type
   end
 
-  test '2Jf', %w( GET/assets/app.js is served ) do
+  test '2Jf', %w(
+  |GET /assets/app.js is served
+  ) do
     get '/assets/app.js'
     assert status?(200), status
     assert js_content?, content_type

@@ -1,4 +1,4 @@
-Run options: --seed 16636
+Run options: --seed 24682
 
 # Running:
 
@@ -6,21 +6,21 @@ Run options: --seed 16636
 /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:44: warning: The called method `handshake' is defined here
 ..
 
-Finished in 7.705225s, 0.2596 runs/s, 0.7787 assertions/s.
+Finished in 7.957890s, 0.2513 runs/s, 0.7540 assertions/s.
 
 2 runs, 6 assertions, 0 failures, 0 errors, 0 skips
 Coverage report generated for MiniTest to //tmp/reports. 11827 / 26482 LOC (44.66%) covered.
 
 Slowest 2 tests are...
-6.7230 - xRae5E:create_test.rb:35:|PATH /custom-chooser/index_kata shows |custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
-0.7135 - xRae5D:create_test.rb:16:|PATH /custom-chooser/index_group |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
+7.0448 - xRae5D:create_test.rb:16:|PATH /custom-chooser/index_group |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
+0.6280 - xRae5E:create_test.rb:35:|PATH /custom-chooser/index_kata shows |custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       2   <=     2 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    7.71   <=    12 | [32m true [0m
+        duration(test)[s] |    7.96   <=    12 | [32m true [0m
                     tests |       2   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
