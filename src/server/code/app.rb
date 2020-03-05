@@ -29,7 +29,7 @@ class App < AppBase
         @display_names = target.display_names
         @possessive = 'our'
         @create_url = '/custom-chooser/create_group'
-        erb :index
+        erb :'group/index'
       end
     end
   end
@@ -67,7 +67,7 @@ class App < AppBase
         @display_names = target.display_names
         @possessive = 'my'
         @create_url = '/custom-chooser/create_kata'
-        erb :index
+        erb :'kata/index'
       end
     end
   end

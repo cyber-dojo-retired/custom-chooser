@@ -1,0 +1,28 @@
+<script>
+'use strict';
+$(() => {
+
+  const displayNames = $('.display-name');
+  displayNames.each((_,displayName) => {
+    $(displayName).click(() => {
+      displayNames.removeClass('selected');
+      $(displayName).addClass('selected');
+    });
+  });
+
+  const random = (n) => Math.floor(Math.random() * n);
+  const any = random(displayNames.size());
+  const anyDisplayName = $(displayNames[any]);
+  anyDisplayName.click();
+  anyDisplayName.scrollIntoView({ direction: 'vertical' });
+
+});
+</script>
+
+<div id="display-names">
+  <% @display_names.each do |display_name| %>
+    <div class="display-name">
+      <%= display_name %>
+    </div>
+  <% end %>
+</div>
