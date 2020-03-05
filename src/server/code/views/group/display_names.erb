@@ -1,13 +1,7 @@
 <script>
 'use strict';
 $(() => {
-  //-------------------------------------------------------
-  // Currently, only a single display-name can be selected.
-  // At some point I plan to allow multiple display-names
-  // to be selected, and for multiple manifests to be
-  // associated with a group. When joining such a group,
-  // a display-name will need to be selected.
-  //-------------------------------------------------------
+
   const displayNames = $('.display-name');
   displayNames.click((event) => {
     displayNames.removeClass('selected');
