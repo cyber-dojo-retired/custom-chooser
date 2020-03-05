@@ -11,6 +11,12 @@ class CreateTest < TestBase
     'v42'
   end
 
+  def id58_setup
+    @display_name = display_names.sample
+  end
+
+  attr_reader :display_name
+
   # - - - - - - - - - - - - - - - - -
   # create_group
   # - - - - - - - - - - - - - - - - -
@@ -20,7 +26,6 @@ class CreateTest < TestBase
   |redirects to /kata/group/:id page
   |and a group with :id exists
   ) do
-    display_name = any_display_name
     get '/create_group', display_names:[display_name]
     assert status?(302), status
     follow_redirect!
@@ -40,7 +45,6 @@ class CreateTest < TestBase
   |with {"create_group":"ID"}
   |where a group with ID exists
   ) do
-    display_name = any_display_name
     json_post path='create_group', display_names:[display_name]
     assert status?(200), status
     assert json_content?, content_type
@@ -60,7 +64,6 @@ class CreateTest < TestBase
   |redirects to /kata/edit/:id page
   |and a kata with :id exists
   ) do
-    display_name = any_display_name
     get '/create_kata', display_name:display_name
     assert status?(302), status
     follow_redirect!
@@ -80,7 +83,6 @@ class CreateTest < TestBase
   |with {"create_kata":"ID"}
   |where a kata with ID exists
   ) do
-    display_name = any_display_name
     json_post path='create_kata', display_name:display_name
     assert status?(200), status
     assert json_content?, content_type
@@ -92,12 +94,6 @@ class CreateTest < TestBase
   end
 
   private
-
-  def any_display_name
-    display_names.sample
-  end
-
-  # - - - - - - - - - - - - - - - - - - - -
 
   def group_exists?(id)
     saver.exists?(group_id_path(id))
