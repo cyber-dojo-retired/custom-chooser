@@ -33,8 +33,8 @@ demo()
   curl_200           GET  assets/app.css 'Content-Type: text/css'
   echo
   curl_200           GET  index_group  session
-  curl_params_302    GET  create_group "$(params_display_name)"
-  curl_json_body_200 POST create_group "$(json_display_name)"
+  curl_params_302    GET  create_group "$(params_display_names)"
+  curl_json_body_200 POST create_group "$(json_display_names)"
   echo
   curl_200           GET  index_kata   session
   curl_params_302    GET  create_kata  "$(params_display_name)"
@@ -107,8 +107,10 @@ curl_200()
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { echo -n "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}"; }
-json_display_name()   { json   display_name "$(display_name)"; }
-params_display_name() { params display_name "$(display_name)"; }
+json_display_names()   { echo -n "{\"display_names\":[\"$(display_name)\"]}"; }
+params_display_names() { params display_names[] "$(display_name)"; }
+json_display_name()    { json   display_name "$(display_name)"; }
+params_display_name()  { params display_name "$(display_name)"; }
 json() { echo -n "{\"${1}\":\"${2}\"}"; }
 params() { echo -n "${1}=${2}"; }
 display_name() { echo -n 'Java Countdown, Round 1'; }

@@ -4,7 +4,7 @@ $(() => {
 
   $('button#ok').click(() => {
     const display_name = $('.selected.display-name').text().trim();
-    const params = 'display_name=' + encodeURIComponent(display_name);
+    const params = `display_names[]=${encodeURIComponent(display_name)}`;
     const url = `<%= @create_url %>?${params}`;
     window.location = url;
   });

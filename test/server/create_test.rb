@@ -12,16 +12,16 @@ class CreateTest < TestBase
   end
 
   # - - - - - - - - - - - - - - - - -
-  # GET 302's
+  # create_group
   # - - - - - - - - - - - - - - - - -
 
   test 'w9A', %w(
-  |GET /create_group?display_name=...
+  |GET /create_group?display_names[]=...
   |redirects to /kata/group/:id page
   |and a group with :id exists
   ) do
     display_name = any_display_name
-    get '/create_group', :display_name => display_name
+    get '/create_group', :display_names => [display_name]
     assert status?(302), status
     follow_redirect!
     assert html_content?, content_type
@@ -32,6 +32,29 @@ class CreateTest < TestBase
     assert_equal display_name, manifest['display_name'], manifest
   end
 
+  # - - - - - - - - - - - - - - - - -
+
+  test 'w9C', %w(
+  |POST /create_group body={"display_names":[...]}
+  |returns json payload
+  |with {"create_group":"ID"}
+  |where a group with ID exists
+  |and for backwards compatibility
+  |also returns the ID against an "id" key
+  ) do
+    display_name = any_display_name
+    json_post path='create_group', {display_names:[display_name]}
+    assert status?(200), status
+    assert json_content?, content_type
+    assert_equal [path,'id'], json_response.keys.sort, :keys
+    id = json_response['id'] # eg xCSKgZ
+    assert group_exists?(id), "id:#{id}:"
+    manifest = group_manifest(id)
+    assert_equal display_name, manifest['display_name'], manifest
+  end
+
+  # - - - - - - - - - - - - - - - - -
+  # create_kata
   # - - - - - - - - - - - - - - - - -
 
   test 'w9B', %w(
@@ -48,29 +71,6 @@ class CreateTest < TestBase
     assert %r"http://example.org/kata/edit/(?<id>.*)" =~ url, url
     assert kata_exists?(id), "id:#{id}:" # eg H3Nqu2
     manifest = kata_manifest(id)
-    assert_equal display_name, manifest['display_name'], manifest
-  end
-
-  # - - - - - - - - - - - - - - - - -
-  # POST 200's
-  # - - - - - - - - - - - - - - - - -
-
-  test 'w9C', %w(
-  |POST /create_group body={"display_name":"..."}
-  |returns json payload
-  |with {"create_group":"ID"}
-  |where a group with ID exists
-  |and for backwards compatibility
-  |also returns the ID against an "id" key
-  ) do
-    display_name = any_display_name
-    json_post path='create_group', {display_name:display_name}
-    assert status?(200), status
-    assert json_content?, content_type
-    assert_equal [path,'id'], json_response.keys.sort, :keys
-    id = json_response['id'] # eg xCSKgZ
-    assert group_exists?(id), "id:#{id}:"
-    manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
   end
 
@@ -103,8 +103,6 @@ class CreateTest < TestBase
 
   # - - - - - - - - - - - - - - - - - - - -
 
-  include IdPather
-
   def group_exists?(id)
     saver.exists?(group_id_path(id))
   end
@@ -112,6 +110,8 @@ class CreateTest < TestBase
   def kata_exists?(id)
     saver.exists?(kata_id_path(id))
   end
+
+  include IdPather
 
   # - - - - - - - - - - - - - - - - - - - -
 
