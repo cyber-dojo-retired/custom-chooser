@@ -1,4 +1,0 @@
-
-# 2 add error handler (see creator)
-# 6 check error handling in JS when creator fails
-# 7 check error handling in JS when saver fails. creator needs to pass saver error 'through'

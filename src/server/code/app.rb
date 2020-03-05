@@ -46,9 +46,7 @@ class App < AppBase
     respond_to do |format|
       format.json {
         id = target.create_custom_group(**json_args)
-        new_api = { create_group:id }
-        backwards_compatible = { id:id }
-        json new_api.merge(backwards_compatible)
+        json({ create_group:id })
       }
     end
   end
@@ -83,9 +81,7 @@ class App < AppBase
     respond_to do |format|
       format.json {
         id = target.create_custom_kata(**json_args)
-        new_api = { create_kata:id }
-        backwards_compatible = { id:id }
-        json new_api.merge(backwards_compatible)
+        json({ create_kata:id })
       }
     end
   end

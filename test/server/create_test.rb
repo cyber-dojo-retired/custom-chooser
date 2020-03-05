@@ -21,7 +21,7 @@ class CreateTest < TestBase
   |and a group with :id exists
   ) do
     display_name = any_display_name
-    get '/create_group', :display_names => [display_name]
+    get '/create_group', display_names:[display_name]
     assert status?(302), status
     follow_redirect!
     assert html_content?, content_type
@@ -39,15 +39,13 @@ class CreateTest < TestBase
   |returns json payload
   |with {"create_group":"ID"}
   |where a group with ID exists
-  |and for backwards compatibility
-  |also returns the ID against an "id" key
   ) do
     display_name = any_display_name
-    json_post path='create_group', {display_names:[display_name]}
+    json_post path='create_group', display_names:[display_name]
     assert status?(200), status
     assert json_content?, content_type
-    assert_equal [path,'id'], json_response.keys.sort, :keys
-    id = json_response['id'] # eg xCSKgZ
+    assert_equal [path], json_response.keys.sort, :keys
+    id = json_response[path] # eg xCSKgZ
     assert group_exists?(id), "id:#{id}:"
     manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
@@ -63,7 +61,7 @@ class CreateTest < TestBase
   |and a kata with :id exists
   ) do
     display_name = any_display_name
-    get '/create_kata', :display_name => display_name
+    get '/create_kata', display_name:display_name
     assert status?(302), status
     follow_redirect!
     assert html_content?, content_type
@@ -81,15 +79,13 @@ class CreateTest < TestBase
   |returns json payload
   |with {"create_kata":"ID"}
   |where a kata with ID exists
-  |and for backwards compatibility
-  |also returns the ID against an "id" key
   ) do
     display_name = any_display_name
-    json_post path='create_kata', {display_name:display_name}
+    json_post path='create_kata', display_name:display_name
     assert status?(200), status
     assert json_content?, content_type
-    assert_equal [path,'id'], json_response.keys.sort, :keys
-    id = json_response['id'] # eg H3Nqu2
+    assert_equal [path], json_response.keys.sort, :keys
+    id = json_response[path] # eg H3Nqu2
     assert kata_exists?(id), "id:#{id}:"
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest

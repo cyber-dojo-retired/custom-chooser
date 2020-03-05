@@ -26,7 +26,7 @@ class Chooser
   end
 
   def create_custom_group(display_names:)
-    creator.create_custom_group(display_names[0])
+    creator.create_custom_group(display_names)
   end
 
   def create_custom_kata(display_name:)
