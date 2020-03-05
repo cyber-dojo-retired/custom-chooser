@@ -1,7 +1,6 @@
 <script>
 'use strict';
 $(() => {
-
   //-------------------------------------------------------
   // Currently, only a single display-name can be selected.
   // At some point I plan to allow multiple display-names
@@ -9,20 +8,14 @@ $(() => {
   // associated with a group. When joining such a group,
   // a display-name will need to be selected.
   //-------------------------------------------------------
-
   const displayNames = $('.display-name');
-  displayNames.each((_,displayName) => {
-    $(displayName).click(() => {
-      displayNames.removeClass('selected');
-      $(displayName).addClass('selected');
-    });
-  });
-
+  displayNames.click((event) => {
+    displayNames.removeClass('selected');
+    $(event.target).addClass('selected');
+  })
   const random = (n) => Math.floor(Math.random() * n);
   const any = random(displayNames.size());
-  const anyDisplayName = $(displayNames[any]);
-  anyDisplayName.click();
-  anyDisplayName.scrollIntoView({ direction: 'vertical' });
+  $(displayNames[any]).click().scrollIntoView({direction:'vertical'});
 
 });
 </script>

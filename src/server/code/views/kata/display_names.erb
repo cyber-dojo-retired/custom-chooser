@@ -3,18 +3,13 @@
 $(() => {
 
   const displayNames = $('.display-name');
-  displayNames.each((_,displayName) => {
-    $(displayName).click(() => {
-      displayNames.removeClass('selected');
-      $(displayName).addClass('selected');
-    });
+  displayNames.click((event) => {
+    displayNames.removeClass('selected');
+    $(event.target).addClass('selected');
   });
-
   const random = (n) => Math.floor(Math.random() * n);
   const any = random(displayNames.size());
-  const anyDisplayName = $(displayNames[any]);
-  anyDisplayName.click();
-  anyDisplayName.scrollIntoView({ direction: 'vertical' });
+  $(displayNames[any]).click().scrollIntoView({direction:'vertical'});
 
 });
 </script>
