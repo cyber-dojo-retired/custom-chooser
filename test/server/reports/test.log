@@ -1,21 +1,21 @@
-Run options: --seed 43720
+Run options: --seed 11965
 
 # Running:
 
 ...................
 
-Finished in 0.306336s, 62.0234 runs/s, 306.8525 assertions/s.
+Finished in 0.308671s, 61.5542 runs/s, 304.5312 assertions/s.
 
 19 runs, 94 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 13100 / 24348 LOC (53.8%) covered.
+Coverage report generated for MiniTest to //tmp/reports. 13098 / 24346 LOC (53.8%) covered.
 
 Slowest 5 tests are...
-0.0907 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
-0.0495 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
-0.0206 - v42w9D:create_test.rb:79:|POST /create_kata body={"display_name":"..."} |returns json payload |with {"create_kata":"ID"} |where a kata with ID exists |and for backwards compatibility |also returns the ID against an "id" key
-0.0205 - v42w9A:create_test.rb:18:|GET /create_group?display_name=... |redirects to /kata/group/:id page |and a group with :id exists
-0.0204 - v42w9C:create_test.rb:58:|POST /create_group body={"display_name":"..."} |returns json payload |with {"create_group":"ID"} |where a group with ID exists |and for backwards compatibility |also returns the ID against an "id" key
-0.0181 - v42w9B:create_test.rb:37:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0889 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.0431 - a7318w:index_test.rb:12:|GET/index_group |offers all display_names |ready to create a group |when custom_start_points is online
+0.0416 - v42w9D:create_test.rb:79:|POST /create_kata body={"display_name":"..."} |returns json payload |with {"create_kata":"ID"} |where a kata with ID exists |and for backwards compatibility |also returns the ID against an "id" key
+0.0234 - v42w9B:create_test.rb:37:|GET /create_kata?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0209 - v42w9A:create_test.rb:18:|GET /create_group?display_name=... |redirects to /kata/group/:id page |and a group with :id exists
+0.0182 - v42w9C:create_test.rb:58:|POST /create_group body={"display_name":"..."} |returns json payload |with {"create_group":"ID"} |where a group with ID exists |and for backwards compatibility |also returns the ID against an "id" key
 
 
                  failures |       0   <=     0 | [32m true [0m
@@ -26,6 +26,6 @@ Slowest 5 tests are...
                     tests |      19   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.87   >=   0.7 | [32m true [0m
-      hits(tested/tester) |    1.76   >=   1.2 | [32m true [0m
+     lines(tester/tested) |    0.88   >=   0.7 | [32m true [0m
+      hits(tested/tester) |    1.77   >=   1.2 | [32m true [0m
 

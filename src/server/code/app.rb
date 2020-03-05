@@ -27,7 +27,6 @@ class App < AppBase
     respond_to do |format|
       format.html do
         @display_names = target.display_names
-        @possessive = 'our'
         @create_url = '/custom-chooser/create_group'
         erb :'group/index'
       end
@@ -65,7 +64,6 @@ class App < AppBase
     respond_to do |format|
       format.html do
         @display_names = target.display_names
-        @possessive = 'my'
         @create_url = '/custom-chooser/create_kata'
         erb :'kata/index'
       end
