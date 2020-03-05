@@ -11,10 +11,7 @@ class Chooser
   end
 
   def ready?
-    services = []
-    services << creator
-    services << custom_start_points
-    services.all?{ |service| service.ready? }
+    [creator,custom_start_points].all?(&:ready?)
   end
 
   def sha
