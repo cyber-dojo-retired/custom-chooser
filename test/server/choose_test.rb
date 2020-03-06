@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require_relative 'test_base'
 
-class IndexTest < TestBase
+class ChooseTest < TestBase
 
   def self.id58_prefix
     'a73'
@@ -10,12 +10,12 @@ class IndexTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test '18w', %w(
-  |GET/index_group
+  |GET/group_choose
   |offers all display_names
   |ready to create a group
   |when custom_start_points is online
   ) do
-    get '/index_group'
+    get '/group_choose'
     assert status?(200), status
     html = last_response.body
     assert heading(html).include?('our'), html
@@ -28,12 +28,12 @@ class IndexTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test '19w', %w(
-  |GET/index_kata
+  |GET/kata_choose
   |offers all display_names
   |ready to create a kata
   |when custom_start_points is online
   ) do
-    get '/index_kata'
+    get '/kata_choose'
     assert status?(200), status
     html = last_response.body
     assert heading(html).include?('my'), html
@@ -44,7 +44,7 @@ class IndexTest < TestBase
   end
 
   private
-  
+
   def heading(html)
     # (.*?) for non-greedy match
     # /m for . matching newlines

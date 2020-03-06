@@ -18,15 +18,15 @@ class CreateTest < TestBase
   attr_reader :display_name
 
   # - - - - - - - - - - - - - - - - -
-  # create_group
+  # group_create
   # - - - - - - - - - - - - - - - - -
 
   test 'w9A', %w(
-  |GET /create_group?display_names[]=...
+  |GET /group_create?display_names[]=...
   |redirects to /kata/group/:id page
   |and a group with :id exists
   ) do
-    get '/create_group', display_names:[display_name]
+    get '/group_create', display_names:[display_name]
     assert status?(302), status
     follow_redirect!
     assert html_content?, content_type
@@ -40,12 +40,12 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'w9C', %w(
-  |POST /create_group body={"display_names":[...]}
+  |POST /group_create body={"display_names":[...]}
   |returns json payload
-  |with {"create_group":"ID"}
+  |with {"group_create":"ID"}
   |where a group with ID exists
   ) do
-    json_post path='create_group', display_names:[display_name]
+    json_post path='group_create', display_names:[display_name]
     assert status?(200), status
     assert json_content?, content_type
     assert_equal [path], json_response.keys.sort, :keys
@@ -56,15 +56,15 @@ class CreateTest < TestBase
   end
 
   # - - - - - - - - - - - - - - - - -
-  # create_kata
+  # kata_create
   # - - - - - - - - - - - - - - - - -
 
   test 'w9B', %w(
-  |GET /create_kata?display_name=...
+  |GET /kata_create?display_name=...
   |redirects to /kata/edit/:id page
   |and a kata with :id exists
   ) do
-    get '/create_kata', display_name:display_name
+    get '/kata_create', display_name:display_name
     assert status?(302), status
     follow_redirect!
     assert html_content?, content_type
@@ -78,12 +78,12 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'w9D', %w(
-  |POST /create_kata body={"display_name":"..."}
+  |POST /kata_create body={"display_name":"..."}
   |returns json payload
-  |with {"create_kata":"ID"}
+  |with {"kata_create":"ID"}
   |where a kata with ID exists
   ) do
-    json_post path='create_kata', display_name:display_name
+    json_post path='kata_create', display_name:display_name
     assert status?(200), status
     assert json_content?, content_type
     assert_equal [path], json_response.keys.sort, :keys

@@ -23,71 +23,63 @@ class App < AppBase
   # - - - - - - - - - - - - - - - - - - - - - -
   # group
 
-  get '/index_group', provides:[:html] do
+  get '/group_choose', provides:[:html] do
     respond_to do |format|
       format.html do
         @display_names = target.display_names
-        @create_url = '/custom-chooser/create_group'
-        erb :'group/index'
+        @create_url = '/custom-chooser/group_create'
+        erb :'group/choose'
       end
     end
   end
 
-  get '/create_group', provides:[:html] do
+  get '/group_create', provides:[:html] do
     respond_to do |format|
       format.html {
-        id = target.create_custom_group(**params_args)
-        redirect group_path(id)
+        id = target.group_create_custom(**params_args)
+        redirect "/kata/group/#{id}"
       }
     end
   end
 
-  post '/create_group', provides:[:json] do
+  post '/group_create', provides:[:json] do
     respond_to do |format|
       format.json {
-        id = target.create_custom_group(**json_args)
-        json({ create_group:id })
+        id = target.group_create_custom(**json_args)
+        json({ group_create:id })
       }
     end
-  end
-
-  def group_path(id)
-    "/kata/group/#{id}"
   end
 
   # - - - - - - - - - - - - - - - - - - - - - -
   # kata
 
-  get '/index_kata', provides:[:html] do
+  get '/kata_choose', provides:[:html] do
     respond_to do |format|
       format.html do
         @display_names = target.display_names
-        @create_url = '/custom-chooser/create_kata'
-        erb :'kata/index'
+        @create_url = '/custom-chooser/kata_create'
+        erb :'kata/choose'
       end
     end
   end
 
-  get '/create_kata', provides:[:html] do
+  get '/kata_create', provides:[:html] do
     respond_to do |format|
       format.html {
-        id = target.create_custom_kata(**params_args)
-        redirect kata_path(id)
+        id = target.kata_create_custom(**params_args)
+        redirect "/kata/edit/#{id}"
       }
     end
   end
 
-  post '/create_kata', provides:[:json] do
+  post '/kata_create', provides:[:json] do
     respond_to do |format|
       format.json {
-        id = target.create_custom_kata(**json_args)
-        json({ create_kata:id })
+        id = target.kata_create_custom(**json_args)
+        json({ kata_create:id })
       }
     end
-  end
-
-  def kata_path(id)
-    "/kata/edit/#{id}"
   end
 
 end

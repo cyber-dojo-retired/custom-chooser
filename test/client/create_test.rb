@@ -14,13 +14,13 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'e5D', %w(
-  |PATH /custom-chooser/index_group
+  |PATH /custom-chooser/group_choose
   |shows custom display-names
   |selecting one
   |clicking [ok] button
   |redirects to /kata/group/:ID
   ) do
-    visit('/custom-chooser/index_group')
+    visit('/custom-chooser/group_choose')
     display_name = 'Java Countdown, Round 1'
     find('div.display-name', text:display_name).click
     find('#ok').click
@@ -33,13 +33,13 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'e5E', %w(
-  |PATH /custom-chooser/index_kata shows
+  |PATH /custom-chooser/kata_choose shows
   |custom display-names
   |selecting one
   |clicking [ok] button
   |redirects to /kata/edit/:ID
   ) do
-    visit('/custom-chooser/index_kata')
+    visit('/custom-chooser/kata_choose')
     display_name = 'Java Countdown, Round 1'
     find('div.display-name', text:display_name).click
     find('#ok').click

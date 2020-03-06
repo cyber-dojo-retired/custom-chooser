@@ -22,12 +22,12 @@ class Chooser
     custom_start_points.display_names
   end
 
-  def create_custom_group(display_names:)
-    creator.create_custom_group(display_names)
+  def group_create_custom(display_names:)
+    creator.group_create_custom(display_names)
   end
 
-  def create_custom_kata(display_name:)
-    creator.create_custom_kata(display_name)
+  def kata_create_custom(display_name:)
+    creator.kata_create_custom(display_name)
   end
 
   private

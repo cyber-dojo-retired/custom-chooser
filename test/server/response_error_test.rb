@@ -14,7 +14,7 @@ class ResponseErrorTest < TestBase
   |is a 500 error
   |when response's json.body is not JSON
   ) do
-    assert_get_500('/index_group', _not_json='xxxx')
+    assert_get_500('/group_choose', _not_json='xxxx')
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -24,7 +24,7 @@ class ResponseErrorTest < TestBase
   |is a 500 error
   |when response's json.body is not JSON-Hash
   ) do
-    assert_get_500('/index_kata', _not_json_hash='[]')
+    assert_get_500('/kata_choose', _not_json_hash='[]')
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -34,7 +34,7 @@ class ResponseErrorTest < TestBase
   |is a 500 error
   |when response's json.body has embedded exception
   ) do
-    assert_get_500('/index_kata', _exception='{"exception":"xxx"}')
+    assert_get_500('/kata_choose', _exception='{"exception":"xxx"}')
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -44,7 +44,7 @@ class ResponseErrorTest < TestBase
   |is a 500 error
   |when response's json.body has no key for method
   ) do
-    assert_get_500('/index_kata', _no_key='{}')
+    assert_get_500('/kata_choose', _no_key='{}')
   end
 
   private

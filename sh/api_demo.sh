@@ -15,7 +15,7 @@ main()
   demo
   echo
   if [ "${1:-}" == 'browser' ]; then
-    open "http://${IP_ADDRESS}:80/custom-chooser/index_group"
+    open "http://${IP_ADDRESS}:80/custom-chooser/group_choose"
   else
     "${SH_DIR}/containers_down.sh"
   fi
@@ -32,13 +32,13 @@ demo()
   curl_200           GET  assets/app.js  'Content-Type: application/javascript'
   curl_200           GET  assets/app.css 'Content-Type: text/css'
   echo
-  curl_200           GET  index_group  session
-  curl_params_302    GET  create_group "$(params_display_names)"
-  curl_json_body_200 POST create_group "$(json_display_names)"
+  curl_200           GET  group_choose  session
+  curl_params_302    GET  group_create "$(params_display_names)"
+  curl_json_body_200 POST group_create "$(json_display_names)"
   echo
-  curl_200           GET  index_kata   session
-  curl_params_302    GET  create_kata  "$(params_display_name)"
-  curl_json_body_200 POST create_kata  "$(json_display_name)"
+  curl_200           GET  kata_choose   session
+  curl_params_302    GET  kata_create  "$(params_display_name)"
+  curl_json_body_200 POST kata_create  "$(json_display_name)"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
