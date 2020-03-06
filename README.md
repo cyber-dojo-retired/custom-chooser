@@ -7,4 +7,5 @@
 - An http service for choosing a custom-start-point when creating a new group or a new kata.
 - Work in progress. Not live yet.
 
-![snapshot](https://github.com/cyber-dojo/custom/blob/master/docs/snapshot.png)
+- - - -
+![cyber-dojo.org home page](https://github.com/cyber-dojo/cyber-dojo/blob/master/shared/home_page_snapshot.png)
