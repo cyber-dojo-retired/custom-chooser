@@ -2,11 +2,11 @@
 'use strict';
 $(() => {
 
-  $('button#ok').click(() => {
-    const display_name = $('.selected.display-name').text().trim();
-    const params = 'display_name=' + encodeURIComponent(display_name);
-    const url = `<%= @create_url %>?${params}`;
-    window.location = url;
+  cd.ok = $('button#ok');
+  cd.ok.prop('disabled', true).click(() => {
+    const displayName = cd.selectedDisplayName.text().trim();
+    const params = 'display_name=' + encodeURIComponent(displayName);
+    window.location = `<%= @create_url %>?${params}`;
   });
 
 });
