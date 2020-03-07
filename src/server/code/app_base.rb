@@ -53,8 +53,8 @@ class AppBase < Sinatra::Base
   environment.append_path('code/assets/stylesheets')
   environment.append_path('code/assets/javascripts')
   # compress assets
-  #environment.js_compressor  = :uglify
-  #environment.css_compressor = :scss
+  environment.js_compressor  = :uglify
+  environment.css_compressor = :scss
 
   get '/assets/app.css', provides:[:css] do
     respond_to do |format|
