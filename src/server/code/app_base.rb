@@ -14,38 +14,6 @@ class AppBase < Sinatra::Base
   set :port, ENV['PORT']
 
   # - - - - - - - - - - - - - - - - - - - - - -
-  set :show_exceptions, false
-
-  error do
-    error = $!
-    status(500)
-    info = {
-      exception: {
-        request: {
-          path:request.path,
-          body:request.body.read
-        },
-        backtrace: error.backtrace
-      }
-    }
-    exception = info[:exception]
-    if error.instance_of?(::HttpJsonHash::ServiceError)
-      exception[:http_service] = {
-        path:error.path,
-        args:error.args,
-        name:error.name,
-        body:error.body,
-        message:error.message
-      }
-    else
-      exception[:message] = error.message
-    end
-    @diagnostic = JSON.pretty_generate(info)
-    puts @diagnostic
-    erb :error
-  end
-
-  # - - - - - - - - - - - - - - - - - - - - - -
   # stylesheets and javascript
 
   set :environment, Sprockets::Environment.new
@@ -53,6 +21,7 @@ class AppBase < Sinatra::Base
   environment.append_path('code/assets/stylesheets')
   environment.append_path('code/assets/javascripts')
   # compress assets
+  # Cause a notable delay in response times so for now off.
   #environment.js_compressor  = :uglify
   #environment.css_compressor = :scss
 
@@ -107,6 +76,38 @@ class AppBase < Sinatra::Base
     json
   rescue JSON::ParserError
     fail 'body is not JSON'
+  end
+
+  # - - - - - - - - - - - - - - - - - - - - - -
+  set :show_exceptions, false
+
+  error do
+    error = $!
+    status(500)
+    info = {
+      exception: {
+        request: {
+          path:request.path,
+          body:request.body.read
+        },
+        backtrace: error.backtrace
+      }
+    }
+    exception = info[:exception]
+    if error.instance_of?(::HttpJsonHash::ServiceError)
+      exception[:http_service] = {
+        path:error.path,
+        args:error.args,
+        name:error.name,
+        body:error.body,
+        message:error.message
+      }
+    else
+      exception[:message] = error.message
+    end
+    @diagnostic = JSON.pretty_generate(info)
+    puts @diagnostic
+    erb :error
   end
 
 end
