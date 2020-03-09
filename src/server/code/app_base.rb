@@ -55,19 +55,24 @@ class AppBase < Sinatra::Base
   # - - - - - - - - - - - - - - - - - - - - - -
 
   def json_args
-    keyworded(json_hash_parse(request.body.read))
+    symbolized(json_payload)
   end
 
   def params_args
-    keyworded(params)
+    symbolized(params)
   end
 
   private
 
-  def keyworded(args)
-    Hash[args.map{ |key,value| [key.to_sym, value] }]
+  def symbolized(h)
+    # named-args require symbolization
+    Hash[h.map{ |key,value| [key.to_sym, value] }]
   end
 
+  def json_payload
+    json_hash_parse(request.body.read)
+  end
+  
   def json_hash_parse(body)
     json = (body === '') ? {} : JSON.parse!(body)
     unless json.instance_of?(Hash)
