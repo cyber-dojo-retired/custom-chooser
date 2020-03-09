@@ -32,11 +32,11 @@ demo()
   curl_200           GET  assets/app.js  'Content-Type: application/javascript'
   curl_200           GET  assets/app.css 'Content-Type: text/css'
   echo
-  curl_200           GET  group_choose  session
+  curl_200           GET  group_choose  exercise
   curl_params_302    GET  group_create "$(params_display_names)"
   curl_json_body_200 POST group_create "$(json_display_names)"
   echo
-  curl_200           GET  kata_choose   session
+  curl_200           GET  kata_choose   exercise
   curl_params_302    GET  kata_create  "$(params_display_name)"
   curl_json_body_200 POST kata_create  "$(json_display_name)"
 }
