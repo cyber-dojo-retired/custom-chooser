@@ -19,24 +19,13 @@ class AppBase < Sinatra::Base
   set :environment, Sprockets::Environment.new
   # append asset paths
   environment.append_path('code/assets/stylesheets')
-  environment.append_path('code/assets/javascripts')
   # compress assets
   # Cause a notable delay in response times so for now off.
-  #environment.js_compressor  = :uglify
   #environment.css_compressor = :scss
 
   get '/assets/app.css', provides:[:css] do
     respond_to do |format|
       format.css do
-        env['PATH_INFO'].sub!('/assets', '')
-        settings.environment.call(env)
-      end
-    end
-  end
-
-  get '/assets/app.js', provides:[:js] do
-    respond_to do |format|
-      format.js do
         env['PATH_INFO'].sub!('/assets', '')
         settings.environment.call(env)
       end
@@ -72,7 +61,7 @@ class AppBase < Sinatra::Base
   def json_payload
     json_hash_parse(request.body.read)
   end
-  
+
   def json_hash_parse(body)
     json = (body === '') ? {} : JSON.parse!(body)
     unless json.instance_of?(Hash)
