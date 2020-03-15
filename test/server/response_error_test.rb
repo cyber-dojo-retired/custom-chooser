@@ -30,7 +30,7 @@ class ResponseErrorTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'F9p', %w(
-  |any http-serice call
+  |any http-service call
   |is a 500 error
   |when response's json.body has embedded exception
   ) do
@@ -40,7 +40,7 @@ class ResponseErrorTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'F9q', %w(
-  |any http-servive call
+  |any http-service call
   |is a 500 error
   |when response's json.body has no key for method
   ) do
