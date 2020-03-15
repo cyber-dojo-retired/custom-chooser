@@ -29,7 +29,6 @@ demo()
   curl_json_body_200 GET  ready
   curl_json_body_200 GET  sha
   echo
-  curl_200           GET  assets/app.js  'Content-Type: application/javascript'
   curl_200           GET  assets/app.css 'Content-Type: text/css'
   echo
   curl_200           GET  group_choose  exercise
