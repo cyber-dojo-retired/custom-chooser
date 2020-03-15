@@ -33,8 +33,8 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test 'e5E', %w(
-  |PATH /custom-chooser/kata_choose shows
-  |custom display-names
+  |PATH /custom-chooser/kata_choose
+  |shows custom display-names
   |selecting one
   |clicking [ok] button
   |redirects to /kata/edit/:ID
