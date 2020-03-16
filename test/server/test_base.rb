@@ -63,10 +63,6 @@ class TestBase < Id58TestBase
     content_type === 'text/css; charset=utf-8'
   end
 
-  def js_content?
-    content_type === 'application/javascript'
-  end
-
   def content_type
     last_response.headers['Content-Type']
   end
