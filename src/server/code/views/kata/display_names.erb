@@ -16,8 +16,8 @@ $(() => {
 </script>
 
 <div id="display-names">
-  <% @display_names.each do |display_name| %>
-    <div class="display-name">
+  <% @display_names.each.with_index do |display_name,index| %>
+    <div class="display-name" data-index="<%= index %>">
       <%= display_name %>
     </div>
   <% end %>

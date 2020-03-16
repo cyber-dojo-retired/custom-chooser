@@ -19,7 +19,11 @@ class Chooser
   end
 
   def display_names
-    custom_start_points.display_names
+    manifests.keys.sort
+  end
+
+  def manifests
+    custom_start_points.manifests
   end
 
   def group_create_custom(display_names:)

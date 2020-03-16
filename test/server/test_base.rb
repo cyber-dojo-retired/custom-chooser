@@ -21,7 +21,11 @@ class TestBase < Id58TestBase
   end
 
   def display_names
-    custom_start_points.display_names
+    manifests.keys.sort
+  end
+
+  def manifests
+    custom_start_points.manifests
   end
 
   def custom_start_points

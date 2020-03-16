@@ -1,32 +1,33 @@
-Run options: --seed 46337
+Run options: --seed 1247
 
 # Running:
 
-/usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/driver.rb:39: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
+../usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/driver.rb:39: warning: Using the last argument as keyword parameters is deprecated; maybe ** should be added to the call
 /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:44: warning: The called method `handshake' is defined here
 .....
 
-Finished in 7.527931s, 0.6642 runs/s, 1.5941 assertions/s.
+Finished in 8.409544s, 0.8324 runs/s, 1.9026 assertions/s.
 
-5 runs, 12 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 18272 / 39664 LOC (46.07%) covered.
+7 runs, 16 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to //tmp/reports. 18282 / 39674 LOC (46.08%) covered.
 
 Slowest 5 tests are...
-6.5260 - xRae5D:create_test.rb:16:|PATH /custom-chooser/group_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
-0.7016 - xRae5E:create_test.rb:35:|PATH /custom-chooser/kata_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
-0.0377 - d5ae5K:alive_test.rb:12:its alive!                                      
+6.3808 - xRae5D:create_test.rb:16:|PATH /custom-chooser/group_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
+0.6341 - xRae5E:create_test.rb:35:|PATH /custom-chooser/kata_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
+0.4834 - xRa4C9:create_test.rb:69:|PATH /custom-chooser/kata_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/edit/:ID
+0.3687 - xRa4C8:create_test.rb:54:|PATH /custom-chooser/group_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/group/:ID
+0.0500 - d5ae5K:alive_test.rb:12:its alive!                                      
 0.0018 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0010 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       2   <=     2 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    7.53   <=    15 | [32m true [0m
-                    tests |       5   >=     1 | [32m true [0m
+        duration(test)[s] |    8.41   <=    15 | [32m true [0m
+                    tests |       7   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.68   >=   0.6 | [32m true [0m
-      hits(tested/tester) |    0.76   >=   0.7 | [32m true [0m
+     lines(tester/tested) |    0.77   >=   0.6 | [32m true [0m
+      hits(tested/tester) |    0.95   >=   0.7 | [32m true [0m
 
