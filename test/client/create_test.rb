@@ -23,7 +23,7 @@ class CreateTest < TestBase
     visit('/custom-chooser/group_choose')
     display_name = 'Java Countdown, Round 1'
     find('div.display-name', text:display_name).click
-    find('#ok').click
+    find('button#ok').click
     assert %r"/kata/group/(?<id>.*)" =~ current_path, current_path
     assert group_exists?(id), "id:#{id}:"
     manifest = group_manifest(id)
@@ -42,11 +42,41 @@ class CreateTest < TestBase
     visit('/custom-chooser/kata_choose')
     display_name = 'Java Countdown, Round 1'
     find('div.display-name', text:display_name).click
-    find('#ok').click
+    find('button#ok').click
     assert %r"/kata/edit/(?<id>.*)" =~ current_path, current_path
     assert kata_exists?(id), "id:#{id}:"
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
+  end
+
+  # - - - - - - - - - - - - - - - - -
+
+  test '4C8', %w(
+    |PATH /custom-chooser/group_choose
+    |shows custom display-names
+    |one is already selected at random
+    |so clicking [ok] button
+    |redirects to /kata/group/:ID
+  ) do
+    visit('/custom-chooser/group_choose')
+    find('button#ok').click
+    assert %r"/kata/group/(?<id>.*)" =~ current_path, current_path
+    assert group_exists?(id), "id:#{id}:"
+  end
+
+  # - - - - - - - - - - - - - - - - -
+
+  test '4C9', %w(
+    |PATH /custom-chooser/kata_choose
+    |shows custom display-names
+    |one is already selected at random
+    |so clicking [ok] button
+    |redirects to /kata/edit/:ID
+  ) do
+    visit('/custom-chooser/kata_choose')
+    find('button#ok').click
+    assert %r"/kata/edit/(?<id>.*)" =~ current_path, current_path
+    assert kata_exists?(id), "id:#{id}:"
   end
 
   private
