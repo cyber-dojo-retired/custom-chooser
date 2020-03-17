@@ -4,10 +4,8 @@ fullnameOverride: "custom-chooser"
 replicaCount: 3
 
 service:
-  port: 4536
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/port: "4536"
 
 volumes:
   - name: custom-chooser-tmp-dir
@@ -21,7 +19,6 @@ podSecurityContext:
 
 containers:
   - name: custom-chooser
-    image: cyberdojo/custom-chooser
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
@@ -38,10 +35,8 @@ containers:
         memory: 128Mi
     livenessProbe:
       path: /alive?
-      port: 4536
     readinessProbe:
       path: /ready?
-      port: 4536
 
 envFromSecret: {}
 
