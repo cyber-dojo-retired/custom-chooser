@@ -69,8 +69,8 @@ class TestBase < Id58TestBase
 
   # - - - - - - - - - - - - - - -
 
-  def html_escape(text)
-    Rack::Utils.escape_html(text)    
+  def escape_html(text)
+    Rack::Utils.escape_html(text)
   end
 
 end

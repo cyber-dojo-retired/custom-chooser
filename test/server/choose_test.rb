@@ -53,7 +53,7 @@ class ChooseTest < TestBase
 
   def div_for(display_name)
     # eg cater for "C++ Countdown, Round 1"
-    name = Regexp.quote(html_escape(display_name))
+    name = Regexp.quote(escape_html(display_name))
     /<div class="display-name"\s*data-name=".*"\s*data-index=".*">\s*#{name}\s*<\/div>/
   end
 
