@@ -3,7 +3,7 @@
 $(() => {
 
   $('button#ok').click(() => {
-    const displayName = cd.selectedDisplayName.text().trim();
+    const displayName = cd.selectedDisplayName;
     const params = `display_names[]=${encodeURIComponent(displayName)}`;
     window.location = `<%= @create_url %>?${params}`;
   });

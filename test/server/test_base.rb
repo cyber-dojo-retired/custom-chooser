@@ -67,4 +67,10 @@ class TestBase < Id58TestBase
     last_response.headers['Content-Type']
   end
 
+  # - - - - - - - - - - - - - - -
+
+  def html_escape(text)
+    Rack::Utils.escape_html(text)    
+  end
+
 end
