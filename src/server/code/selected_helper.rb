@@ -2,7 +2,6 @@
 module SelectedHelper
 
   def selected(visible_files)
-    puts "visible_files.keys.sort:#{visible_files.keys.sort}:"
     if visible_files.has_key?('readme.txt')
       visible_files['readme.txt']['content']
     else
