@@ -25,21 +25,25 @@
     text-align: center;
   }
 
-  #display-names, #display-content
+  #display-box
   {
-    height: 340px;
-    padding: 6px;
-    margin-right: 5px;
-    overflow-y: auto;
-    overflow-x: none;
-    @include edged-panel();
-  }
-  #display-names   { width: 300px; max-width: 300px; }
-  #display-content { width: 500px; max-width: 500px; }
-  #display-names .display-name
-  {
-    @include wide-list-item();
-    max-width: 300px;
+    @include center-align();
+    #display-names, #display-content
+    {
+      height: 340px;
+      padding: 6px;
+      margin-right: 5px;
+      overflow-y: auto;
+      overflow-x: none;
+      @include edged-panel();
+    }
+    #display-names   { width: 300px; max-width: 300px; }
+    #display-content { width: 500px; max-width: 500px; }
+    #display-names .display-name
+    {
+      @include wide-list-item();
+      max-width: 300px;
+    }
   }
 
   button#ok

@@ -19,7 +19,7 @@ $(() => {
 });
 </script>
 
-<table class="align-center">
+<table id="display-box">
   <tr>
     <td>
       <div id="display-names">
@@ -37,8 +37,8 @@ $(() => {
 </table>
 
 <div style="display:none;">
-<% @display_contents.each.with_index do |content,index| %>
-   <textarea id="contents_<%= index %>"><%= h content %>
-   </textarea>
-<% end %>
+  <% @display_contents.each.with_index do |content,index| %>
+     <textarea id="contents_<%= index %>"><%= h content %>
+     </textarea>
+  <% end %>
 </div>
