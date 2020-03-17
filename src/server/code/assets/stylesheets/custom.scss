@@ -6,6 +6,7 @@
 @import "wide-list-item";
 @import "button";
 @import "body";
+@import "center";
 
 #custom-chooser-page
 {
@@ -24,21 +25,21 @@
     text-align: center;
   }
 
-  #display-names
+  #display-names, #display-content
   {
-    max-width: 375px;
-    width: 375px;
     height: 340px;
     padding: 6px;
     margin-right: 5px;
     overflow-y: auto;
     overflow-x: none;
     @include edged-panel();
-    .display-name
-    {
-      @include wide-list-item();
-      max-width: 375px;
-    }
+  }
+  #display-names   { width: 300px; max-width: 300px; }
+  #display-content { width: 500px; max-width: 500px; }
+  #display-names .display-name
+  {
+    @include wide-list-item();
+    max-width: 300px;
   }
 
   button#ok

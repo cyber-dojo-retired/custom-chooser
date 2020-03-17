@@ -10,7 +10,7 @@ $(() => {
     cd.selectedDisplayName.addClass('selected');
     const index = cd.selectedDisplayName.data('index');
     const content = $(`#contents_${index}`).val();
-    //displayContent.val(content);
+    displayContent.val(content);
   })
   const random = (n) => Math.floor(Math.random() * n);
   const any = random(displayNames.length);
@@ -19,13 +19,23 @@ $(() => {
 });
 </script>
 
-<div id="display-names">
-  <% @display_names.each.with_index do |display_name,index| %>
-    <div class="display-name" data-index="<%= index %>">
-      <%= display_name %>
-    </div>
-  <% end %>
-</div>
+<table class="align-center">
+  <tr>
+    <td>
+      <div id="display-names">
+        <% @display_names.each.with_index do |display_name,index| %>
+          <div class="display-name" data-index="<%= index %>">
+            <%= display_name %>
+          </div>
+        <% end %>
+      </div>
+    </td>
+    <td>
+      <textarea id="display-content" readonly="readonly"></textarea>
+    </td>
+  </tr>
+</table>
+
 
 <div style="display:none;">
 <% @display_contents.each.with_index do |content,index| %>
