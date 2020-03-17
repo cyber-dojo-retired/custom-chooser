@@ -18,10 +18,6 @@ class Chooser
     ENV['SHA']
   end
 
-  def display_names
-    manifests.keys.sort
-  end
-
   def manifests
     custom_start_points.manifests
   end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-require_relative 'chooser.rb'
 require_relative 'app_base'
+require_relative 'chooser.rb'
+require_relative 'escape_html_helper'
+require_relative 'selected_helper'
 
 class App < AppBase
 
@@ -26,8 +28,7 @@ class App < AppBase
   get '/group_choose', provides:[:html] do
     respond_to do |format|
       format.html do
-        @display_names = target.display_names
-        @create_url = '/custom-chooser/group_create'
+        set_view_data('group_create')
         erb :'group/choose'
       end
     end
@@ -57,8 +58,7 @@ class App < AppBase
   get '/kata_choose', provides:[:html] do
     respond_to do |format|
       format.html do
-        @display_names = target.display_names
-        @create_url = '/custom-chooser/kata_create'
+        set_view_data('kata_create')
         erb :'kata/choose'
       end
     end
@@ -81,5 +81,20 @@ class App < AppBase
       }
     end
   end
+
+  private
+
+  def set_view_data(next_page)
+    manifests = target.manifests
+    @display_names = manifests.keys.sort
+    @display_contents = []
+    @display_names.each do |name|
+      @display_contents << selected(manifests[name]['visible_files'])
+    end
+    @create_url = "/custom-chooser/#{next_page}"
+  end
+
+  include EscapeHtmlHelper
+  include SelectedHelper
 
 end

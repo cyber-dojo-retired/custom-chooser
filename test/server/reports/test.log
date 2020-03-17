@@ -1,31 +1,31 @@
-Run options: --seed 56672
+Run options: --seed 63118
 
 # Running:
 
-..................
+.....................
 
-Finished in 0.381982s, 47.1227 runs/s, 240.8492 assertions/s.
+Finished in 0.405546s, 51.7820 runs/s, 234.2520 assertions/s.
 
-18 runs, 92 assertions, 0 failures, 0 errors, 0 skips
-Coverage report generated for MiniTest to //tmp/reports. 13072 / 24326 LOC (53.74%) covered.
+21 runs, 95 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for MiniTest to //tmp/reports. 13107 / 24361 LOC (53.8%) covered.
 
 Slowest 5 tests are...
-0.1196 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
-0.0429 - v42w9A:create_test.rb:24:|GET /group_create?display_names[]=... |redirects to /kata/group/:id page |and a group with :id exists
-0.0227 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all display_names |ready to create a kata |when custom_start_points is online
-0.0222 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0215 - v42w9D:create_test.rb:80:|POST /kata_create body={"display_name":"..."} |returns json payload |with {"kata_create":"ID"} |where a kata with ID exists
-0.0193 - q7DJe5:request_error_test.rb:26:|POST with non-JSON-Hash in request.body |is 500 error
+0.0881 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.0482 - a7318w:choose_test.rb:12:|GET/group_choose |offers all display_names |ready to create a group |when custom_start_points is online
+0.0410 - a8615D:ready_test.rb:13:ready when custom-start-points and saver are both ready
+0.0275 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all display_names |ready to create a kata |when custom_start_points is online
+0.0260 - v42w9A:create_test.rb:24:|GET /group_create?display_names[]=... |redirects to /kata/group/:id page |and a group with :id exists
+0.0260 - a8615F:ready_test.rb:32:not ready when custom-start-points is not ready 
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.38   <=     5 | [32m true [0m
-                    tests |      18   >=     1 | [32m true [0m
+        duration(test)[s] |    0.41   <=     5 | [32m true [0m
+                    tests |      21   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
-     lines(tester/tested) |    0.90   >=   0.8 | [32m true [0m
-      hits(tested/tester) |    1.82   >=   1.8 | [32m true [0m
+     lines(tester/tested) |    0.91   >=   0.8 | [32m true [0m
+      hits(tested/tester) |    2.23   >=   1.8 | [32m true [0m
 
