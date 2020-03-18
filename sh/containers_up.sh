@@ -1,17 +1,8 @@
 #!/bin/bash -Eeu
 
 readonly ROOT_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
-
-# - - - - - - - - - - - - - - - - - - - - - -
-ip_address_slow()
-{
-  if [ -n "${DOCKER_MACHINE_NAME:-}" ]; then
-    docker-machine ip ${DOCKER_MACHINE_NAME}
-  else
-    printf localhost
-  fi
-}
-readonly IP_ADDRESS=$(ip_address_slow)
+source "${ROOT_DIR}/sh/ip_address.sh"
+readonly IP_ADDRESS=$(ip_address) # slow
 
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
@@ -155,6 +146,6 @@ fi
 if [ "${1:-}" == 'server' ]; then
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
 else
-  container_up 80 nginx  
+  container_up 80 nginx
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
 fi
