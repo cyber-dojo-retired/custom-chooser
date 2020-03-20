@@ -53,7 +53,6 @@ services:
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   custom-start-points:
-    container_name: test-custom-start-points
     environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_CUSTOM_START_POINTS_IMAGE}:${CYBER_DOJO_CUSTOM_START_POINTS_TAG}
     init: true
@@ -65,7 +64,6 @@ services:
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   creator:
-    container_name: test-creator
     depends_on:
       - custom-start-points
       - exercises-start-points
@@ -82,7 +80,6 @@ services:
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   exercises-start-points:
-    container_name: test-exercises-start-points
     environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_EXERCISES_START_POINTS_IMAGE}:${CYBER_DOJO_EXERCISES_START_POINTS_TAG}
     init: true
@@ -94,7 +91,6 @@ services:
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   languages-start-points:
-    container_name: test-languages-start-points
     environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_LANGUAGES_START_POINTS_IMAGE}:${CYBER_DOJO_LANGUAGES_START_POINTS_TAG}
     init: true
@@ -106,7 +102,6 @@ services:
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   saver:
-    container_name: test-saver
     environment: [ NO_PROMETHEUS ]
     image: ${CYBER_DOJO_SAVER_IMAGE}:${CYBER_DOJO_SAVER_TAG}
     init: true
@@ -120,6 +115,5 @@ services:
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   selenium:
-    container_name: test-selenium
     image: selenium/standalone-firefox
     ports: [ "4444:4444" ]
