@@ -1,8 +1,10 @@
 #!/bin/bash -Eeu
 
 readonly ROOT_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
+source "${ROOT_DIR}/sh/augmented_docker_compose.sh"
 source "${ROOT_DIR}/sh/ip_address.sh"
 readonly IP_ADDRESS=$(ip_address) # slow
+export NO_PROMETHEUS=true
 
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
@@ -128,9 +130,7 @@ container_up()
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
   printf '\n'
-  export NO_PROMETHEUS=true
-  docker-compose \
-    --file "${ROOT_DIR}/docker-compose.yml" \
+  augmented_docker_compose \
     up \
     --detach \
     --force-recreate \
