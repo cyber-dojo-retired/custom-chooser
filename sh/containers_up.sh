@@ -11,7 +11,7 @@ wait_briefly_until_ready()
 {
   local -r port="${1}"
   local -r name="${2}"
-  local -r max_tries=40
+  local -r max_tries=50
   printf "Waiting until ${name} is ready"
   for _ in $(seq ${max_tries}); do
     if curl_ready ${port}; then
@@ -52,16 +52,8 @@ curl_ready()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-ready_response()
-{
-  cat "$(ready_filename)"
-}
-
-# - - - - - - - - - - - - - - - - - - -
-ready_filename()
-{
-  printf /tmp/curl-custom-chooser-ready-output
-}
+ready_response() { cat "$(ready_filename)"; }
+ready_filename() { printf /tmp/curl-custom-chooser-ready-output; }
 
 # - - - - - - - - - - - - - - - - - - -
 strip_known_warning()
@@ -138,15 +130,61 @@ container_up()
 }
 
 # - - - - - - - - - - - - - - - - - - -
+container_up_ready_nginx()
+{
+  augmented_docker_compose \
+    up \
+    --detach \
+    --force-recreate \
+      nginx
 
+  printf "Waiting until nginx is ready"
+  local -r max_tries=40
+  for _ in $(seq ${max_tries}); do
+    if curl_nginx; then
+      printf '.OK\n'
+      return
+    else
+      printf .
+      sleep 0.1
+    fi
+  done
+  printf 'FAIL\n'
+  printf "nginx not ready after ${max_tries} tries\n"
+  if [ -f "$(nginx_filename)" ]; then
+    printf "$(nginx_response)\n"
+  else
+    printf "$(nginx_filename) does not exist?!\n"
+  fi
+  docker logs test-nginx
+  exit 42
+}
+
+# - - - - - - - - - - - - - - - - - - -
+curl_nginx()
+{
+  rm -f $(nginx_filename)
+  local -r url="http://${IP_ADDRESS}:80/sha.txt"
+  curl \
+    --fail \
+    --output $(nginx_filename) \
+    --request GET \
+    --silent \
+    "${url}"
+
+  [ "$?" == '0' ]
+}
+
+# - - - - - - - - - - - - - - - - - - -
+nginx_response() { cat "$(nginx_filename)"; }
+nginx_filename() { printf /tmp/curl-custom-chooser-nginx-output; }
+
+# - - - - - - - - - - - - - - - - - - -
 if [ "${1:-}" == 'api-demo' ]; then
-  container_up 80 nginx
-  wait_briefly_until_ready ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
-fi
-
-if [ "${1:-}" == 'server' ]; then
+  container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
+  container_up_ready_nginx
+elif [ "${1:-}" == 'server' ]; then
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
 else
-  container_up 80 nginx
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
 fi

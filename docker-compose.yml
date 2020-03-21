@@ -10,8 +10,8 @@ services:
     build:
       context: src/nginx_stub
     container_name: test-nginx
-    depends_on:
-      - custom-chooser-server
+    #depends_on:
+    #  - custom-chooser-server
     image: cyberdojo/nginx_custom_stub
     init: true
     ports: [ "80:80" ]
