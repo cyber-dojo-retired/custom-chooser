@@ -1,4 +1,4 @@
-Run options: --seed 27801
+Run options: --seed 38539
 
 # Running:
 
@@ -6,25 +6,25 @@ Run options: --seed 27801
 /usr/local/bundle/gems/selenium-webdriver-3.142.7/lib/selenium/webdriver/remote/bridge.rb:44: warning: The called method `handshake' is defined here
 .......
 
-Finished in 9.177222s, 0.7628 runs/s, 1.7434 assertions/s.
+Finished in 9.037720s, 0.7745 runs/s, 1.7704 assertions/s.
 
 7 runs, 16 assertions, 0 failures, 0 errors, 0 skips
 Coverage report generated for MiniTest to //tmp/reports. 18282 / 39674 LOC (46.08%) covered.
 
 Slowest 5 tests are...
-6.8530 - xRa4C8:create_test.rb:54:|PATH /custom-chooser/group_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/group/:ID
-0.6672 - xRae5E:create_test.rb:35:|PATH /custom-chooser/kata_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
-0.6436 - xRae5D:create_test.rb:16:|PATH /custom-chooser/group_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
-0.4569 - xRa4C9:create_test.rb:69:|PATH /custom-chooser/kata_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/edit/:ID
-0.0475 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0010 - d5ae5K:alive_test.rb:12:its alive!                                      
+6.6292 - xRa4C9:create_test.rb:69:|PATH /custom-chooser/kata_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/edit/:ID
+0.6819 - xRae5D:create_test.rb:16:|PATH /custom-chooser/group_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/group/:ID
+0.6474 - xRae5E:create_test.rb:35:|PATH /custom-chooser/kata_choose |shows custom display-names |selecting one |clicking [ok] button |redirects to /kata/edit/:ID
+0.5261 - xRa4C8:create_test.rb:54:|PATH /custom-chooser/group_choose |shows custom display-names |one is already selected at random |so clicking [ok] button |redirects to /kata/group/:ID
+0.0483 - d5ae5K:alive_test.rb:12:its alive!                                      
+0.0021 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       2   <=     2 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    9.18   <=    15 | [32m true [0m
+        duration(test)[s] |    9.04   <=    15 | [32m true [0m
                     tests |       7   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m

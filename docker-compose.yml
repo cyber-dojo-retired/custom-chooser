@@ -1,4 +1,7 @@
 
+# This is augmented with dependent services by
+# sh/augmented_docker_compose.sh
+
 version: '3.7'
 
 services:
@@ -50,22 +53,6 @@ services:
     tmpfs: /tmp
     user: nobody
     volumes: [ "./test:/test/:ro" ]
-
-  #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  creator:
-    depends_on:
-      - custom-start-points
-      - exercises-start-points
-      - languages-start-points
-      - saver
-    environment: [ NO_PROMETHEUS ]
-    image: ${CYBER_DOJO_CREATOR_IMAGE}:latest
-    init: true
-    ports: [ "${CYBER_DOJO_CREATOR_PORT}:${CYBER_DOJO_CREATOR_PORT}" ]
-    read_only: true
-    restart: 'no'
-    tmpfs: /tmp
-    user: nobody
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   selenium:
