@@ -110,7 +110,7 @@ container_up_ready_and_clean()
   local -r port="${1}"
   local -r service_name="${2}"
   local -r container_name="test-${service_name}"
-  container_up "${port}" "${service_name}"
+  container_up "${service_name}"
   wait_briefly_until_ready "${port}" "${container_name}"
   exit_if_unclean "${container_name}"
 }
@@ -118,9 +118,7 @@ container_up_ready_and_clean()
 # - - - - - - - - - - - - - - - - - - -
 container_up()
 {
-  local -r port="${1}"
-  local -r service_name="${2}"
-  local -r container_name="test-${service_name}"
+  local -r service_name="${1}"
   printf '\n'
   augmented_docker_compose \
     up \
@@ -130,14 +128,9 @@ container_up()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_ready_nginx()
+container_up_nginx_ready()
 {
-  augmented_docker_compose \
-    up \
-    --detach \
-    --force-recreate \
-      nginx
-
+  container_up nginx
   printf "Waiting until nginx is ready"
   local -r max_tries=40
   for _ in $(seq ${max_tries}); do
@@ -187,4 +180,5 @@ elif [ "${1:-}" == 'server' ]; then
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
 else
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
+  container_up nginx
 fi
