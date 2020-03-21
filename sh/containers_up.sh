@@ -128,7 +128,7 @@ container_up()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_nginx_ready()
+container_up_ready_nginx()
 {
   container_up nginx
   printf "Waiting until nginx is ready"
@@ -180,5 +180,5 @@ elif [ "${1:-}" == 'server' ]; then
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
 else
   container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
-  container_up nginx
+  container_up_ready_nginx
 fi

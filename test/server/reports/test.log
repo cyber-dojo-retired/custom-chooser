@@ -1,28 +1,28 @@
-Run options: --seed 13133
+Run options: --seed 17308
 
 # Running:
 
 .....................
 
-Finished in 0.358920s, 58.5089 runs/s, 264.6831 assertions/s.
+Finished in 0.369200s, 56.8798 runs/s, 257.3134 assertions/s.
 
 21 runs, 95 assertions, 0 failures, 0 errors, 0 skips
 Coverage report generated for MiniTest to //tmp/reports. 13109 / 24363 LOC (53.81%) covered.
 
 Slowest 5 tests are...
-0.0836 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
-0.0298 - a7318w:choose_test.rb:12:|GET/group_choose |offers all display_names |ready to create a group |when custom_start_points is online
-0.0263 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all display_names |ready to create a kata |when custom_start_points is online
-0.0247 - de3p23:sha_test.rb:12:sha is 40-char git commit sha                     
-0.0234 - v42w9A:create_test.rb:24:|GET /group_create?display_names[]=... |redirects to /kata/group/:id page |and a group with :id exists
-0.0218 - v42w9B:create_test.rb:62:|GET /kata_create?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.1034 - Q3p2Je:assets_test.rb:12:|GET /assets/app.css is served                 
+0.0444 - a7319w:choose_test.rb:30:|GET/kata_choose |offers all display_names |ready to create a kata |when custom_start_points is online
+0.0312 - v42w9D:create_test.rb:80:|POST /kata_create body={"display_name":"..."} |returns json payload |with {"kata_create":"ID"} |where a kata with ID exists
+0.0249 - a7318w:choose_test.rb:12:|GET/group_choose |offers all display_names |ready to create a group |when custom_start_points is online
+0.0240 - v42w9B:create_test.rb:62:|GET /kata_create?display_name=... |redirects to /kata/edit/:id page |and a kata with :id exists
+0.0239 - v42w9A:create_test.rb:24:|GET /group_create?display_names[]=... |redirects to /kata/group/:id page |and a group with :id exists
 
 
                  failures |       0   <=     0 | [32m true [0m
                    errors |       0   <=     0 | [32m true [0m
                  warnings |       0   <=     0 | [32m true [0m
                     skips |       0   <=     0 | [32m true [0m
-        duration(test)[s] |    0.36   <=     5 | [32m true [0m
+        duration(test)[s] |    0.37   <=     5 | [32m true [0m
                     tests |      21   >=     1 | [32m true [0m
       coverage(tested)[%] |   100.0   >=   100 | [32m true [0m
       coverage(tester)[%] |   100.0   >=   100 | [32m true [0m
