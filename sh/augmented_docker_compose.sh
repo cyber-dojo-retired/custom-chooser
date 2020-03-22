@@ -20,6 +20,7 @@ augmented_docker_compose()
       languages-start-points \
                      creator \
                        saver \
+                    selenium \
     | tee /tmp/augmented-docker-compose.peek.yml \
     | docker-compose \
         --project-name cyber-dojo \
