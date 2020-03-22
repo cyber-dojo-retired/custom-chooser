@@ -3,6 +3,12 @@
 # cyberdojo/service-yaml image lives at
 # https://github.com/cyber-dojo/service-yaml
 
+# Setting --project-name is required to ensure it is
+# not custom-chooser (default from the root dir)
+# which would be the same as the main docker-compose.yml
+# service-name and would prevent .sh scripts which obtain
+# the container-name from the service-name from working.
+
 augmented_docker_compose()
 {
   cd "${ROOT_DIR}" && cat "./docker-compose.yml" \
@@ -13,5 +19,8 @@ augmented_docker_compose()
                      creator \
                        saver \
     | \
-      docker-compose --project-name cyber-dojo --file - "$@"
+      docker-compose \
+        --project-name cyber-dojo \
+        --file -                  \
+        "$@"
 }

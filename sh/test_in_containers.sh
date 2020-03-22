@@ -1,5 +1,6 @@
 #!/bin/bash -Eeu
 readonly root_dir="$(cd "$(dirname "${0}")/.." && pwd)"
+source "${root_dir}/sh/container_info.sh"
 readonly my_name=custom-chooser
 readonly client_user="${1}"; shift
 readonly server_user="${1}"; shift
@@ -29,10 +30,6 @@ on_ci() { [ -n "${CIRCLECI:-}" ]; }
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_client_tests() { run_tests "${client_user}" client "${@:-}"; }
 run_server_tests() { run_tests "${server_user}" server "${@:-}"; }
-
-# - - - - - - - - - - - - - - - - - - -
-name_port_ls() { docker container ls --format "{{.Names}} {{.Ports}}" --all; }
-service_container() { name_port_ls | grep ${1} | cut -f 1 -d " "; }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_tests()
