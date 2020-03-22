@@ -2,8 +2,10 @@
 readonly root_dir="$(cd "$(dirname "${0}")/.." && pwd)"
 source "${root_dir}/sh/container_info.sh"
 readonly my_name=custom-chooser
-readonly client_user="${1}"; shift
-readonly server_user="${1}"; shift
+readonly client_user="${1}"
+readonly server_user="${2}"
+shift
+shift
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 test_in_containers()
