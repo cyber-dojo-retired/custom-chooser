@@ -9,7 +9,6 @@ services:
   nginx:
     build:
       context: src/nginx_stub
-    container_name: test-nginx
     image: cyberdojo/nginx_custom_stub
     init: true
     ports: [ "80:80" ]
