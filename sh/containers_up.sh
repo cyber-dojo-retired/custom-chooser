@@ -6,6 +6,45 @@ source "${ROOT_DIR}/sh/ip_address.sh"
 readonly IP_ADDRESS=$(ip_address) # slow
 export NO_PROMETHEUS=true
 
+# - - - - - - - - - - - - - - - - - - -
+containers_up()
+{
+  local -r server_port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
+  local -r client_port=${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}
+  if [ "${1:-}" == 'api-demo' ]; then
+    container_up_ready_and_clean ${server_port} custom-chooser-server
+    container_up_ready_nginx
+  elif [ "${1:-}" == 'server' ]; then
+    container_up_ready_and_clean ${server_port} custom-chooser-server
+  else
+    container_up_ready_and_clean ${client_port} custom-chooser-client
+    container_up_ready_nginx
+  fi
+}
+
+# - - - - - - - - - - - - - - - - - - -
+container_up_ready_and_clean()
+{
+  local -r port="${1}"
+  local -r service_name="${2}"
+  local -r container_name="test-${service_name}"
+  container_up "${service_name}"
+  wait_briefly_until_ready "${port}" "${container_name}"
+  exit_if_unclean "${container_name}"
+}
+
+# - - - - - - - - - - - - - - - - - - -
+container_up()
+{
+  local -r service_name="${1}"
+  printf '\n'
+  augmented_docker_compose \
+    up \
+    --detach \
+    --force-recreate \
+      "${service_name}"
+}
+
 # - - - - - - - - - - - - - - - - - - - - - -
 wait_briefly_until_ready()
 {
@@ -56,20 +95,6 @@ ready_response() { cat "$(ready_filename)"; }
 ready_filename() { printf /tmp/curl-custom-chooser-ready-output; }
 
 # - - - - - - - - - - - - - - - - - - -
-strip_known_warning()
-{
-  local -r log="${1}"
-  local -r known_warning="${2}"
-  local stripped=$(printf "${log}" | grep --invert-match -E "${known_warning}")
-  if [ "${log}" != "${stripped}" ]; then
-    >&2 echo "SERVICE START-UP WARNING: ${known_warning}"
-  else
-    >&2 echo "DID _NOT_ FIND WARNING!!: ${known_warning}"
-  fi
-  echo "${stripped}"
-}
-
-# - - - - - - - - - - - - - - - - - - -
 exit_if_unclean()
 {
   local -r container_name="${1}"
@@ -94,6 +119,20 @@ exit_if_unclean()
 }
 
 # - - - - - - - - - - - - - - - - - - -
+strip_known_warning()
+{
+  local -r log="${1}"
+  local -r known_warning="${2}"
+  local stripped=$(printf "${log}" | grep --invert-match -E "${known_warning}")
+  if [ "${log}" != "${stripped}" ]; then
+    >&2 echo "SERVICE START-UP WARNING: ${known_warning}"
+  else
+    >&2 echo "DID _NOT_ FIND WARNING!!: ${known_warning}"
+  fi
+  echo "${stripped}"
+}
+
+# - - - - - - - - - - - - - - - - - - -
 print_docker_log()
 {
   local -r container_name="${1}"
@@ -102,29 +141,6 @@ print_docker_log()
   printf '<docker_log>\n'
   printf "${log}\n"
   printf '</docker_log>\n'
-}
-
-# - - - - - - - - - - - - - - - - - - -
-container_up_ready_and_clean()
-{
-  local -r port="${1}"
-  local -r service_name="${2}"
-  local -r container_name="test-${service_name}"
-  container_up "${service_name}"
-  wait_briefly_until_ready "${port}" "${container_name}"
-  exit_if_unclean "${container_name}"
-}
-
-# - - - - - - - - - - - - - - - - - - -
-container_up()
-{
-  local -r service_name="${1}"
-  printf '\n'
-  augmented_docker_compose \
-    up \
-    --detach \
-    --force-recreate \
-      "${service_name}"
 }
 
 # - - - - - - - - - - - - - - - - - - -
@@ -172,13 +188,9 @@ curl_nginx()
 nginx_response() { cat "$(nginx_filename)"; }
 nginx_filename() { printf /tmp/curl-custom-chooser-nginx-output; }
 
-# - - - - - - - - - - - - - - - - - - -
-if [ "${1:-}" == 'api-demo' ]; then
-  container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
-  container_up_ready_nginx
-elif [ "${1:-}" == 'server' ]; then
-  container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_PORT} custom-chooser-server
-else
-  container_up_ready_and_clean ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT} custom-chooser-client
-  container_up_ready_nginx
-fi
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+containers_up "$@"
+
+
+# To get the name of the container running a port 4536
+# local -r name=$(docker container ls --format "{{.Names}} {{.Ports}}" --all | grep 4536 | cut -f 1 -d " ")
