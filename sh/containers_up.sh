@@ -167,7 +167,8 @@ container_up_ready_nginx()
   else
     printf "$(nginx_filename) does not exist?!\n"
   fi
-  docker logs test-nginx
+  local -r container_name=$(service_container nginx)
+  docker logs "${container_name}"
   exit 42
 }
 
