@@ -57,6 +57,10 @@ run_tests()
   echo "Running ${type} tests"
   echo '=================================='
 
+  # Remove old copies of files we are about to create
+  rm ${reports_dir}/${test_log} || true
+  rm ${reports_dir}/index.html  || true
+
   set +e
   docker exec \
     --env COVERAGE_CODE_TAB_NAME=${coverage_code_tab_name} \
