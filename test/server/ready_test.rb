@@ -11,7 +11,7 @@ class ReadyTest < TestBase
   # - - - - - - - - - - - - - - - - -
 
   test '15D',
-  %w( ready when custom-start-points and saver are both ready ) do
+  %w( ready when custom-start-points and creator are both ready ) do
     get '/ready'
     assert last_response.ok?
     assert_equal '{"ready?":true}', last_response.body
