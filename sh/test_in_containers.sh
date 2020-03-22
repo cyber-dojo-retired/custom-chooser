@@ -44,15 +44,14 @@ run_tests()
   local -r test_dir="${root_dir}/test/${type}"
   local -r reports_dir=${test_dir}/${reports_dir_name}
   local -r test_log=test.log
+  local -r coverage_code_tab_name=tested
+  local -r coverage_test_tab_name=tester
 
   if [ "${type}" == 'client' ]; then
     local -r container_name="$(service_container client)"
   else # server
     local -r container_name="$(service_container ${my_name})"
   fi
-
-  local -r coverage_code_tab_name=tested
-  local -r coverage_test_tab_name=tester
 
   echo
   echo '=================================='
