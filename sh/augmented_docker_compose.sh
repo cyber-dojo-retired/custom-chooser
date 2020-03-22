@@ -8,6 +8,7 @@
 # which would be the same as the main docker-compose.yml
 # service-name and would prevent .sh scripts which obtain
 # the container-name from the service-name from working.
+# See sh/container_info.sh
 
 augmented_docker_compose()
 {
