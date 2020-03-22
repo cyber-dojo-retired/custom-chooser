@@ -43,7 +43,7 @@ demo()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json_body_200()
 {
-  local -r log=/tmp/creator.log
+  local -r log=/tmp/custom-chooser.log
   local -r type="${1}"   # eg GET|POST
   local -r route="${2}"  # eg create_group
   local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
@@ -66,7 +66,7 @@ curl_json_body_200()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_params_302()
 {
-  local -r log=/tmp/creator.log
+  local -r log=/tmp/custom-chooser.log
   local -r type="${1}"     # eg GET|POST
   local -r route="${2}"    # eg create_kata
   local -r params="${3:-}" # eg "display_name=Java Countdown, Round 1"
@@ -87,7 +87,7 @@ curl_params_302()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_200()
 {
-  local -r log=/tmp/creator.log
+  local -r log=/tmp/custom-chooser.log
   local -r type="${1}"    # eg GET|POST
   local -r route="${2}"   # eg index_kata
   local -r pattern="${3}" # eg session
