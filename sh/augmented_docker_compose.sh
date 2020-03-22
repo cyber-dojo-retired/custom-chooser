@@ -13,5 +13,5 @@ augmented_docker_compose()
                      creator \
                        saver \
     | \
-      docker-compose --file - "$@"
+      docker-compose --project-name cyber-dojo --file - "$@"
 }

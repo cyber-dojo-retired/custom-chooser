@@ -30,3 +30,7 @@ $ name_port_ls | grep custom-chooser_xxx | cut -f 1 -d " "
 To get the port for a service called xxx
 
 $ name_port_ls | grep xxx | cut -f 2 -d '>' | cut -f 1 -d '/'
+
+This works except for custom-chooser
+This is because the "domain" is custom-chooser
+So all container have that as a prefix...
