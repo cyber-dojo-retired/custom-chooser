@@ -1,9 +1,10 @@
 
 /group_choose
 ------------
-Currently, this only allows a single display-name can be selected.
-At some point I plan to allow multiple (max 3?) display-names to be selected,
-and for multiple manifests to be associated with a group-session.
-When joining such a group, an individual display-name will need to be selected.
-Moreover, the dashboard for such a group will have one tab for all
+Currently, this only allows a single display-name to be selected.
+I plan to allow multiple (max 3?) display-names to be selected,
+and for the selected manifests to be associated with a group-session.
+To join such a group, an individual display-name will need to be selected.
+
+Further on still, the dashboard for such a group could have one tab for all
 participants, and a further tab for each display-name.
