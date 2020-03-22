@@ -16,11 +16,10 @@ services:
     user: root
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  custom-chooser-client:
+  client:
     build:
       args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT ]
       context: src/client
-    container_name: test-custom-chooser-client
     depends_on:
       - custom-chooser-server
       - selenium

@@ -30,6 +30,10 @@ on_ci() { [ -n "${CIRCLECI:-}" ]; }
 run_client_tests() { run_tests "${client_user}" client "${@:-}"; }
 run_server_tests() { run_tests "${server_user}" server "${@:-}"; }
 
+# - - - - - - - - - - - - - - - - - - -
+name_port_ls() { docker container ls --format "{{.Names}} {{.Ports}}" --all; }
+service_container() { name_port_ls | grep ${1} | cut -f 1 -d " "; }
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_tests()
 {
@@ -41,7 +45,13 @@ run_tests()
   local -r test_dir="${root_dir}/test/${type}"
   local -r reports_dir=${test_dir}/${reports_dir_name}
   local -r test_log=test.log
-  local -r container_name="test-${my_name}-${type}" # eg test-custom-chooser-server
+
+  if [ "${type}" == 'client' ]; then
+    local -r container_name="$(service_container client)"
+  else # server
+    local -r container_name="test-${my_name}-${type}"
+  fi
+
   local -r coverage_code_tab_name=tested
   local -r coverage_test_tab_name=tester
 

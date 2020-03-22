@@ -17,7 +17,7 @@ containers_up()
   elif [ "${1:-}" == 'server' ]; then
     container_up_ready_and_clean ${server_port} custom-chooser-server
   else
-    container_up_ready_and_clean ${client_port} custom-chooser-client
+    container_up_ready_and_clean ${client_port} client
     container_up_ready_nginx
   fi
 }
