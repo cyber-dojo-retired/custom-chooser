@@ -11,7 +11,7 @@ services:
       context: src/nginx_stub
     image: cyberdojo/nginx_custom_stub
     init: true
-    ports: [ "80:80" ]
+    ports: [ "${CYBER_DOJO_NGINX_PORT}:${CYBER_DOJO_NGINX_PORT}" ]
     user: root
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
