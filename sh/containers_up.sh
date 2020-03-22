@@ -12,10 +12,10 @@ containers_up()
   local -r server_port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
   local -r client_port=${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}
   if [ "${1:-}" == 'api-demo' ]; then
-    container_up_ready_and_clean ${server_port} custom-chooser-server
+    container_up_ready_and_clean ${server_port} custom-chooser
     container_up_ready_nginx
   elif [ "${1:-}" == 'server' ]; then
-    container_up_ready_and_clean ${server_port} custom-chooser-server
+    container_up_ready_and_clean ${server_port} custom-chooser
   else
     container_up_ready_and_clean ${client_port} client
     container_up_ready_nginx

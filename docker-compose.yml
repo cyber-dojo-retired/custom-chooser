@@ -21,7 +21,7 @@ services:
       args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT ]
       context: src/client
     depends_on:
-      - custom-chooser-server
+      - custom-chooser
       - selenium
     image: cyberdojo/test-custom-chooser-client
     init: true
@@ -33,11 +33,10 @@ services:
     volumes: [ "./test:/test/:ro" ]
 
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-  custom-chooser-server:
+  custom-chooser:
     build:
       args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_PORT ]
       context: src/server
-    container_name: test-custom-chooser-server
     depends_on:
       - custom-start-points
       - creator

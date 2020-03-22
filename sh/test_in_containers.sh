@@ -49,7 +49,7 @@ run_tests()
   if [ "${type}" == 'client' ]; then
     local -r container_name="$(service_container client)"
   else # server
-    local -r container_name="test-${my_name}-${type}"
+    local -r container_name="$(service_container custom-chooser)"
   fi
 
   local -r coverage_code_tab_name=tested
