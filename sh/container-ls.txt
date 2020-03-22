@@ -22,6 +22,11 @@ $ name_port_ls | grep xxx | cut -f 2 -d '>' | cut -f 1 -d '/'
 
 If you don't specify a container name its called
 X_service_name_1  where X == the dir, viz custom-chooser
-So to get container for a service called xxx
 
-$ name_port_ps | grep custom-chooser_xxx | cut -f 1 -d " "
+To get container for a service called xxx
+
+$ name_port_ls | grep custom-chooser_xxx | cut -f 1 -d " "
+
+To get the port for a service called xxx
+
+$ name_port_ls | grep xxx | cut -f 2 -d '>' | cut -f 1 -d '/'
