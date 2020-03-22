@@ -5,7 +5,7 @@ readonly client_user="${1}"; shift
 readonly server_user="${1}"; shift
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-main()
+test_in_containers()
 {
   if on_ci; then
     docker pull cyberdojo/check-test-results:latest
@@ -91,4 +91,4 @@ run_tests()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
-main "$@"
+test_in_containers "$@"

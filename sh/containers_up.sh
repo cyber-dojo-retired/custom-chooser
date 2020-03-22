@@ -190,7 +190,3 @@ nginx_filename() { printf /tmp/curl-custom-chooser-nginx-output; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 containers_up "$@"
-
-
-# To get the name of the container running a port 4536
-# local -r name=$(docker container ls --format "{{.Names}} {{.Ports}}" --all | grep 4536 | cut -f 1 -d " ")

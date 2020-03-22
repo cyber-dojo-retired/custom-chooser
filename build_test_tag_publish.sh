@@ -6,7 +6,7 @@ source "${SH_DIR}/image_sha.sh"
 export $(versioner_env_vars)
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
-main()
+build_test_tag_publish()
 {
   ${SH_DIR}/build_images.sh
   ${SH_DIR}/containers_up.sh "$@"
@@ -52,4 +52,4 @@ on_ci_publish_tagged_images()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
-main "$@"
+build_test_tag_publish "$@"
