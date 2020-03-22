@@ -1,8 +1,5 @@
 #!/bin/bash -Eeu
 
-# cyberdojo/service-yaml image lives at
-# https://github.com/cyber-dojo/service-yaml
-
 # Setting --project-name is required to ensure it is
 # not custom-chooser (default from the root dir)
 # which would be the same as the main docker-compose.yml
