@@ -4,7 +4,7 @@
 
 - The source for the [cyberdojo/custom-chooser](https://hub.docker.com/r/cyberdojo/custom-chooser/tags) Docker image.
 - A docker-containerized stateless micro-service for [https://cyber-dojo.org](http://cyber-dojo.org).
-- An http service for choosing a custom-start-point when creating a new group or a new kata.
+- An http service for choosing a custom-start-point when creating a new group or individual exercise.
 
 - - - -
 ![web page snapshot](https://github.com/cyber-dojo/custom-chooser/blob/master/docs/snapshot.png)
