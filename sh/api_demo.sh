@@ -2,12 +2,12 @@
 
 readonly SH_DIR="$(cd "$(dirname "${0}")" && pwd)"
 source "${SH_DIR}/versioner_env_vars.sh" # for build-image
-export $(versioner_env_vars)
 source "${SH_DIR}/ip_address.sh" # slow
+export $(versioner_env_vars)
 readonly IP_ADDRESS="$(ip_address)"
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-main()
+api_demo()
 {
   "${SH_DIR}/build_images.sh"
   "${SH_DIR}/containers_up.sh" api-demo
@@ -45,7 +45,7 @@ curl_json_body_200()
 {
   local -r log=/tmp/custom-chooser.log
   local -r type="${1}"   # eg GET|POST
-  local -r route="${2}"  # eg create_group
+  local -r route="${2}"  # eg group_create
   local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
   curl  \
     --data "${json}" \
@@ -58,9 +58,9 @@ curl_json_body_200()
       "http://${IP_ADDRESS}:$(port)/${route}" \
       > "${log}" 2>&1
 
-    grep --quiet 200 "${log}"             # eg HTTP/1.1 200 OK
-    local -r result=$(tail -n 1 "${log}") # eg {"sha":"78c19640aa43ea214da17d0bcb16abbd420d7642"}
-    echo "$(tab)${type} ${route} => 200 ${result}"
+  grep --quiet 200 "${log}"             # eg HTTP/1.1 200 OK
+  local -r result=$(tail -n 1 "${log}") # eg {"sha":"78c19640aa43ea214da17d0bcb16abbd420d7642"}
+  echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -68,7 +68,7 @@ curl_params_302()
 {
   local -r log=/tmp/custom-chooser.log
   local -r type="${1}"     # eg GET|POST
-  local -r route="${2}"    # eg create_kata
+  local -r route="${2}"    # eg kata_create
   local -r params="${3:-}" # eg "display_name=Java Countdown, Round 1"
   curl  \
     --data-urlencode "${params}" \
@@ -79,9 +79,9 @@ curl_params_302()
       "http://${IP_ADDRESS}:$(port)/${route}" \
       > "${log}" 2>&1
 
-    grep --quiet 302 "${log}"                 # eg HTTP/1.1 302 Moved Temporarily
-    local -r result=$(grep Location "${log}") # Location: http://192.168.99.100:4536/kata/edit/5B65RC
-    echo "$(tab)${type} ${route} => 302 ${result}"
+  grep --quiet 302 "${log}"                 # eg HTTP/1.1 302 Moved Temporarily
+  local -r result=$(grep Location "${log}") # Location: http://192.168.99.100:4536/kata/edit/5B65RC
+  echo "$(tab)${type} ${route} => 302 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -89,7 +89,7 @@ curl_200()
 {
   local -r log=/tmp/custom-chooser.log
   local -r type="${1}"    # eg GET|POST
-  local -r route="${2}"   # eg index_kata
+  local -r route="${2}"   # eg kata_choose
   local -r pattern="${3}" # eg session
   curl  \
     --fail \
@@ -99,9 +99,9 @@ curl_200()
       "http://${IP_ADDRESS}:$(port)/${route}" \
       > "${log}" 2>&1
 
-    grep --quiet 200 "${log}" # eg HTTP/1.1 200 OK
-    local -r result=$(grep "${pattern}" "${log}" | head -n 1)
-    echo "$(tab)${type} ${route} => 200 ${result}"
+  grep --quiet 200 "${log}" # eg HTTP/1.1 200 OK
+  local -r result=$(grep "${pattern}" "${log}" | head -n 1)
+  echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -116,4 +116,4 @@ display_name() { echo -n 'Java Countdown, Round 1'; }
 tab() { printf '\t'; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
-main "${1:-}"
+api_demo "${1:-}"

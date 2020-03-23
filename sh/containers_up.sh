@@ -10,33 +10,20 @@ export NO_PROMETHEUS=true
 # - - - - - - - - - - - - - - - - - - -
 containers_up()
 {
-  local -r server_port=${CYBER_DOJO_CUSTOM_CHOOSER_PORT}
-  local -r client_port=${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}
-  if [ "${1:-}" == 'api-demo' ]; then
-    container_up_ready_and_clean ${server_port} custom-chooser
-    container_up_ready_nginx
-  elif [ "${1:-}" == 'server' ]; then
-    container_up_ready_and_clean ${server_port} custom-chooser
+  if [ "${1:-}" == 'server' ]; then
+    top_container_up custom-chooser
+    wait_until_ready custom-chooser
+    exit_if_unclean  custom-chooser
   else
-    container_up_ready_and_clean ${client_port} client
-    container_up_ready_nginx
+    top_container_up nginx
+    wait_until_ready nginx
+    wait_until_ready client
+    exit_if_unclean  client
   fi
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_ready_and_clean()
-{
-  local -r port="${1}"
-  local -r service_name="${2}"
-  container_up "${service_name}"
-  # obtain container-up only once containers are up
-  local -r container_name=$(service_container ${service_name})
-  wait_briefly_until_ready "${port}" "${container_name}"
-  exit_if_unclean "${container_name}"
-}
-
-# - - - - - - - - - - - - - - - - - - -
-container_up()
+top_container_up()
 {
   local -r service_name="${1}"
   printf '\n'
@@ -48,16 +35,17 @@ container_up()
 }
 
 # - - - - - - - - - - - - - - - - - - - - - -
-wait_briefly_until_ready()
+wait_until_ready()
 {
-  local -r port="${1}"
-  local -r name="${2}"
+  local -r service_name="${1}"
+  local -r port="$(service_port ${service_name})"
+  local -r container_name=$(service_container ${service_name})
   local -r max_tries=40
-  printf "Waiting until ${name} is ready"
+  printf "Waiting until ${service_name} is ready"
   for _ in $(seq ${max_tries}); do
-    if curl_ready ${port}; then
+    if curl_ready "${service_name}" "${port}"; then
       printf '.OK\n\n'
-      docker logs ${name}
+      docker logs "${container_name}"
       return
     else
       printf .
@@ -65,31 +53,39 @@ wait_briefly_until_ready()
     fi
   done
   printf 'FAIL\n'
-  printf "${name} not ready after ${max_tries} tries\n"
+  printf "${service_name} not ready after ${max_tries} tries\n"
   if [ -f "$(ready_filename)" ]; then
     printf "$(ready_response)\n"
   else
     printf "$(ready_filename) does not exist?!\n"
   fi
-  docker logs ${name}
+  docker logs ${container_name}
   exit 42
 }
 
 # - - - - - - - - - - - - - - - - - - -
 curl_ready()
 {
-  local -r port="${1}"
-  local -r path=ready?
-  local -r url="http://${IP_ADDRESS}:${port}/${path}"
+  local -r service_name="${1}"
+  local -r port="${2}"
+  local -r path=$([ "${service_name}" == 'nginx' ] && echo 'sha.txt' || echo 'ready?')
+
   rm -f $(ready_filename)
   curl \
     --fail \
     --output $(ready_filename) \
     --request GET \
     --silent \
-    "${url}"
+    "http://${IP_ADDRESS}:${port}/${path}"
 
-  [ "$?" == '0' ] && [ "$(ready_response)" == '{"ready?":true}' ]
+  local -r status=$?
+  if [ "${service_name}" == 'nginx' ]; then
+    [ "${status}" == '0' ]
+    return
+  else
+    [ "${status}" == '0' ] && [ "$(ready_response)" == '{"ready?":true}' ]
+    return
+  fi
 }
 
 # - - - - - - - - - - - - - - - - - - -
@@ -99,7 +95,9 @@ ready_filename() { printf /tmp/curl-custom-chooser-ready-output; }
 # - - - - - - - - - - - - - - - - - - -
 exit_if_unclean()
 {
-  local -r container_name="${1}"
+  local -r service_name="${1}"
+  local -r container_name=$(service_container ${service_name})
+
   local log=$(docker logs "${container_name}" 2>&1)
 
   local -r mismatched_indent_warning="application(.*): warning: mismatched indentations at 'rescue' with 'begin'"
@@ -146,50 +144,4 @@ print_docker_log()
 }
 
 # - - - - - - - - - - - - - - - - - - -
-container_up_ready_nginx()
-{
-  container_up nginx
-  printf "Waiting until nginx is ready"
-  local -r max_tries=40
-  for _ in $(seq ${max_tries}); do
-    if curl_nginx; then
-      printf '.OK\n'
-      return
-    else
-      printf .
-      sleep 0.1
-    fi
-  done
-  printf 'FAIL\n'
-  printf "nginx not ready after ${max_tries} tries\n"
-  if [ -f "$(nginx_filename)" ]; then
-    printf "$(nginx_response)\n"
-  else
-    printf "$(nginx_filename) does not exist?!\n"
-  fi
-  local -r container_name=$(service_container nginx)
-  docker logs "${container_name}"
-  exit 42
-}
-
-# - - - - - - - - - - - - - - - - - - -
-curl_nginx()
-{
-  rm -f $(nginx_filename)
-  local -r url="http://${IP_ADDRESS}:80/sha.txt"
-  curl \
-    --fail \
-    --output $(nginx_filename) \
-    --request GET \
-    --silent \
-    "${url}"
-
-  [ "$?" == '0' ]
-}
-
-# - - - - - - - - - - - - - - - - - - -
-nginx_response() { cat "$(nginx_filename)"; }
-nginx_filename() { printf /tmp/curl-custom-chooser-nginx-output; }
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
 containers_up "$@"
