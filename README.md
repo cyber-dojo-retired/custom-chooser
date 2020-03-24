@@ -7,4 +7,4 @@
 - An http service for choosing a custom-start-point when creating a group-exercise or individual-exercise.
 
 - - - -
-![web page snapshot](https://github.com/cyber-dojo/custom-chooser/blob/master/docs/snapshot.png)
+![page snapshot](https://github.com/cyber-dojo/custom-chooser/blob/master/docs/snapshot.png)
