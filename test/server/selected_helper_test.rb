@@ -16,14 +16,10 @@ class LargestTest < TestBase
   select readme.txt content when readme.txt present
   even if not largest content
   ) do
-    expected = 'x' * 34
+    expected = 'readme.txt'
     visible_files = {
-      'readme.txt' => {
-        'content' => expected,
-      },
-      'larger.txt' => {
-        'content' => 'y'*142
-      }
+      expected => { 'content' => 'x' * 34 },
+      'larger.txt' => { 'content' => 'y'*142 }
     }
     assert_equal expected, selected(visible_files)
   end
@@ -31,13 +27,11 @@ class LargestTest < TestBase
   # - - - - - - - - - - - - - - - - - - -
 
   test '842', %w(
-  selected content when single visible_file
+  selected filename when a single visible_file
   ) do
-    expected = 'x' * 34
+    expected = 'instructions'
     visible_files = {
-      'instructions' => {
-        'content' => expected
-      }
+      expected => { 'content' => 'x' * 34 }
     }
     assert_equal expected, selected(visible_files)
   end
@@ -45,16 +39,13 @@ class LargestTest < TestBase
   # - - - - - - - - - - - - - - - - - - -
 
   test '843', %w(
-  select largest content when more than one visible_file
+  select filename with the largest content
+  when more than one file and none are called readme.txt
   ) do
-    expected = 'x' * 34
+    expected = 'larger.txt'
     visible_files = {
-      'smaller' => {
-        'content' => 'y' * 33,
-      },
-      'larger.txt' => {
-        'content' => expected
-      }
+      'smaller' => { 'content' => 'y' * 33 },
+      expected => { 'content' => 'x' * 34 }
     }
     assert_equal expected, selected(visible_files)
   end
