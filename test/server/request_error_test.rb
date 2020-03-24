@@ -15,9 +15,13 @@ class RequestErrorTest < TestBase
   ) do
     path = 'kata_create'
     not_json = 'xxx'
-    _stdout,_stderr = capture_stdout_stderr {
+    _stdout,stderr = capture_stdout_stderr {
       post '/'+path, not_json, JSON_REQUEST_HEADERS
     }
+    #puts '~~~~~~~~~~~~'
+    #puts _stdout  "message": "body is not JSON"
+    #puts '~~~~~~~~~~~~'
+    assert_equal '', stderr
     assert status?(500), status
   end
 

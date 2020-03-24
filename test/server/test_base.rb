@@ -34,12 +34,12 @@ class TestBase < Id58TestBase
 
   # - - - - - - - - - - - - - - -
 
-  JSON_REQUEST_HEADERS = {
-    'CONTENT_TYPE' => 'application/json', # request sent by client
-    'HTTP_ACCEPT' => 'application/json'   # response received by client
-  }
+  JSON_CONTENT = 'application/json'
 
-  # - - - - - - - - - - - - - - -
+  JSON_REQUEST_HEADERS = {
+    'CONTENT_TYPE' => JSON_CONTENT, # request sent by client
+    'HTTP_ACCEPT'  => JSON_CONTENT  # response received by client
+  }
 
   def status?(expected)
     status === expected
@@ -56,7 +56,7 @@ class TestBase < Id58TestBase
   end
 
   def json_content?
-    content_type === 'application/json'
+    content_type === JSON_CONTENT
   end
 
   def css_content?
