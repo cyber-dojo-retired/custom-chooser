@@ -35,6 +35,7 @@ class CreateTest < TestBase
     assert group_exists?(id), "id:#{id}:" # eg xCSKgZ
     manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
+    refute manifest.has_key?('exercise'), :exercise
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -53,6 +54,7 @@ class CreateTest < TestBase
     assert group_exists?(id), "id:#{id}:"
     manifest = group_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
+    refute manifest.has_key?('exercise'), :exercise
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -73,6 +75,7 @@ class CreateTest < TestBase
     assert kata_exists?(id), "id:#{id}:" # eg H3Nqu2
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
+    refute manifest.has_key?('exercise'), :exercise
   end
 
   # - - - - - - - - - - - - - - - - -
@@ -91,6 +94,7 @@ class CreateTest < TestBase
     assert kata_exists?(id), "id:#{id}:"
     manifest = kata_manifest(id)
     assert_equal display_name, manifest['display_name'], manifest
+    refute manifest.has_key?('exercise'), :exercise    
   end
 
   private
