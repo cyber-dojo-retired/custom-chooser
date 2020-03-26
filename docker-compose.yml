@@ -22,7 +22,7 @@ services:
       args: [ COMMIT_SHA, CYBER_DOJO_CLIENT_PORT ]
       context: src/client
     depends_on:
-      - custom-chooser
+      - ${CYBER_DOJO_SERVER_NAME}
       - selenium
     image: cyberdojo/custom-chooser-client
     init: true
