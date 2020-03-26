@@ -43,15 +43,6 @@ class App < AppBase
     end
   end
 
-  post '/group_create', provides:[:json] do
-    respond_to do |format|
-      format.json {
-        id = target.group_create_custom(**json_args)
-        json({ group_create:id })
-      }
-    end
-  end
-
   # - - - - - - - - - - - - - - - - - - - - - -
   # kata
 
@@ -69,15 +60,6 @@ class App < AppBase
       format.html {
         id = target.kata_create_custom(**params_args)
         redirect "/kata/edit/#{id}"
-      }
-    end
-  end
-
-  post '/kata_create', provides:[:json] do
-    respond_to do |format|
-      format.json {
-        id = target.kata_create_custom(**json_args)
-        json({ kata_create:id })
       }
     end
   end

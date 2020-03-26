@@ -18,7 +18,7 @@ class CreateTest < TestBase
   attr_reader :display_name
 
   # - - - - - - - - - - - - - - - - -
-  # group_create
+  # 302
   # - - - - - - - - - - - - - - - - -
 
   test 'w9A', %w(
@@ -40,27 +40,6 @@ class CreateTest < TestBase
 
   # - - - - - - - - - - - - - - - - -
 
-  test 'w9C', %w(
-  |POST /group_create body={"display_names":[...]}
-  |returns json payload
-  |with {"group_create":"ID"}
-  |where a group with ID exists
-  ) do
-    json_post path='group_create', display_names:[display_name]
-    assert status?(200), status
-    assert json_content?, content_type
-    assert_equal [path], json_response.keys.sort, :keys
-    id = json_response[path] # eg xCSKgZ
-    assert group_exists?(id), "id:#{id}:"
-    manifest = group_manifest(id)
-    assert_equal display_name, manifest['display_name'], manifest
-    refute manifest.has_key?('exercise'), :exercise
-  end
-
-  # - - - - - - - - - - - - - - - - -
-  # kata_create
-  # - - - - - - - - - - - - - - - - -
-
   test 'w9B', %w(
   |GET /kata_create?display_name=...
   |redirects to /kata/edit/:id page
@@ -79,22 +58,36 @@ class CreateTest < TestBase
   end
 
   # - - - - - - - - - - - - - - - - -
+  # 500
+  # - - - - - - - - - - - - - - - - -
 
-  test 'w9D', %w(
-  |POST /kata_create body={"display_name":"..."}
-  |returns json payload
-  |with {"kata_create":"ID"}
-  |where a kata with ID exists
+  test 'Je4', %w(
+  |GET/kata_create with unknown display_name
+  |is 500 error
   ) do
-    json_post path='kata_create', display_name:display_name
-    assert status?(200), status
-    assert json_content?, content_type
-    assert_equal [path], json_response.keys.sort, :keys
-    id = json_response[path] # eg H3Nqu2
-    assert kata_exists?(id), "id:#{id}:"
-    manifest = kata_manifest(id)
-    assert_equal display_name, manifest['display_name'], manifest
-    refute manifest.has_key?('exercise'), :exercise    
+    stdout,stderr = capture_stdout_stderr {
+      get '/kata_create', display_name:'unknown'
+    }
+    verify_exception_info_on(stdout, 'http_service')
+    assert_equal '', stderr, :stderr_is_empty
+    assert status?(500), status
+  end
+
+  # - - - - - - - - - - - - - - - - -
+
+  test 'Bq7', %w(
+  |GET/group_create with extra parameter
+  |is 500 error
+  ) do
+    stdout,stderr = capture_stdout_stderr {
+      get '/kata_create', {
+        display_name:display_name,
+        extra:'wibble'
+      }
+    }
+    verify_exception_info_on(stdout, 'message')
+    assert_equal '', stderr, :stderr_is_empty
+    assert status?(500), status
   end
 
   private
@@ -108,6 +101,13 @@ class CreateTest < TestBase
   end
 
   include IdPather
+
+  def verify_exception_info_on(stdout, name)
+    json = JSON.parse!(stdout)
+    assert_equal ['exception'], json.keys, stdout
+    ex = json['exception']
+    assert_equal ['request','backtrace',name].sort, ex.keys.sort, stdout
+  end
 
   # - - - - - - - - - - - - - - - - - - - -
 
@@ -127,18 +127,6 @@ class CreateTest < TestBase
 
   def http
     ExternalHttp.new
-  end
-
-  # - - - - - - - - - - - - - - - - - - - -
-
-  def json_post(path, data)
-    post '/'+path, data.to_json, JSON_REQUEST_HEADERS
-  end
-
-  # - - - - - - - - - - - - - - - - - - - -
-
-  def json_response
-    @json_response ||= JSON.parse(last_response.body)
   end
 
 end

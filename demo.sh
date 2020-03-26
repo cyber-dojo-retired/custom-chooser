@@ -33,34 +33,9 @@ demo()
   echo
   curl_200           GET  group_choose  exercise
   curl_params_302    GET  group_create "$(params_display_names)"
-  curl_json_body_200 POST group_create "$(json_display_names)"
   echo
   curl_200           GET  kata_choose   exercise
   curl_params_302    GET  kata_create  "$(params_display_name)"
-  curl_json_body_200 POST kata_create  "$(json_display_name)"
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
-curl_json_body_200()
-{
-  local -r log=/tmp/custom-chooser.log
-  local -r type="${1}"   # eg GET|POST
-  local -r route="${2}"  # eg group_create
-  local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
-  curl  \
-    --data "${json}" \
-    --fail \
-    --header 'Content-type: application/json' \
-    --header 'Accept: application/json' \
-    --request "${type}" \
-    --silent \
-    --verbose \
-      "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "${log}" 2>&1
-
-  grep --quiet 200 "${log}"             # eg HTTP/1.1 200 OK
-  local -r result=$(tail -n 1 "${log}") # eg {"sha":"78c19640aa43ea214da17d0bcb16abbd420d7642"}
-  echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
