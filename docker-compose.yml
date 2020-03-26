@@ -19,16 +19,16 @@ services:
   #- - - - - - - - - - - - - - - - - - - - - - - - - - -
   client:
     build:
-      args: [ COMMIT_SHA, CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT ]
+      args: [ COMMIT_SHA, CYBER_DOJO_CLIENT_PORT ]
       context: src/client
     depends_on:
       - custom-chooser
       - selenium
     image: cyberdojo/custom-chooser-client
     init: true
-    ports: [ "${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}:${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_PORT}" ]
+    ports: [ "${CYBER_DOJO_CLIENT_PORT}:${CYBER_DOJO_CLIENT_PORT}" ]
     read_only: true
     restart: "no"
     tmpfs: /tmp
-    user: ${CYBER_DOJO_CUSTOM_CHOOSER_CLIENT_USER}
+    user: ${CYBER_DOJO_CLIENT_USER}
     volumes: [ "./test:/test/:ro" ]
