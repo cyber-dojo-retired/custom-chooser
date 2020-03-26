@@ -25,31 +25,29 @@ api_demo()
 demo()
 {
   echo API
-  curl_json_body_200 GET  alive
-  curl_json_body_200 GET  ready
-  curl_json_body_200 GET  sha
+  curl_json_body_200 alive
+  curl_json_body_200 ready
+  curl_json_body_200 sha
   echo
-  curl_200           GET  assets/app.css 'Content-Type: text/css'
+  curl_200           assets/app.css 'Content-Type: text/css'
   echo
-  curl_200           GET  group_choose  exercise
-  curl_params_302    GET  group_create "$(params_display_names)"
+  curl_200           group_choose  exercise
+  curl_params_302    group_create "$(params_display_names)"
   echo
-  curl_200           GET  kata_choose   exercise
-  curl_params_302    GET  kata_create  "$(params_display_name)"
+  curl_200           kata_choose   exercise
+  curl_params_302    kata_create  "$(params_display_name)"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json_body_200()
 {
-  local -r type="${1}"   # eg GET
-  local -r route="${2}"  # eg group_create
-  local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
+  local -r route="${1}"  # eg group_create
   curl  \
-    --data "${json}" \
+    --data '' \
     --fail \
     --header 'Content-type: application/json' \
     --header 'Accept: application/json' \
-    --request "${type}" \
+    --request GET \
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
@@ -57,19 +55,18 @@ curl_json_body_200()
 
   grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
   local -r result=$(tail -n 1 "$(log_filename)")
-  echo "$(tab)${type} ${route} => 200 ${result}"
+  echo "$(tab)GET ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_params_302()
 {
-  local -r type="${1}"     # eg GET|POST
-  local -r route="${2}"    # eg kata_create
-  local -r params="${3:-}" # eg "display_name=Java Countdown, Round 1"
+  local -r route="${1}"  # eg kata_create
+  local -r params="${2}" # eg "display_name=Java Countdown, Round 1"
   curl  \
     --data-urlencode "${params}" \
     --fail \
-    --request "${type}" \
+    --request GET \
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
@@ -77,18 +74,17 @@ curl_params_302()
 
   grep --quiet 302 "$(log_filename)" # eg HTTP/1.1 302 Moved Temporarily
   local -r result=$(grep Location "$(log_filename)" | head -n 1)
-  echo "$(tab)${type} ${route} => 302 ${result}"
+  echo "$(tab)GET ${route} => 302 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_200()
 {
-  local -r type="${1}"    # eg GET|POST
-  local -r route="${2}"   # eg kata_choose
-  local -r pattern="${3}" # eg session
+  local -r route="${1}"   # eg kata_choose
+  local -r pattern="${2}" # eg exercise
   curl  \
     --fail \
-    --request "${type}" \
+    --request GET \
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
@@ -96,7 +92,7 @@ curl_200()
 
   grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
   local -r result=$(grep "${pattern}" "$(log_filename)" | head -n 1)
-  echo "$(tab)${type} ${route} => 200 ${result}"
+  echo "$(tab)GET ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
