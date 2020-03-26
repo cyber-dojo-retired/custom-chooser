@@ -41,7 +41,7 @@ demo()
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_json_body_200()
 {
-  local -r route="${1}"  # eg group_create
+  local -r route="${1}"  # eg ready
   curl  \
     --data '' \
     --fail \
@@ -55,6 +55,24 @@ curl_json_body_200()
 
   grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
   local -r result=$(tail -n 1 "$(log_filename)")
+  echo "$(tab)GET ${route} => 200 ${result}"
+}
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+curl_200()
+{
+  local -r route="${1}"   # eg kata_choose
+  local -r pattern="${2}" # eg exercise
+  curl  \
+    --fail \
+    --request GET \
+    --silent \
+    --verbose \
+      "http://${IP_ADDRESS}:$(port)/${route}" \
+      > "$(log_filename)" 2>&1
+
+  grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
+  local -r result=$(grep "${pattern}" "$(log_filename)" | head -n 1)
   echo "$(tab)GET ${route} => 200 ${result}"
 }
 
@@ -75,24 +93,6 @@ curl_params_302()
   grep --quiet 302 "$(log_filename)" # eg HTTP/1.1 302 Moved Temporarily
   local -r result=$(grep Location "$(log_filename)" | head -n 1)
   echo "$(tab)GET ${route} => 302 ${result}"
-}
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
-curl_200()
-{
-  local -r route="${1}"   # eg kata_choose
-  local -r pattern="${2}" # eg exercise
-  curl  \
-    --fail \
-    --request GET \
-    --silent \
-    --verbose \
-      "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "$(log_filename)" 2>&1
-
-  grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
-  local -r result=$(grep "${pattern}" "$(log_filename)" | head -n 1)
-  echo "$(tab)GET ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
