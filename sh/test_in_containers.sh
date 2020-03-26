@@ -2,13 +2,12 @@
 
 readonly root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${root_dir}/sh/container_info.sh"
-readonly my_name=${CYBER_DOJO_SERVER_NAME}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 test_in_containers()
 {
-  local -r client_user="${CYBER_DOJO_SERVER_USER}"
-  local -r server_user="${CYBER_DOJO_CLIENT_USER}"
+  local -r client_user="${CYBER_DOJO_CLIENT_USER}"
+  local -r server_user="${CYBER_DOJO_SERVER_USER}"
   if on_ci; then
     docker pull cyberdojo/check-test-results:latest
   fi
@@ -45,7 +44,7 @@ run_tests()
   if [ "${type}" == 'client' ]; then
     local -r container_name="$(service_container client)"
   else # server
-    local -r container_name="$(service_container ${my_name})"
+    local -r container_name="$(service_container ${CYBER_DOJO_SERVER_NAME})"
   fi
 
   echo
