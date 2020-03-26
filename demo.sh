@@ -39,9 +39,30 @@ demo()
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
+curl_json_body_200()
+{
+  local -r type="${1}"   # eg GET
+  local -r route="${2}"  # eg group_create
+  local -r json="${3:-}" # eg '{"display_name":"Java Countdown, Round 1"}'
+  curl  \
+    --data "${json}" \
+    --fail \
+    --header 'Content-type: application/json' \
+    --header 'Accept: application/json' \
+    --request "${type}" \
+    --silent \
+    --verbose \
+      "http://${IP_ADDRESS}:$(port)/${route}" \
+      > "$(log_filename)" 2>&1
+
+  grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
+  local -r result=$(tail -n 1 "$(log_filename)")
+  echo "$(tab)${type} ${route} => 200 ${result}"
+}
+
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_params_302()
 {
-  local -r log=/tmp/custom-chooser.log
   local -r type="${1}"     # eg GET|POST
   local -r route="${2}"    # eg kata_create
   local -r params="${3:-}" # eg "display_name=Java Countdown, Round 1"
@@ -52,17 +73,16 @@ curl_params_302()
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "${log}" 2>&1
+      > "$(log_filename)" 2>&1
 
-  grep --quiet 302 "${log}"                 # eg HTTP/1.1 302 Moved Temporarily
-  local -r result=$(grep Location "${log}") # Location: http://192.168.99.100:4536/kata/edit/5B65RC
+  grep --quiet 302 "$(log_filename)" # eg HTTP/1.1 302 Moved Temporarily
+  local -r result=$(grep Location "$(log_filename)" | head -n 1)
   echo "$(tab)${type} ${route} => 302 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 curl_200()
 {
-  local -r log=/tmp/custom-chooser.log
   local -r type="${1}"    # eg GET|POST
   local -r route="${2}"   # eg kata_choose
   local -r pattern="${3}" # eg session
@@ -72,23 +92,21 @@ curl_200()
     --silent \
     --verbose \
       "http://${IP_ADDRESS}:$(port)/${route}" \
-      > "${log}" 2>&1
+      > "$(log_filename)" 2>&1
 
-  grep --quiet 200 "${log}" # eg HTTP/1.1 200 OK
-  local -r result=$(grep "${pattern}" "${log}" | head -n 1)
+  grep --quiet 200 "$(log_filename)" # eg HTTP/1.1 200 OK
+  local -r result=$(grep "${pattern}" "$(log_filename)" | head -n 1)
   echo "$(tab)${type} ${route} => 200 ${result}"
 }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 port() { echo -n "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}"; }
-json_display_names()   { echo -n "{\"display_names\":[\"$(display_name)\"]}"; }
 params_display_names() { params display_names[] "$(display_name)"; }
-json_display_name()    { json   display_name "$(display_name)"; }
 params_display_name()  { params display_name "$(display_name)"; }
-json() { echo -n "{\"${1}\":\"${2}\"}"; }
 params() { echo -n "${1}=${2}"; }
 display_name() { echo -n 'Java Countdown, Round 1'; }
 tab() { printf '\t'; }
+log_filename() { echo -n /tmp/custom-chooser.log; }
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 api_demo "$@"
