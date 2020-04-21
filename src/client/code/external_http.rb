@@ -3,8 +3,8 @@ require 'net/http'
 
 class ExternalHttp
 
-  def get(uri)
-    KLASS::Get.new(uri)
+  def post(uri)
+    KLASS::Post.new(uri)
   end
 
   def start(hostname, port, req)

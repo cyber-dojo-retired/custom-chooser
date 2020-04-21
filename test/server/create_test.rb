@@ -93,11 +93,15 @@ class CreateTest < TestBase
   private
 
   def group_exists?(id)
-    saver.exists?(group_id_path(id))
+    dirname = group_id_path(id)
+    command = saver.dir_exists_command(dirname)
+    saver.run(command)
   end
 
   def kata_exists?(id)
-    saver.exists?(kata_id_path(id))
+    dirname = kata_id_path(id)
+    command = saver.dir_exists_command(dirname)
+    saver.run(command)
   end
 
   include IdPather
@@ -112,11 +116,15 @@ class CreateTest < TestBase
   # - - - - - - - - - - - - - - - - - - - -
 
   def group_manifest(id)
-    JSON::parse!(saver.read("#{group_id_path(id)}/manifest.json"))
+    filename = "#{group_id_path(id)}/manifest.json"
+    command = saver.file_read_command(filename)
+    JSON::parse!(saver.run(command))
   end
 
   def kata_manifest(id)
-    JSON::parse!(saver.read("#{kata_id_path(id)}/manifest.json"))
+    filename = "#{kata_id_path(id)}/manifest.json"
+    command = saver.file_read_command(filename)
+    JSON::parse!(saver.run(command))
   end
 
   # - - - - - - - - - - - - - - - - - - - -

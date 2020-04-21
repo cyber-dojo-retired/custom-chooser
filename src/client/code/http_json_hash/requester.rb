@@ -11,9 +11,9 @@ module HttpJsonHash
       @port = port
     end
 
-    def get(path, args)
+    def post(path, args)
       request(path, args) do |uri|
-        @http.get(uri)
+        @http.post(uri)
       end
     end
 

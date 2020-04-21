@@ -11,8 +11,8 @@ module HttpJsonHash
 
     # - - - - - - - - - - - - - - - - - - - - -
 
-    def get(path, args)
-      response = @requester.get(path, args)
+    def post(path, args)
+      response = @requester.post(path, args)
       unpacked(response.body, path.to_s, args)
     end
 

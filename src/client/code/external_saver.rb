@@ -7,12 +7,16 @@ class ExternalSaver
     @http = HttpJsonHash::service(self.class.name, http, 'saver', 4537)
   end
 
-  def exists?(key)
-    @http.get(__method__, { key:key })
+  def dir_exists_command(dirname)
+    ['dir_exists?',dirname]
   end
 
-  def read(key)
-    @http.get(__method__, { key:key })
+  def file_read_command(filename)
+    ['file_read',filename]
+  end
+
+  def run(command)
+    @http.post(__method__, { command:command })
   end
 
 end
