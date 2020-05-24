@@ -4,8 +4,10 @@ fullnameOverride: "custom-chooser"
 replicaCount: 3
 
 service:
+  port: 4536
   annotations:
     prometheus.io/scrape: "true"
+    prometheus.io/port: "4536"
 
 volumes:
   - name: custom-chooser-tmp-dir
@@ -35,8 +37,10 @@ containers:
         memory: 128Mi
     livenessProbe:
       path: /alive?
+      port: 4536
     readinessProbe:
       path: /ready?
+      port: 4536      
 
 envFromSecret: {}
 
