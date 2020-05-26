@@ -29,6 +29,13 @@ helm init --client-only
 
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 
+echo "namespace:#{NAMESPACE}:"
+echo "image:#{IMAGE}:"
+echo "port:#{PORT}:"
+echo "tag:#{TAG}:"
+
+set -x
+
 helm upgrade \
   --install \
   --namespace=${NAMESPACE} \
@@ -37,7 +44,7 @@ helm upgrade \
   --set service.port=${PORT} \
   --set containers[0].livenessProbe.port=${PORT} \
   --set containers[0].readinessProbe.port=${PORT} \
-  --set-string service.annotations."prometheus\.io/port"=${PORT} \  
+  --set-string service.annotations."prometheus\.io/port"=${PORT} \
   --values .circleci/custom-chooser-values.yaml \
   ${NAMESPACE}-custom-chooser \
   praqma/cyber-dojo-service \
