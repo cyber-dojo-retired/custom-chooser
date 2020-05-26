@@ -29,13 +29,6 @@ helm init --client-only
 
 helm repo add praqma https://praqma-helm-repo.s3.amazonaws.com/
 
-echo "namespace:#{NAMESPACE}:"
-echo "image:#{IMAGE}:"
-echo "port:#{PORT}:"
-echo "tag:#{TAG}:"
-
-set -x
-
 helm upgrade \
   --install \
   --namespace=${NAMESPACE} \
