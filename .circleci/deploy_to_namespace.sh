@@ -34,7 +34,6 @@ helm upgrade \
   --namespace=${NAMESPACE} \
   --set-string containers[0].image=${IMAGE} \
   --set-string containers[0].tag=${TAG} \
-  --set-string service.annotations."prometheus\.io/port"=${PORT} \
   --values .circleci/custom-chooser-values.yaml \
   ${NAMESPACE}-custom-chooser \
   praqma/cyber-dojo-service \
