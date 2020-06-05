@@ -35,6 +35,7 @@ helm_upgrade \
    "${CYBER_DOJO_CUSTOM_CHOOSER_IMAGE}" \
    "${CYBER_DOJO_CUSTOM_CHOOSER_TAG}" \
    "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}" \
-   ".circleci/custom-chooser-values.yml" \
+   ".circleci/k8s-general-values.yml" \
+   ".circleci/k8s-specific-values.yml" \
    "custom-chooser" \
    "praqma/cyber-dojo-service --version 0.2.5"
