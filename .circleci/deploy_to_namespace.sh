@@ -31,7 +31,7 @@ readonly NAMESPACE="${1}" # beta | prod
 readonly CYBER_DOJO_CUSTOM_CHOOSER_TAG="${CIRCLE_SHA1:0:7}"
 
 helm_upgrade \
-   "${NAMESPACE}" "custom-chooser" "praqma/cyber-dojo-service --version 0.2.5"
+   "${NAMESPACE}" "custom-chooser" "praqma/cyber-dojo-service --version 0.2.5" \
    "${CYBER_DOJO_CUSTOM_CHOOSER_IMAGE}" \
    "${CYBER_DOJO_CUSTOM_CHOOSER_TAG}" \
    "${CYBER_DOJO_CUSTOM_CHOOSER_PORT}" \
